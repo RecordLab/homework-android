@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">@color/puffinsBill</color>
+    <color name="colorPrimaryDark">@color/radiantYellow</color>
+    <color name="colorAccent">@color/turkishAqua</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="antiflashWhite">#f1f2f6</color>
+    <color name="cityLights">#dfe4ea</color>
+    <color name="twinkleBlue">#ced6e0</color>
+    <color name="lightGrey">#dbdbdb</color>
+    <color name="beigeGrey">#d1ccc0</color>
+    <color name="greyPorcelain">#84817a</color>
+    <color name="textBlack">#303030</color>
+    <color name="black">#000000</color>
+
+    <color name="redPigment">#EA2027</color>
+    <color name="puffinsBill">#EE5A24</color>
+    <color name="radiantYellow">#F79F1F</color>
+    <color name="sunflower">#FFC312</color>
+    <color name="energos">#C4E538</color>
+    <color name="androidGreen">#A3CB38</color>
+    <color name="grassGreen">#009432</color>
+    <color name="turkishAqua">#006266</color>
+    <color name="blueMartina">#12CBC4</color>
+    <color name="mediterraneanSea">#1289A7</color>
+    <color name="underTheSea">#1B1464</color>
+    <color name="lavenderRose">#FDA7DF</color>
+    <color name="lavenderTea">#D980FA</color>
+    <color name="forgottenPurple">#9980FA</color>
+    <color name="circumobitalRing">#5758BB</color>
+    <color name="baraRed">#ED4C67</color>
+    <color name="veryBerry">#B53471</color>
+    <color name="hollyhock">#833471</color>
+    <color name="margentaPurple">#6F1E51</color>
+</resources>
