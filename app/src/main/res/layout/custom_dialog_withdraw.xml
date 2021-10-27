@@ -6,7 +6,7 @@
     android:background="@drawable/white_rectangle">
 
     <TextView
-        android:id="@+id/tv_dlg_title"
+        android:id="@+id/tv_withdraw_dlg_title"
         style="@style/dialog_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -18,19 +18,19 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_dlg_detail"
+        android:id="@+id/tv_withdraw_dlg_detail"
         style="@style/dialog_tv_detail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:paddingHorizontal="20dp"
         android:text="@string/withdrawal_message"
-        app:layout_constraintEnd_toEndOf="@id/tv_dlg_title"
-        app:layout_constraintStart_toStartOf="@id/tv_dlg_title"
-        app:layout_constraintTop_toBottomOf="@id/tv_dlg_title" />
+        app:layout_constraintEnd_toEndOf="@id/tv_withdraw_dlg_title"
+        app:layout_constraintStart_toStartOf="@id/tv_withdraw_dlg_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_withdraw_dlg_title" />
 
     <Button
-        android:id="@+id/btn_dlg_cancel"
+        android:id="@+id/btn_withdraw_dlg_cancel"
         style="@style/btn_text_black"
         android:layout_width="0dp"
         android:layout_height="40dp"
@@ -39,11 +39,11 @@
         android:text="@string/cancel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/btn_dlg_ok"
-        app:layout_constraintTop_toBottomOf="@id/tv_dlg_detail" />
+        app:layout_constraintEnd_toStartOf="@id/btn_withdraw_dlg_ok"
+        app:layout_constraintTop_toBottomOf="@id/tv_withdraw_dlg_detail" />
 
     <Button
-        android:id="@+id/btn_dlg_ok"
+        android:id="@+id/btn_withdraw_dlg_ok"
         style="@style/btn_text_white"
         android:layout_width="0dp"
         android:layout_height="40dp"
@@ -51,7 +51,6 @@
         android:text="@string/ok"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/btn_dlg_cancel" />
-
+        app:layout_constraintStart_toEndOf="@id/btn_withdraw_dlg_cancel" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,4 +10,6 @@
     <string name="close">close</string>
     <string name="withdrawal_title">Delete Account</string>
     <string name="withdrawal_message">Are you sure you want to delete your account?\nYour data would be deleted.</string>
+    <string name="title_overall">Most picked emo this month is</string>
+    <string name="detail">More</string>
 </resources>

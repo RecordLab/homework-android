@@ -39,7 +39,23 @@
         <item name="fontFamily">@font/fontfamily</item>
         <item name="android:textSize">14dp</item>
         <item name="fontWeight">500</item>
-        <item name="android:textFontWeight">700</item>
+        <item name="android:textFontWeight">500</item>
         <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="title_grey" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/lightGrey</item>
+        <item name="fontFamily">@font/fontfamily</item>
+        <item name="android:textSize">14dp</item>
+        <item name="fontWeight">500</item>
+        <item name="android:textFontWeight">500</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="tv_year_month_title" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/textBlack</item>
+        <item name="fontFamily">@font/spoqa_han_sans_neo_medium</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">20dp</item>
     </style>
 </resources>
