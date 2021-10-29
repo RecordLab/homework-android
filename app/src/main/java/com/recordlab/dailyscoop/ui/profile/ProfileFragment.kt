@@ -1,5 +1,6 @@
 package com.recordlab.dailyscoop.ui.profile
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -25,6 +26,12 @@ class ProfileFragment : Fragment() {
         profileViewModel.text.observe(viewLifecycleOwner, {
             textView.text = it
         })
+
+        val friendBtnClicked = root.findViewById<View>(R.id.bg1)
+        friendBtnClicked.setOnClickListener {
+            val intent = Intent(getActivity(), ProfileFriendActivity::class.java)
+            startActivity(intent)
+        }
         return root
     }
 }
