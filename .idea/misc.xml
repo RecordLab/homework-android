@@ -6,9 +6,15 @@
         <entry key="..\:/Users/adj56/OneDrive/Desktop/a205-android/app/src/main/res/drawable/ic_baseline_arrow_back_ios_24.xml" value="0.31302083333333336" />
         <entry key="..\:/Users/adj56/OneDrive/Desktop/a205-android/app/src/main/res/drawable/ic_baseline_calendar_today_24.xml" value="0.31302083333333336" />
         <entry key="..\:/Users/adj56/OneDrive/Desktop/a205-android/app/src/main/res/drawable/ic_baseline_grid_on_24.xml" value="0.31302083333333336" />
+        <entry key="..\:/Users/adj56/OneDrive/Desktop/a205-android/app/src/main/res/layout/activity_main.xml" value="0.26296296296296295" />
+        <entry key="..\:/Users/adj56/OneDrive/Desktop/a205-android/app/src/main/res/layout/custom_dialog_datepicker.xml" value="0.2923076923076923" />
+        <entry key="..\:/Users/adj56/OneDrive/Desktop/a205-android/app/src/main/res/layout/fragment_dashboard.xml" value="0.26296296296296295" />
+        <entry key="..\:/Users/adj56/OneDrive/Desktop/a205-android/app/src/main/res/layout/fragment_home.xml" value="0.175" />
+        <entry key="..\:/Users/adj56/OneDrive/Desktop/a205-android/app/src/main/res/layout/fragment_profile.xml" value="0.175" />
         <entry key="..\:/Users/adj56/OneDrive/Desktop/a205-android/app/src/main/res/layout/item_grid_diary.xml" value="0.2722222222222222" />
-        <entry key="..\:/Users/adj56/OneDrive/Desktop/a205-android/app/src/main/res/layout/item_list_diary.xml" value="0.2722222222222222" />
-        <entry key="..\:/Users/adj56/OneDrive/Desktop/a205-android/app/src/main/res/layout/top_nav_gallery.xml" value="0.2722222222222222" />
+        <entry key="..\:/Users/adj56/OneDrive/Desktop/a205-android/app/src/main/res/layout/item_list_diary.xml" value="0.33" />
+        <entry key="..\:/Users/adj56/OneDrive/Desktop/a205-android/app/src/main/res/layout/top_nav_gallery.xml" value="0.33" />
+        <entry key="..\:/Users/adj56/OneDrive/Desktop/a205-android/app/src/main/res/menu/bottom_nav_menu.xml" value="0.175" />
       </map>
     </option>
   </component>
