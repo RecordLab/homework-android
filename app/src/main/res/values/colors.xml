@@ -13,6 +13,8 @@
     <color name="greyPorcelain">#84817a</color>
     <color name="textBlack">#303030</color>
     <color name="black">#000000</color>
+    <color name="transparent">#00000000</color>
+    <color name="white_selected">#FFFFFF60</color>
 
     <color name="redPigment">#EA2027</color>
     <color name="puffinsBill">#EE5A24</color>

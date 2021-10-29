@@ -5,6 +5,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 
     <style name="btn_text_white" parent="Widget.AppCompat.TextView">
@@ -20,8 +22,8 @@
         <item name="android:textColor">@color/black</item>
         <item name="fontFamily">@font/fontfamily</item>
         <item name="android:textSize">14dp</item>
-        <item name="fontWeight">700</item>
-        <item name="android:textFontWeight">700</item>
+        <item name="fontWeight">500</item>
+        <item name="android:textFontWeight">500</item>
         <item name="android:textAlignment">center</item>
     </style>
 
@@ -38,8 +40,8 @@
         <item name="android:textColor">@color/greyPorcelain</item>
         <item name="fontFamily">@font/fontfamily</item>
         <item name="android:textSize">14dp</item>
-        <item name="fontWeight">500</item>
-        <item name="android:textFontWeight">500</item>
+        <item name="fontWeight">400</item>
+        <item name="android:textFontWeight">400</item>
         <item name="android:textAlignment">center</item>
     </style>
 
@@ -47,8 +49,8 @@
         <item name="android:textColor">@color/lightGrey</item>
         <item name="fontFamily">@font/fontfamily</item>
         <item name="android:textSize">14dp</item>
-        <item name="fontWeight">500</item>
-        <item name="android:textFontWeight">500</item>
+        <item name="fontWeight">400</item>
+        <item name="android:textFontWeight">400</item>
         <item name="android:textAlignment">center</item>
     </style>
 
@@ -58,4 +60,30 @@
         <item name="android:textAlignment">center</item>
         <item name="android:textSize">20dp</item>
     </style>
+
+    <style name="diary_title" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/textBlack</item>
+        <item name="android:textSize">14dp</item>
+        <item name="fontFamily">@font/fontfamily</item>
+        <item name="android:textFontWeight">700</item>
+        <item name="fontWeight">700</item>
+    </style>
+
+    <style name="btn_text_small_white" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">10dp</item>
+        <item name="fontFamily">@font/fontfamily</item>
+        <item name="fontWeight">500</item>
+        <item name="android:textFontWeight">500</item>
+        <item name="android:textColor">@color/greyPorcelain</item>
+    </style>
+
+    <style name="text_small_black" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">12dp</item>
+        <item name="fontFamily">@font/fontfamily</item>
+        <item name="fontWeight">500</item>
+        <item name="android:textFontWeight">500</item>
+        <item name="android:textColor">@color/textBlack</item>
+    </style>
+
+
 </resources>

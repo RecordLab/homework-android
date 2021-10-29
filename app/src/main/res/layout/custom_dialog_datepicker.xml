@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="@string/withdrawal_title"
+        android:text="@string/dialog_datepick_title"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,24 +20,58 @@
         android:id="@+id/cl_datepicker"
         android:layout_width="match_parent"
         android:layout_height="100dp"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_datepicker_dlg_title">
 
-        <NumberPicker
+        <com.shawnlin.numberpicker.NumberPicker
             android:id="@+id/np_datepicker_year_picker"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/np_datepicker_month_picker"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:np_dividerColor="@color/black"
+            app:np_formatter="@string/year_picker_formatter"
+            app:np_height="180dp"
+            app:np_max="2021"
+            app:np_min="2000"
+            app:np_selectedTextColor="@color/black"
+            app:np_selectedTextSize="@dimen/selected_number_size"
+            app:np_textColor="@color/greyPorcelain"
+            app:np_textSize="@dimen/number_size"
+            app:np_typeface="@string/spoqa_light"
+            app:np_value="2021"
+            app:np_width="54dp" />
 
-        <NumberPicker
+        <com.shawnlin.numberpicker.NumberPicker
             android:id="@+id/np_datepicker_month_picker"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/np_datepicker_year_picker"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:np_formatter="@string/month_picker_formatter"
+            app:np_height="180dp"
+            app:np_selectedTextColor="@color/black"
+            app:np_selectedTextSize="@dimen/selected_number_size"
+            app:np_textColor="@color/greyPorcelain"
+            app:np_textSize="@dimen/number_size"
+            app:np_typeface="@string/spoqa_light"
+            app:np_value="10"
+            app:np_width="54dp" />
+
+        <!--        <NumberPicker-->
+        <!--            android:id="@+id/np_datepicker_month_picker"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toEndOf="@id/np_datepicker_year_picker"-->
+        <!--            app:layout_constraintTop_toTopOf="parent" />-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button

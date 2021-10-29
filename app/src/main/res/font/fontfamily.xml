@@ -4,10 +4,13 @@
         android:fontWeight="100"/>
     <font android:font="@font/spoqa_han_sans_neo_light"
         android:fontWeight="300"/>
-    <font android:font="@font/spoqa_han_sans_neo_regular"
-        android:fontWeight="500"/>
-    <font android:font="@font/spoqa_han_sans_neo_medium"
-        android:fontWeight="700"/>
-    <font android:font="@font/spoqa_han_sans_neo_bold"
-        android:fontWeight="900"/>
+    <font
+        android:font="@font/spoqa_han_sans_neo_regular"
+        android:fontWeight="400" />
+    <font
+        android:font="@font/spoqa_han_sans_neo_medium"
+        android:fontWeight="500" />
+    <font
+        android:font="@font/spoqa_han_sans_neo_bold"
+        android:fontWeight="700" />
 </font-family>
