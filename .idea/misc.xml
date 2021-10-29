@@ -4,8 +4,19 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/gkrdu/AndroidStudioProjects/a205-android/app/src/main/res/layout/activity_main.xml" value="0.1296875" />
-        <entry key="..\:/Users/gkrdu/AndroidStudioProjects/a205-android/app/src/main/res/layout/activity_profile_friend.xml" value="0.18885869565217392" />
-        <entry key="..\:/Users/gkrdu/AndroidStudioProjects/a205-android/app/src/main/res/layout/fragment_profile.xml" value="0.1453804347826087" />
+        <entry key="..\:/Users/gkrdu/AndroidStudioProjects/a205-android/app/src/main/res/layout/activity_profile_account.xml" value="0.4" />
+        <entry key="..\:/Users/gkrdu/AndroidStudioProjects/a205-android/app/src/main/res/layout/activity_profile_account_email.xml" value="0.264" />
+        <entry key="..\:/Users/gkrdu/AndroidStudioProjects/a205-android/app/src/main/res/layout/activity_profile_account_nickname.xml" value="0.4" />
+        <entry key="..\:/Users/gkrdu/AndroidStudioProjects/a205-android/app/src/main/res/layout/activity_profile_account_password.xml" value="0.1296875" />
+        <entry key="..\:/Users/gkrdu/AndroidStudioProjects/a205-android/app/src/main/res/layout/activity_profile_dday.xml" value="0.264" />
+        <entry key="..\:/Users/gkrdu/AndroidStudioProjects/a205-android/app/src/main/res/layout/activity_profile_friend.xml" value="0.264" />
+        <entry key="..\:/Users/gkrdu/AndroidStudioProjects/a205-android/app/src/main/res/layout/activity_profile_lock.xml" value="0.264" />
+        <entry key="..\:/Users/gkrdu/AndroidStudioProjects/a205-android/app/src/main/res/layout/activity_profile_notice.xml" value="0.4" />
+        <entry key="..\:/Users/gkrdu/AndroidStudioProjects/a205-android/app/src/main/res/layout/custom_dialog_datepicker.xml" value="0.12604166666666666" />
+        <entry key="..\:/Users/gkrdu/AndroidStudioProjects/a205-android/app/src/main/res/layout/custom_dialog_withdraw.xml" value="0.536" />
+        <entry key="..\:/Users/gkrdu/AndroidStudioProjects/a205-android/app/src/main/res/layout/fragment_blank.xml" value="0.11510416666666666" />
+        <entry key="..\:/Users/gkrdu/AndroidStudioProjects/a205-android/app/src/main/res/layout/fragment_history.xml" value="0.1296875" />
+        <entry key="..\:/Users/gkrdu/AndroidStudioProjects/a205-android/app/src/main/res/layout/fragment_profile.xml" value="0.264" />
         <entry key="..\:/Users/gkrdu/AndroidStudioProjects/a205-android/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1296875" />
       </map>
     </option>

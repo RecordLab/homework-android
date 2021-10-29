@@ -19,11 +19,13 @@
             android:layout_height="wrap_content"
             android:paddingBottom="80dp">
 
+
             <TextView
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:fontFamily="@font/spoqa_han_sans_neo_regular"
                 android:gravity="center_horizontal"
                 android:text="@string/title_profile"
                 android:textSize="16sp"
@@ -90,6 +92,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:fontFamily="@font/spoqa_han_sans_neo_regular"
                 android:text="친구추가"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@+id/bg1"
@@ -135,7 +138,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:fontFamily="@font/spoqa_han_sans_neo_regular"
                 android:text="계정"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@+id/bg2"
                 app:layout_constraintStart_toEndOf="@+id/icon2"
                 app:layout_constraintTop_toTopOf="@+id/bg2" />
@@ -176,7 +181,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:fontFamily="@font/spoqa_han_sans_neo_regular"
                 android:text="알림"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@+id/bg3"
                 app:layout_constraintStart_toEndOf="@+id/imageView3"
                 app:layout_constraintTop_toTopOf="@+id/bg3" />
@@ -217,7 +224,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:fontFamily="@font/spoqa_han_sans_neo_regular"
                 android:text="잠금"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@+id/bg4"
                 app:layout_constraintStart_toEndOf="@+id/imageView4"
                 app:layout_constraintTop_toTopOf="@+id/bg4" />
@@ -259,7 +268,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:fontFamily="@font/spoqa_han_sans_neo_regular"
                 android:text="디데이"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@+id/bg5"
                 app:layout_constraintStart_toEndOf="@+id/imageView7"
                 app:layout_constraintTop_toTopOf="@+id/bg5" />
@@ -302,7 +313,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:fontFamily="@font/spoqa_han_sans_neo_regular"
                 android:text="로그아웃"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@+id/bg6"
                 app:layout_constraintStart_toEndOf="@+id/imageView5"
                 app:layout_constraintTop_toTopOf="@+id/bg6" />

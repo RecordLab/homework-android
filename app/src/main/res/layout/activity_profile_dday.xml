@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.profile.ProfileFriendActivity">
+    tools:context=".ui.profile.ProfileDdayActivity">
 
     <View
         android:id="@+id/bg4"
@@ -24,11 +24,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/spoqa_han_sans_neo_regular"
-        android:text="SMS로 친구 초대"
+        android:text="디데이 설정"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/bg4"
         app:layout_constraintStart_toStartOf="@+id/bg4"
         app:layout_constraintTop_toTopOf="@+id/bg4" />
+
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/bg4"
+        app:layout_constraintEnd_toEndOf="@+id/bg4"
+        app:layout_constraintTop_toTopOf="@+id/bg4"
+        app:layout_constraintVertical_bias="0.0" />
 
     <View
         android:id="@+id/bg45"
@@ -48,34 +57,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/spoqa_han_sans_neo_regular"
-        android:text="연락처에 있는 사람 팔로우"
+        android:text="디데이"
+        android:textColor="@color/disableGray"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/bg45"
         app:layout_constraintStart_toStartOf="@+id/bg45"
         app:layout_constraintTop_toTopOf="@+id/bg45" />
 
-    <View
-        android:id="@+id/bg454"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="16dp"
-        android:background="#ffffff"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/bg45"></View>
-
     <TextView
-        android:id="@+id/textView145"
+        android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/spoqa_han_sans_neo_regular"
-        android:text="검색하기"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/bg454"
-        app:layout_constraintStart_toStartOf="@+id/bg454"
-        app:layout_constraintTop_toTopOf="@+id/bg454" />
+        android:text="21.10.29"
+        android:textColor="@color/disableGray"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/bg45"
+        app:layout_constraintEnd_toEndOf="@+id/bg45"
+        app:layout_constraintTop_toBottomOf="@+id/bg4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
