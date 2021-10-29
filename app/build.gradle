@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-parcelize'
 
 android {
     compileSdkVersion 30
@@ -17,6 +18,9 @@ android {
     buildFeatures {
         viewBinding = true
     }
+    viewBinding {
+        enabled = true
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -30,6 +34,7 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
 }
 
 dependencies {
@@ -50,6 +55,7 @@ dependencies {
 
     //calendar
     implementation 'com.github.sundeepk:compact-calendar-view:3.0.0'
+    implementation 'com.github.prolificinteractive:material-calendarview:2.0.1'
 
     //imageview
     implementation 'com.makeramen:roundedimageview:2.3.0'
@@ -71,4 +77,17 @@ dependencies {
 
     // Jetpack Compose Integration
     implementation("androidx.navigation:navigation-compose:2.4.0-alpha10")
+
+    // customizable number picker https://github.com/ShawnLin013/NumberPicker
+    implementation 'io.github.ShawnLin013:number-picker:2.4.13'
+
+    // glide
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
+
+    // okhttp
+    implementation "com.squareup.okhttp3:okhttp:4.9.0"
+
+    // LRecyclerView 당겨서 새로고침, 슬라이드로 삭제 등 지원 https://github.com/jdsjlzx/LRecyclerView
+    implementation 'com.github.jdsjlzx:LRecyclerView:1.5.4.3'
 }
