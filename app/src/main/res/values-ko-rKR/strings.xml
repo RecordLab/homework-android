@@ -8,9 +8,22 @@
     <string name="cancel">취소</string>
     <string name="ok">확인</string>
     <string name="close">닫기</string>
-    <string name="back">뒤로가기</string>
-    <string name="calender">달력</string>
-    <string name="grid">그리드</string>
-    <string name="withdrawal_title">계정 삭제</string>
-    <string name="withdrawal_message">계정 삭제를 진행하시겠습니까?\n모든 데이터가 삭제됩니다.</string>
+    <string name="dialog_withdrawal_title">계정 삭제</string>
+    <string name="dialog_withdrawal_message">계정 삭제를 진행하시겠습니까?\n모든 데이터가 삭제됩니다.</string>
+    <string name="title_overall">이번 달 가장 많이 표현한 감정은</string>
+    <string name="detail">더보기</string>
+    <string name="dialog_datepick_title">몇 년 몇 월의 일기를 찾으시나요?</string>
+    <string name="dialog_emotion_title">오늘 하루는 어떤 맛인가요?</string>
+    <string name="emotion_happy">행복</string>
+    <string name="emotion_relax">여유</string>
+    <string name="emotion_angry">분노</string>
+    <string name="emotion_fun">재미</string>
+    <string name="emotion_joy">즐거움</string>
+    <string name="emotion_sound">평온</string>
+    <string name="emotion_hopeful">기대</string>
+    <string name="emotion_bored">심심</string>
+    <string name="emotion_sad">슬픔</string>
+    <string name="emotion_nervous">긴장</string>
+    <string name="emotion_tired">피곤</string>
+    <string name="emotion_anxious">불안</string>
 </resources>

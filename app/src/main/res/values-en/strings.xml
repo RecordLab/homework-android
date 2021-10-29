@@ -8,9 +8,22 @@
     <string name="cancel">cancel</string>
     <string name="ok">confirm</string>
     <string name="close">close</string>
-    <string name="back">back</string>
-    <string name="calender">calender</string>
-    <string name="grid">grid</string>
-    <string name="withdrawal_title">Delete Account</string>
-    <string name="withdrawal_message">Are you sure you want to delete your account?\nYour data would be deleted.</string>
+    <string name="dialog_withdrawal_title">Delete Account</string>
+    <string name="dialog_withdrawal_message">Are you sure you want to delete your account?\nYour data would be deleted.</string>
+    <string name="title_overall">Most picked emo this month is</string>
+    <string name="detail">More</string>
+    <string name="dialog_datepick_title">Year &amp; Month</string>
+    <string name="dialog_emotion_title">Choose today\'s flavor</string>
+    <string name="emotion_happy">HAPPY</string>
+    <string name="emotion_relax">RELAX</string>
+    <string name="emotion_angry">ANGER</string>
+    <string name="emotion_fun">PLAYFUL</string>
+    <string name="emotion_joy">JOYFUL</string>
+    <string name="emotion_sound">SOUND</string>
+    <string name="emotion_hopeful">HOPEFUL</string>
+    <string name="emotion_bored">BORED</string>
+    <string name="emotion_sad">SORROW</string>
+    <string name="emotion_nervous">NERVOUS</string>
+    <string name="emotion_tired">SLEEPY</string>
+    <string name="emotion_anxious">WORRIED</string>
 </resources>
