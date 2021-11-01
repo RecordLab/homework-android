@@ -12,4 +12,14 @@
     <string name="withdrawal_message">계정 삭제를 진행하시겠습니까?\n모든 데이터가 삭제됩니다.</string>
     <string name="title_overall">이번 달 가장 많이 표현한 감정은</string>
     <string name="detail">더보기</string>
+    <string name="signup">회원가입</string>
+    <string name="nickname">닉네임</string>
+    <string name="email">이메일</string>
+    <string name="password">비밀번호</string>
+    <string name="passwordC">비밀번호 확인</string>
+    <string name="certification">인증번호</string>
+    <string name="cert">인증</string>
+    <string name="signup_val1">닉네임은 2자~8자 이내여야 합니다</string>
+    <string name="signup_val2">비밀번호는 최소 1개 이상의 숫자와 특수문자를 포함해야 합니다</string>
+    <string name="signup_val3">비밀번호는 8자~16자 이내여야 합니다</string>
 </resources>
