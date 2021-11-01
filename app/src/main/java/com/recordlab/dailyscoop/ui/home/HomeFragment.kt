@@ -20,7 +20,7 @@ import com.recordlab.dailyscoop.ui.dashboard.DialogYearMonth
 import com.recordlab.dailyscoop.ui.home.diary.DiaryAdapter
 import com.recordlab.dailyscoop.ui.home.widget.QuickDiaryFragment
 import com.recordlab.dailyscoop.ui.home.widget.QuotationFragment
-import com.recordlab.dailyscoop.ui.search.SearchActivity
+import com.recordlab.dailyscoop.ui.SearchActivity
 
 private const val NUM_WIDGET = 2
 private const val DEBUG_TAG = ">>>>>>HOME FRAGMENT >>>>>"
@@ -36,7 +36,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
     private val binding get() = _binding!!
 
     private lateinit var diaryAdapter: DiaryAdapter
-    private lateinit var dialog: DialogYearMonth
+//    private lateinit var dialog: DialogYearMonth
     val diaryData = mutableListOf<Diary>()
 
     //    private val diaryListViewModel by viewModels<DiaryListViewModel> {
@@ -80,13 +80,13 @@ class HomeFragment : Fragment(), View.OnClickListener {
         Log.d(DEBUG_TAG, ">" + btnById.text + "<<  이게 원래 텍스트")
         btnMore.text = "더보기"
         Log.d(DEBUG_TAG, "> btnMore.text" + btnMore.text + " 변경 확인하기 " + btnById.text)
-        dialog = DialogYearMonth((this.activity)!!.applicationContext)
+//        dialog = DialogYearMonth((this.activity)!!.applicationContext)
 
         btnMore.setOnClickListener {
             print("버튼 클릭")
             Log.d(">>>>>>>HOME FRAGMENT>>>>>>", "버튼 클릭 리스터 작동")
             val customDialog =
-                DialogYearMonth((this.activity)!!.applicationContext)//context?.let { it1 -> DialogYearMonth(it1) }
+                DialogYearMonth(requireContext()/*(this.activity)!!.applicationContext*/)//context?.let { it1 -> DialogYearMonth(it1) }
             customDialog.setOnOKClickedListener {
                 Log.d(">>>>>>button clicked", "버튼 선택됨!")
             }
@@ -160,9 +160,9 @@ class HomeFragment : Fragment(), View.OnClickListener {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item?.itemId) {
+        when (item.itemId) {
             R.id.action_search -> {
-                val intent = Intent(context, SearchActivity::class.java)
+                val intent = Intent(activity, SearchActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 startActivity(intent)
             }
