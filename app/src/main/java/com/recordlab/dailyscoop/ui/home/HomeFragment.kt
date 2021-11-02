@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
+import com.github.sundeepk.compactcalendarview.CompactCalendarView
 import com.recordlab.dailyscoop.R
 import com.recordlab.dailyscoop.data.Diary
 import com.recordlab.dailyscoop.databinding.FragmentHomeBinding
@@ -20,7 +21,8 @@ import com.recordlab.dailyscoop.ui.dashboard.DialogYearMonth
 import com.recordlab.dailyscoop.ui.home.diary.DiaryAdapter
 import com.recordlab.dailyscoop.ui.home.widget.QuickDiaryFragment
 import com.recordlab.dailyscoop.ui.home.widget.QuotationFragment
-import com.recordlab.dailyscoop.ui.SearchActivity
+import com.recordlab.dailyscoop.ui.SearchResultActivity
+import java.util.*
 
 private const val NUM_WIDGET = 2
 private const val DEBUG_TAG = ">>>>>>HOME FRAGMENT >>>>>"
@@ -57,6 +59,11 @@ class HomeFragment : Fragment(), View.OnClickListener {
             ViewModelProviders.of(this).get(HomeViewModel::class.java)
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val view = binding.root
+        val calendarView: CompactCalendarView = binding.cvHome
+        var yearTextView = binding.tvHomeYear
+        var monthTextView = binding.tvHomeMonth
+
+        init()
 
         setHasOptionsMenu(true) // 작업 버튼 추가하기. https://developer.android.com/training/appbar/actions
 
@@ -80,17 +87,44 @@ class HomeFragment : Fragment(), View.OnClickListener {
         Log.d(DEBUG_TAG, ">" + btnById.text + "<<  이게 원래 텍스트")
         btnMore.text = "더보기"
         Log.d(DEBUG_TAG, "> btnMore.text" + btnMore.text + " 변경 확인하기 " + btnById.text)
-//        dialog = DialogYearMonth((this.activity)!!.applicationContext)
 
-        btnMore.setOnClickListener {
+        calendarView.setListener(object : CompactCalendarView.CompactCalendarViewListener {
+            override fun onDayClick(dateClicked: Date) {
+                val events = calendarView.getEvents(dateClicked)
+                Log.d(DEBUG_TAG, "Day was clicked : $dateClicked with events $events")
+            }
+
+            override fun onMonthScroll(firstDayOfNewMonth: Date) {
+                Log.d(DEBUG_TAG, "Month was scrolled to : $firstDayOfNewMonth")
+                val cal = Calendar.getInstance()
+                cal.time = firstDayOfNewMonth
+                val year = cal.get(Calendar.YEAR)
+                val month = cal.get(Calendar.MONTH)
+                yearTextView.text = "$year"
+                monthTextView.text = "${month + 1}"
+            }
+        })
+
+        yearTextView.setOnClickListener {
             print("버튼 클릭")
             Log.d(">>>>>>>HOME FRAGMENT>>>>>>", "버튼 클릭 리스터 작동")
             val customDialog =
-                DialogYearMonth(requireContext()/*(this.activity)!!.applicationContext*/)//context?.let { it1 -> DialogYearMonth(it1) }
-            customDialog.setOnOKClickedListener {
-                Log.d(">>>>>>button clicked", "버튼 선택됨!")
-            }
+                DialogYearMonth(requireContext())
+            /*customDialog.setOnOKClickedListener (object : DialogYearMonth.DialogOKClickedListener {
+                override fun onOKClicked(content: Boolean, year: Int, month: Int) {
+                    yearTextView.text = "$year"
+                    monthTextView.text = "${month + 1}"
+                }
+            })*/
+            customDialog.init()
+        }
 
+        monthTextView.setOnClickListener {
+            val customDialog =
+                DialogYearMonth(requireContext())
+            /*customDialog.setOnOKClickedListener {
+                Log.d(">>>>>>button clicked", "버튼 선택됨!")
+            }*/
             customDialog.init()
         }
         return view
@@ -99,6 +133,14 @@ class HomeFragment : Fragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         super.onViewCreated(view, savedInstanceState)
+    }
+
+    private fun init(){
+
+    }
+
+    private fun initCalendar(){
+
     }
 
     private fun initDiary(view: View) {
@@ -162,9 +204,17 @@ class HomeFragment : Fragment(), View.OnClickListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_search -> {
-                val intent = Intent(activity, SearchActivity::class.java)
+                val intent = Intent(context, SearchResultActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 startActivity(intent)
+
+                if(activity != null){
+                       Log.d(DEBUG_TAG, "activity is not null")
+                }
+
+                Log.d(DEBUG_TAG, "search button clicked!!")
+
+                Log.d(DEBUG_TAG, "SearchActivity 전송,,,")
             }
         }
         return super.onOptionsItemSelected(item)

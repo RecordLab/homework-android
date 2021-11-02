@@ -87,5 +87,12 @@
         <item name="android:textColor">@color/textBlack</item>
     </style>
 
+    <style name="list_title_small_black" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">14dp</item>
+        <item name="fontFamily">@font/fontfamily</item>
+        <item name="fontWeight">500</item>
+        <item name="android:textFontWeight">500</item>
+        <item name="android:textColor">@color/textBlack</item>
+    </style>
 
 </resources>

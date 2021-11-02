@@ -5,6 +5,7 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">History</string>
     <string name="title_profile">Profile</string>
+    <string name="action_setting">Settings</string>
     <string name="cancel">cancel</string>
     <string name="ok">confirm</string>
     <string name="close">close</string>
