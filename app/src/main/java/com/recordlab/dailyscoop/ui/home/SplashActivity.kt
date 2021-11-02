@@ -14,9 +14,15 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        Handler().postDelayed({
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
-        }, 3000)
+        // 로그인 되어있는지 확인
+        // 임시로 false 입력
+        if (false) {
+
+        } else {
+            Handler().postDelayed({
+                startActivity(Intent(this, MainActivity::class.java))
+                finish()
+            }, 3000)
+        }
     }
 }
