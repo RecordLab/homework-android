@@ -1,4 +1,7 @@
 package com.recordlab.dailyscoop.ui.home.diary
 
-class DiaryActivity {
+import androidx.appcompat.app.AppCompatActivity
+
+class DiaryActivity: AppCompatActivity(){
+
 }
