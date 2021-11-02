@@ -38,5 +38,9 @@
     <string name="signup_val1">닉네임은 2자~8자 이내여야 합니다</string>
     <string name="signup_val2">비밀번호는 최소 1개 이상의 숫자와 특수문자를 포함해야 합니다</string>
     <string name="signup_val3">비밀번호는 8자~16자 이내여야 합니다</string>
+    <string name="signin">로그인</string>
+    <string name="find_password">비밀번호를 잊어버렸어요</string>
+    <string name="sign_yet1">아직 회원이 아니신가요?</string>
+    <string name="sign_yet2">가입하기</string>
 
 </resources>

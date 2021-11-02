@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.auth.SignInActivity">
+
+    <TextView
+        android:id="@+id/login_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:fontFamily="@font/spoqa_han_sans_neo_bold"
+        android:text="@string/app_name"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/login_tap1"
+        android:layout_width="0dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/login_title"
+        app:srcCompat="@drawable/profile_image" />
+
+    <TextView
+        android:id="@+id/login_taptext1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/spoqa_han_sans_neo_regular"
+        android:text="@string/email"
+        android:textColor="@color/disableGray"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/login_tap1"
+        app:layout_constraintStart_toStartOf="@id/login_tap1"
+        app:layout_constraintTop_toTopOf="@id/login_tap1" />
+
+    <ImageView
+        android:id="@+id/login_tap2"
+        android:layout_width="0dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/login_tap1"
+        app:srcCompat="@drawable/profile_image" />
+
+    <TextView
+        android:id="@+id/login_taptext2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/spoqa_han_sans_neo_regular"
+        android:text="@string/password"
+        android:textColor="@color/disableGray"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/login_tap2"
+        app:layout_constraintStart_toStartOf="@id/login_tap2"
+        app:layout_constraintTop_toTopOf="@id/login_tap2" />
+
+    <Button
+        android:id="@+id/login_button"
+        android:layout_width="0dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/yellow_rectangle"
+        android:fontFamily="@font/spoqa_han_sans_neo_medium"
+        android:text="@string/signin"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/login_tap2"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <EditText
+        style="@style/AuthEditText"
+        android:layout_width="0dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintEnd_toEndOf="@id/login_tap1"
+        app:layout_constraintStart_toEndOf="@id/login_taptext2"
+        app:layout_constraintTop_toTopOf="@id/login_tap1"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+    <EditText
+        style="@style/AuthEditText"
+        android:layout_width="0dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="32dp"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toBottomOf="@id/login_tap2"
+        app:layout_constraintEnd_toEndOf="@id/login_tap2"
+        app:layout_constraintStart_toEndOf="@id/login_taptext2"
+        app:layout_constraintTop_toTopOf="@id/login_tap2"
+        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+    <Button
+        android:id="@+id/login_password_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@color/transparent"
+        android:text="@string/find_password"
+        android:textColor="@color/palpal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/login_button"
+        tools:ignore="TextContrastCheck" />
+
+    <Button
+        android:id="@+id/kakao_btn"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/logo_kakao"
+        app:layout_constraintEnd_toStartOf="@id/google_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/login_password_button"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <Button
+        android:id="@+id/google_btn"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/logo_google"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/kakao_btn"
+        app:layout_constraintTop_toBottomOf="@id/login_password_button"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <Button
+        android:id="@+id/sign_yet1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:background="@color/transparent"
+        android:fontFamily="@font/spoqa_han_sans_neo_light"
+        android:text="@string/sign_yet1"
+        android:textColor="@color/disableGray"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/sign_yet2"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="TextContrastCheck" />
+
+    <Button
+        android:id="@+id/sign_yet2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:background="@color/transparent"
+        android:fontFamily="@font/spoqa_han_sans_neo_medium"
+        android:text="@string/sign_yet2"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/sign_yet1"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

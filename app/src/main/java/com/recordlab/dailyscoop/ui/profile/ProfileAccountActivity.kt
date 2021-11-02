@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import com.recordlab.dailyscoop.R
+import com.recordlab.dailyscoop.ui.auth.SignInActivity
+import com.recordlab.dailyscoop.ui.auth.SignUpActivity
 
 class ProfileAccountActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,7 +29,10 @@ class ProfileAccountActivity : AppCompatActivity() {
 
         val passBtnClicked = findViewById<View>(R.id.bg454)
         passBtnClicked.setOnClickListener{
-            val intent = Intent(this, ProfileAccountPasswordActivity::class.java)
+//            val intent = Intent(this, ProfileAccountPasswordActivity::class.java)
+//            startActivity(intent)
+
+            val intent = Intent(this, SignInActivity::class.java)
             startActivity(intent)
         }
 

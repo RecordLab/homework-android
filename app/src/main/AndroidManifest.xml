@@ -13,7 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.user.SignUpActivity"
+            android:name=".ui.auth.SignInActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.auth.SignUpActivity"
             android:exported="false" />
         <activity
             android:name=".ui.profile.ProfileAccountPasswordActivity"
