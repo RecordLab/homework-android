@@ -37,6 +37,19 @@ class DashboardFragment : Fragment() {
         var nowMonth = LocalDate.now().format(DateTimeFormatter.ofPattern("MM"))
         selectedDate.text = "$nowYear.$nowMonth"
 
+        // 레이아웃 변경
+        val layoutBtn = root.findViewById<View>(R.id.iv_nav_gallery_grid)
+        layoutBtn.setOnClickListener {
+            it.isSelected = !it.isSelected
+            if (it.isSelected) {
+                textView.visibility = View.INVISIBLE
+            } else {
+                textView.visibility = View.VISIBLE
+            }
+
+        }
+
+        // 모아보기 날짜 변경
         val datePickBtn = root.findViewById<View>(R.id.iv_nav_gallery_calender)
         datePickBtn.setOnClickListener {
 
@@ -63,6 +76,7 @@ class DashboardFragment : Fragment() {
             month.minValue = 1
             month.maxValue = 12
 
+            // 초기값 설정
             year.value = nowYear.toInt()
             month.value = nowMonth.toInt()
 
