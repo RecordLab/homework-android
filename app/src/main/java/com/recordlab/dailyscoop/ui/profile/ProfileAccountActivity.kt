@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
 import android.widget.Toast
 import com.recordlab.dailyscoop.R
 import com.recordlab.dailyscoop.ui.auth.SignInActivity
@@ -45,6 +46,12 @@ class ProfileAccountActivity : AppCompatActivity() {
 
             builder.setView(dialogView)
                 .show()
+        }
+
+        // 뒤로가기 버튼 클릭
+        val BackBtnClicked = findViewById<ImageView>(R.id.backBtn)
+        BackBtnClicked.setOnClickListener{
+            finish()
         }
 
     }

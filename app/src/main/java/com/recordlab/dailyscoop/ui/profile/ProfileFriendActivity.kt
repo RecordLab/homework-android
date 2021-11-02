@@ -3,6 +3,7 @@ package com.recordlab.dailyscoop.ui.profile
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
 import android.widget.Toast
 import com.recordlab.dailyscoop.R
 
@@ -24,6 +25,12 @@ class ProfileFriendActivity : AppCompatActivity() {
         }
         click3.setOnClickListener{
             Toast.makeText(applicationContext,"검색", Toast.LENGTH_SHORT).show()
+        }
+
+        // 뒤로가기 버튼 클릭
+        val backBtnClicked = findViewById<ImageView>(R.id.imageView6)
+        backBtnClicked.setOnClickListener{
+            finish()
         }
 
     }
