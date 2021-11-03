@@ -31,5 +31,7 @@
     <string name="emotion_nervous">긴장</string>
     <string name="emotion_tired">피곤</string>
     <string name="emotion_anxious">불안</string>
+    <string name="splash">하루 한 장\n하루 한 스쿱</string>
+    <string name="splash_content_description">아이스크림 트럭</string>
 
 </resources>
