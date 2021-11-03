@@ -1,11 +1,15 @@
 package com.recordlab.dailyscoop.ui.profile
 
+import android.app.AlertDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
 import android.widget.Toast
 import com.recordlab.dailyscoop.R
+import com.recordlab.dailyscoop.ui.auth.SignInActivity
+import com.recordlab.dailyscoop.ui.auth.SignUpActivity
 
 class ProfileAccountActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,13 +30,28 @@ class ProfileAccountActivity : AppCompatActivity() {
 
         val passBtnClicked = findViewById<View>(R.id.bg454)
         passBtnClicked.setOnClickListener{
-            val intent = Intent(this, ProfileAccountPasswordActivity::class.java)
+//            val intent = Intent(this, ProfileAccountPasswordActivity::class.java)
+//            startActivity(intent)
+
+            val intent = Intent(this, SignInActivity::class.java)
             startActivity(intent)
         }
 
         val disconBtnClicked = findViewById<View>(R.id.bg4544)
         disconBtnClicked.setOnClickListener{
-            Toast.makeText(this.getApplicationContext(),"이것은 회원 탈퇴 메시지입니다.", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this.getApplicationContext(),"이것은 회원 탈퇴 메시지입니다.", Toast.LENGTH_SHORT).show();
+
+            val builder = AlertDialog.Builder(this)
+            val dialogView = layoutInflater.inflate(R.layout.custom_dialog_withdraw, null)
+
+            builder.setView(dialogView)
+                .show()
+        }
+
+        // 뒤로가기 버튼 클릭
+        val BackBtnClicked = findViewById<ImageView>(R.id.backBtn)
+        BackBtnClicked.setOnClickListener{
+            finish()
         }
 
     }

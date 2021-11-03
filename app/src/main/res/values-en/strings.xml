@@ -15,5 +15,19 @@
     <string name="withdrawal_message">Are you sure you want to delete your account?\nYour data would be deleted.</string>
     <string name="title_overall">Most picked emo this month is</string>
     <string name="detail">More</string>
+    <string name="signup">SignUp</string>
+    <string name="email">email</string>
+    <string name="nickname">nickname</string>
+    <string name="password">password</string>
+    <string name="passwordC">password confirm</string>
+    <string name="certification">certification</string>
+    <string name="cert">cert</string>
+    <string name="signup_val1">nickname 2~8 plz</string>
+    <string name="signup_val2">one more number and special character plz</string>
+    <string name="signup_val3">password 8~16 plz</string>
+    <string name="signin">SignIn</string>
+    <string name="find_password">FInd password</string>
+    <string name="sign_yet1">you wanna signup?</string>
+    <string name="sign_yet2">Go</string>
     <string name="splash">One Diary\nOne Scoop</string>
 </resources>

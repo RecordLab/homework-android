@@ -3,6 +3,7 @@ package com.recordlab.dailyscoop.ui.profile
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.CompoundButton
+import android.widget.ImageView
 import android.widget.Switch
 import android.widget.Toast
 import com.recordlab.dailyscoop.R
@@ -26,5 +27,11 @@ class ProfileLockActivity : AppCompatActivity() {
                 }
             }
         })
+
+        // 뒤로가기 버튼 클릭
+        val backBtnClicked = findViewById<ImageView>(R.id.imageView6)
+        backBtnClicked.setOnClickListener{
+            finish()
+        }
     }
 }
