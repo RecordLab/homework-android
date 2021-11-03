@@ -11,6 +11,10 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.recordlab.dailyscoop.R
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -46,8 +50,18 @@ class DashboardFragment : Fragment() {
             } else {
                 textView.visibility = View.VISIBLE
             }
-
         }
+
+        // Adapter
+        val listRecyclerView = root.findViewById<RecyclerView>(R.id.rv_dashboard_list)
+        val data = ArrayList<DashboardListItem>()
+        data.apply {
+            add(DashboardListItem("10월", "123", R.drawable.happy))
+            add(DashboardListItem("9월", "1234", R.drawable.bored))
+        }
+        listRecyclerView.layoutManager = LinearLayoutManager(context)
+        listRecyclerView.adapter = DashboardListAdapter(data)
+
 
         // 모아보기 날짜 변경
         val datePickBtn = root.findViewById<View>(R.id.iv_nav_gallery_calender)
@@ -102,4 +116,5 @@ class DashboardFragment : Fragment() {
 
         return root
     }
+
 }
