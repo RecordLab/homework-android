@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.NumberPicker
 import android.widget.TextView
+import androidx.compose.ui.Alignment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -36,32 +37,44 @@ class DashboardFragment : Fragment() {
             textView.text = it
         })
 
-        val selectedDate : TextView = root.findViewById(R.id.tv_nav_gallery_date)
-        var nowYear = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy"))
-        var nowMonth = LocalDate.now().format(DateTimeFormatter.ofPattern("MM"))
-        selectedDate.text = "$nowYear.$nowMonth"
+        // RecyclerView
+        val data = ArrayList<DashboardItem>()
+        data.apply {
+            add(DashboardItem("10월", "123", R.drawable.happy))
+            add(DashboardItem("9월", "1234", R.drawable.bored))
+            add(DashboardItem("10월", "123", R.drawable.happy))
+            add(DashboardItem("9월", "1234", R.drawable.bored))
+            add(DashboardItem("10월", "123", R.drawable.happy))
+            add(DashboardItem("9월", "1234", R.drawable.bored))
+        }
+
+        val listRecyclerView = root.findViewById<RecyclerView>(R.id.rv_dashboard_list)
+        listRecyclerView.layoutManager = LinearLayoutManager(context)
+        listRecyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+        listRecyclerView.adapter = DashboardListAdapter(data)
+
+        val gridRecyclerView = root.findViewById<RecyclerView>(R.id.rv_dashboard_grid)
+        gridRecyclerView.layoutManager = GridLayoutManager(context, 4)
+        gridRecyclerView.adapter = DashboardGridAdapter(data)
 
         // 레이아웃 변경
         val layoutBtn = root.findViewById<View>(R.id.iv_nav_gallery_grid)
         layoutBtn.setOnClickListener {
-            it.isSelected = !it.isSelected
             if (it.isSelected) {
-                textView.visibility = View.INVISIBLE
+                listRecyclerView.visibility = View.INVISIBLE
+                gridRecyclerView.visibility = View.VISIBLE
             } else {
-                textView.visibility = View.VISIBLE
+                listRecyclerView.visibility = View.VISIBLE
+                gridRecyclerView.visibility = View.INVISIBLE
             }
+            it.isSelected = !it.isSelected
         }
 
-        // Adapter
-        val listRecyclerView = root.findViewById<RecyclerView>(R.id.rv_dashboard_list)
-        val data = ArrayList<DashboardListItem>()
-        data.apply {
-            add(DashboardListItem("10월", "123", R.drawable.happy))
-            add(DashboardListItem("9월", "1234", R.drawable.bored))
-        }
-        listRecyclerView.layoutManager = LinearLayoutManager(context)
-        listRecyclerView.adapter = DashboardListAdapter(data)
-
+        // 최초 선택 날짜
+        val selectedDate : TextView = root.findViewById(R.id.tv_nav_gallery_date)
+        var nowYear = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy"))
+        var nowMonth = LocalDate.now().format(DateTimeFormatter.ofPattern("MM"))
+        selectedDate.text = "$nowYear.$nowMonth"
 
         // 모아보기 날짜 변경
         val datePickBtn = root.findViewById<View>(R.id.iv_nav_gallery_calender)
