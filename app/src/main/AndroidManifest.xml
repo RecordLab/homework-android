@@ -11,10 +11,36 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:hardwareAccelerated="false"
+        android:largeHeap="true"
         android:theme="@style/AppTheme">
         <activity
             android:name=".ui.SearchResultActivity"
-            android:exported="true" />
+            android:exported="false" />
+        <activity
+            android:name=".ui.profile.ProfileAccountPasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.profile.ProfileAccountNicknameActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.profile.ProfileAccountEmailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.profile.ProfileDdayActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.profile.ProfileLockActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.profile.ProfileNoticeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.profile.ProfileAccountActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.profile.ProfileFriendActivity"
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name">
@@ -24,6 +50,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.home.diary.DiaryActivity"
+            android:exported="false"/>
+        <activity android:name=".ui.home.diary.DiaryWriteActivity"
+            android:exported="false"/>
     </application>
 
 </manifest>
