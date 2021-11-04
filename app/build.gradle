@@ -3,16 +3,15 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-parcelize'
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 31
     buildToolsVersion '30.0.3'
 
     defaultConfig {
         applicationId "com.recordlab.dailyscoop"
         minSdkVersion 29
-        targetSdkVersion 30
+        targetSdkVersion 31
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildFeatures {
@@ -58,18 +57,20 @@ dependencies {
     //calendar
     implementation 'com.github.sundeepk:compact-calendar-view:3.0.0'
     implementation 'com.github.prolificinteractive:material-calendarview:2.0.1'
+    implementation 'com.github.applikeysolutions:cosmocalendar:1.0.4'
 
     //imageview
     implementation 'com.makeramen:roundedimageview:2.3.0'
 
     // jetpack
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.3.1"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.4.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0"
 
     // Jetpack 관련 설정
     // Kotlin
     implementation("androidx.navigation:navigation-fragment-ktx:2.3.5")
     implementation("androidx.navigation:navigation-ui-ktx:2.3.5")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0")
 
     // Feature module Support
     implementation("androidx.navigation:navigation-dynamic-features-fragment:2.3.5")
@@ -78,7 +79,7 @@ dependencies {
     androidTestImplementation("androidx.navigation:navigation-testing:2.3.5")
 
     // Jetpack Compose Integration
-    implementation("androidx.navigation:navigation-compose:2.4.0-alpha10")
+    implementation("androidx.navigation:navigation-compose:2.4.0-beta01")
 
     // customizable number picker https://github.com/ShawnLin013/NumberPicker
     implementation 'io.github.ShawnLin013:number-picker:2.4.13'
@@ -92,4 +93,17 @@ dependencies {
 
     // LRecyclerView 당겨서 새로고침, 슬라이드로 삭제 등 지원 https://github.com/jdsjlzx/LRecyclerView
     implementation 'com.github.jdsjlzx:LRecyclerView:1.5.4.3'
+
+    // ktx activity
+    implementation("androidx.activity:activity-ktx:1.4.0")
+
+    // Room
+    implementation 'androidx.room:room-rxjava2:2.1.0'
+    implementation("androidx.room:room-runtime:2.3.0")
+
+    // To use Kotlin annotation processing tool (kapt)
+//    kapt("androidx.room:room-compiler:2.3.0")
+
+    // optional - Kotlin Extensions and Coroutines support for Room
+    implementation("androidx.room:room-ktx:2.3.0")
 }

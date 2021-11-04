@@ -1,5 +1,7 @@
 package com.recordlab.dailyscoop.ui.dashboard
 
+import android.content.Intent
+import android.view.*
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,6 +19,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.recordlab.dailyscoop.R
+import com.recordlab.dailyscoop.ui.SearchResultActivity
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -30,13 +33,19 @@ class DashboardFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
         dashboardViewModel =
-                ViewModelProviders.of(this).get(DashboardViewModel::class.java)
+            ViewModelProviders.of(this).get(DashboardViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_dashboard, container, false)
         val textView: TextView = root.findViewById(R.id.text_dashboard)
         dashboardViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
 
+        setHasOptionsMenu(true) // 앱 바 작업 버튼 추가하기.
+
+        val selectedDate : TextView = root.findViewById(R.id.tv_nav_gallery_date)
+        var nowYear = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy"))
+        var nowMonth = LocalDate.now().format(DateTimeFormatter.ofPattern("MM"))
+        selectedDate.text = "$nowYear.$nowMonth"
         // RecyclerView
         val data = ArrayList<DashboardItem>()
         data.apply {
@@ -130,4 +139,18 @@ class DashboardFragment : Fragment() {
         return root
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_search, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_search -> {
+                val intent = Intent(activity, SearchResultActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                startActivity(intent)
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
 }

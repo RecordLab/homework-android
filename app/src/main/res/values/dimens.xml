@@ -11,4 +11,13 @@
     <dimen name="horizontal_content_border_margin_mid">16dp</dimen>
     <dimen name="horizontal_content_border_margin_reg">20dp</dimen>
     <dimen name="horizontal_content_border_margin_big">24dp</dimen>
+
+    <dimen name="widget_margin_top">10dp</dimen>
+    <dimen name="widget_margin_top_small">4dp</dimen>
+    <dimen name="circular_button_radius_big">64dp</dimen>
+
+    <dimen name="main_widget_height">102dp</dimen>
+    <dimen name="main_widget_width">328dp</dimen>
+
+    <dimen name="chip_size_diary">50dp</dimen>
 </resources>
