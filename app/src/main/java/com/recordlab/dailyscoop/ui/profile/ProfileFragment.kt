@@ -52,12 +52,12 @@ class ProfileFragment : Fragment() {
     ): View? {
 //        val profileViewModel : ProfileViewModel by viewModels()
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
-        profileViewModel = ViewModelProviders.of(this).get(ProfileViewModel::class.java)
+        //profileViewModel = ViewModelProviders.of(this).get(ProfileViewModel::class.java)
         val root = binding.root
-        val textView: TextView =binding.tvProfileTest
-        profileViewModel.text.observe(viewLifecycleOwner, {
-            textView.text = it
-        })
+//        val textView: TextView = root.findViewById(R.id.tv_profile_test)
+//        profileViewModel.text.observe(viewLifecycleOwner, {
+//            textView.text = it
+//        })
 
         setHasOptionsMenu(true)
 
