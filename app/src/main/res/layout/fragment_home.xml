@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".ui.home.HomeFragment"
-    android:paddingTop="?attr/actionBarSize">
+    tools:context=".ui.home.HomeFragment">
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/vp_main_widget"
@@ -20,27 +19,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_home_year"
-        style="@style/tv_year_month_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="4dp"
-        android:text="2021"
-        app:layout_constraintEnd_toEndOf="@id/gl_center"
-        app:layout_constraintTop_toBottomOf="@id/vp_main_widget" />
-
-    <TextView
-        android:id="@+id/tv_home_month"
-        style="@style/tv_year_month_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:text="10"
-        app:layout_constraintStart_toStartOf="@id/gl_center"
-        app:layout_constraintTop_toTopOf="@id/tv_home_year" />
-
     <com.applikeysolutions.cosmocalendar.view.CalendarView
         android:id="@+id/cv_home"
         android:layout_width="wrap_content"
@@ -52,7 +30,7 @@
         app:weekDayTitleTextColor="@color/greyPorcelain"
         app:layout_constraintEnd_toEndOf="@id/gl_right_end"
         app:layout_constraintStart_toStartOf="@id/gl_left_begin"
-        app:layout_constraintTop_toBottomOf="@id/tv_home_year" />
+        app:layout_constraintTop_toBottomOf="@id/vp_main_widget" />
         />
 
     <TextView
@@ -113,6 +91,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5" />
+        app:layout_constraintGuide_begin="206dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -29,7 +29,7 @@
         app:layout_constraintStart_toStartOf="@id/tv_withdraw_dlg_title"
         app:layout_constraintTop_toBottomOf="@id/tv_withdraw_dlg_title" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_withdraw_dlg_cancel"
         style="@style/btn_text_black"
         android:layout_width="0dp"
@@ -42,7 +42,7 @@
         app:layout_constraintEnd_toStartOf="@id/btn_withdraw_dlg_ok"
         app:layout_constraintTop_toBottomOf="@id/tv_withdraw_dlg_detail" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_withdraw_dlg_ok"
         style="@style/btn_text_white"
         android:layout_width="0dp"
