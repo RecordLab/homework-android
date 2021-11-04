@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,6 +10,7 @@
     tools:context=".ui.diary.DiaryDetailActivity">
 
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_marginLeft="16dp"
@@ -38,47 +40,31 @@
 
     </LinearLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv"
             android:layout_width="match_parent"
-            android:layout_height="500dp"
-            android:orientation="vertical"
-            tools:ignore="MissingConstraints">
+            android:layout_height="80dp"/>
 
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/angry" />
-
-            <ImageView
-                android:id="@+id/imageView9"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scaleType="fitXY"
-                tools:srcCompat="@drawable/diary_detail_sample" />
-
-        </LinearLayout>
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/diary_detail_sample" />
 
         <TextView
-            android:id="@+id/textView8"
+            android:text="\n시간이 다가옴을 느꼈다.\n\n짧았던 가을이 지나고 겨울이 찾아오고 있었다.\n나무들도 빠르게 붉은 옷으로 갈아입기 시작했다.\n\n해가 갈수록 시간은 점점 더 빨라져만 간다."
+            android:textColor="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:text="시간이 다가옴을 느꼈다.\n\n짧았던 가을이 지나고 겨울이 찾아오고 있었다.\n나무들도 빠르게 붉은 옷으로 갈아입기 시작했다.\n\n해가 갈수록 시간은 점점 더 빨라져만 간다."
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-            tools:ignore="MissingConstraints" />
+            android:layout_marginEnd="16dp"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
 </LinearLayout>
