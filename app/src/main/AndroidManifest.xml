@@ -69,6 +69,8 @@
             android:exported="false"/>
         <activity android:name=".ui.home.diary.DiaryWriteActivity"
             android:exported="false"/>
+        <activity android:name=".ui.SettingActivity"
+            android:exported="false"/>
     </application>
 
 </manifest>
