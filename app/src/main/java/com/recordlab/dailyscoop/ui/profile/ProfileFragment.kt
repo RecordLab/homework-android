@@ -19,6 +19,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import com.bumptech.glide.Glide
 import com.recordlab.dailyscoop.R
 import com.recordlab.dailyscoop.databinding.FragmentProfileBinding
 import com.recordlab.dailyscoop.ui.SettingActivity
@@ -38,8 +39,8 @@ class ProfileFragment : Fragment() {
 //                binding.profile.setImageURI(uri)
 //            }
             binding.profile.setImageURI(it.data?.data)
-
-            //Log.d(">>>Profile Fragment", "${it.data?.data}")
+            Glide.with(this).load(it.data?.data).into(binding.profile)
+            Log.d(">>> Profile Fragment","${it.data?.data}")
         }
     }
 
@@ -58,6 +59,8 @@ class ProfileFragment : Fragment() {
 //            textView.text = it
 //        })
 
+        setHasOptionsMenu(true)
+
         // 프로필 변경(카메라 아이콘) 버튼 클릭
         val profileImageBtnClicked = root.findViewById<View>(R.id.profile2)
         profileImageBtnClicked.setOnClickListener {
@@ -74,37 +77,37 @@ class ProfileFragment : Fragment() {
             }
         }
 
-        val friendBtnClicked = root.findViewById<View>(R.id.bg1)
+        val friendBtnClicked = binding.bg1
         friendBtnClicked.setOnClickListener {
             val intent = Intent(activity, ProfileFriendActivity::class.java)
             startActivity(intent)
         }
 
-        val accountBtnClicked = root.findViewById<View>(R.id.bg2)
+        val accountBtnClicked = binding.bg2
         accountBtnClicked.setOnClickListener {
             val intent = Intent(activity, ProfileAccountActivity::class.java)
             startActivity(intent)
         }
 
-        val noticeBtnClicked = root.findViewById<View>(R.id.bg3)
+        val noticeBtnClicked = binding.bg3
         noticeBtnClicked.setOnClickListener {
             val intent = Intent(activity, ProfileNoticeActivity::class.java)
             startActivity(intent)
         }
 
-        val lockBtnClicked = root.findViewById<View>(R.id.bg4)
+        val lockBtnClicked = binding.bg4
         lockBtnClicked.setOnClickListener {
             val intent = Intent(activity, ProfileLockActivity::class.java)
             startActivity(intent)
         }
 
-        val ddayBtnClicked = root.findViewById<View>(R.id.bg5)
+        val ddayBtnClicked = binding.bg5
         ddayBtnClicked.setOnClickListener {
             val intent = Intent(activity, ProfileDdayActivity::class.java)
             startActivity(intent)
         }
 
-        val logoutBtnClicked = root.findViewById<View>(R.id.bg6)
+        val logoutBtnClicked = binding.bg6
         logoutBtnClicked.setOnClickListener{
             //Toast.makeText(getActivity()?.getApplicationContext(),"이것은 log out.", Toast.LENGTH_SHORT).show();
 
@@ -119,7 +122,6 @@ class ProfileFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.menu_settings, menu)
     }
 

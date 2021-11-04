@@ -33,14 +33,13 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-
-
-            <ImageView
+            <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/profile"
                 android:layout_width="144dp"
                 android:layout_height="144dp"
                 android:layout_marginTop="16dp"
-                tools:src="@tools:sample/avatars"
+                app:riv_corner_radius="72dp"
+                android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView3"

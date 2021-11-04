@@ -68,8 +68,8 @@ class HomeFragment : Fragment(), View.OnClickListener {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val view = binding.root
         val calendarView: CalendarView = binding.cvHome
-        var yearTextView = binding.tvHomeYear
-        var monthTextView = binding.tvHomeMonth
+//        var yearTextView = binding.tvHomeYear
+//        var monthTextView = binding.tvHomeMonth
 
         init()
 
@@ -117,14 +117,12 @@ class HomeFragment : Fragment(), View.OnClickListener {
 
         calendarView.selectedDays
         calendarView.selectionManager(SingleSelectionManager {
-//            val dateformat: SimpleDateFormat = SimpleDateFormat("yyyy - MM - dd")
-//            var result = 
             var result = SimpleDateFormat("yyyy - MM - dd").format(calendarView.selectedDays.get(0).calendar.time) + "\n"
             Toast.makeText(requireContext(), result, Toast.LENGTH_SHORT).show()
             Log.d(DEBUG_TAG, "호이!!!!! $result")
         })
 
-        yearTextView.setOnClickListener {
+        /*yearTextView.setOnClickListener {
             print("버튼 클릭")
             Log.d(">>>>>>>HOME FRAGMENT>>>>>>", "버튼 클릭 리스터 작동")
             val customDialog =
@@ -149,7 +147,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
                     monthTextView.text = "${month}"
                 }
             })
-        }
+        }*/
 
         btnMore.setOnClickListener {
             Log.d(DEBUG_TAG, "더보기 클")
@@ -196,7 +194,6 @@ class HomeFragment : Fragment(), View.OnClickListener {
             if (position == 0) {
                 Log.d(DEBUG_TAG, "뷰페이저 아이템 순서 0번인 경우")
                 if (widget1.isAdded) {
-//                    widget1 = QuotationFragment()
                     Log.d(DEBUG_TAG, "여기로 들어오는지 확인하기.")
                     fragmentTransaction.remove(widget1)
                     fragmentTransaction.commit()
@@ -205,7 +202,6 @@ class HomeFragment : Fragment(), View.OnClickListener {
             } else /*if (position == 1)*/ {
                 Log.d(DEBUG_TAG, "뷰페이저 아이템 순서 1번인 경우")
                 if (widget2.isAdded) {
-//                    widget2 = QuickDiaryFragment()
                     fragmentTransaction.remove(widget2)
                     fragmentTransaction.commit()
                 }
