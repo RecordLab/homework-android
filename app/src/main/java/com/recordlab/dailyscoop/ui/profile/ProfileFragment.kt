@@ -29,6 +29,12 @@ class ProfileFragment : Fragment() {
             textView.text = it
         })
 
+        // 프로필 변경(카메라 아이콘) 버튼 클릭
+        val profileImageBtnClicked = root.findViewById<View>(R.id.profile2)
+        profileImageBtnClicked.setOnClickListener {
+
+        }
+
         val friendBtnClicked = root.findViewById<View>(R.id.bg1)
         friendBtnClicked.setOnClickListener {
             val intent = Intent(activity, ProfileFriendActivity::class.java)
