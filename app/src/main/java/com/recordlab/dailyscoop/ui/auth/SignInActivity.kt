@@ -33,8 +33,9 @@ class SignInActivity : AppCompatActivity() {
         // 비밀번호 찾기 버튼 클릭
         val findpasswordBtnClicked = findViewById<Button>(R.id.login_password_button)
         findpasswordBtnClicked.setOnClickListener{
-            Toast.makeText(this.getApplicationContext(),"비밀번호 찾기", Toast.LENGTH_SHORT).show();
-
+            //Toast.makeText(this.getApplicationContext(),"비밀번호 찾기", Toast.LENGTH_SHORT).show();
+            val intent = Intent(this, ForgotPasswordActivity::class.java)
+            startActivity(intent)
         }
 
         // 카카오로그인 버튼 클릭
