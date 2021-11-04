@@ -2,6 +2,7 @@ package com.recordlab.dailyscoop.ui.dashboard
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,25 +39,19 @@ class DashboardFragment : Fragment() {
         })
 
         // RecyclerView
-        val data = ArrayList<DashboardItem>()
-        data.apply {
-            add(DashboardItem("10월", "123", R.drawable.happy))
-            add(DashboardItem("9월", "1234", R.drawable.bored))
-            add(DashboardItem("10월", "123", R.drawable.happy))
-            add(DashboardItem("9월", "1234", R.drawable.bored))
-            add(DashboardItem("10월", "123", R.drawable.happy))
-            add(DashboardItem("9월", "1234", R.drawable.bored))
-        }
-
         val listRecyclerView = root.findViewById<RecyclerView>(R.id.rv_dashboard_list)
         listRecyclerView.layoutManager = LinearLayoutManager(context)
         listRecyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
-        listRecyclerView.adapter = DashboardListAdapter(data)
 
         val gridRecyclerView = root.findViewById<RecyclerView>(R.id.rv_dashboard_grid)
         gridRecyclerView.layoutManager = GridLayoutManager(context, 4)
-        gridRecyclerView.adapter = DashboardGridAdapter(data)
-
+        
+        // observer
+        dashboardViewModel.items.observe(viewLifecycleOwner, Observer {
+            listRecyclerView.adapter = DashboardListAdapter(it)
+            gridRecyclerView.adapter = DashboardGridAdapter(it)
+        })
+        
         // 레이아웃 변경
         val layoutBtn = root.findViewById<View>(R.id.iv_nav_gallery_grid)
         layoutBtn.setOnClickListener {
@@ -118,6 +113,19 @@ class DashboardFragment : Fragment() {
                 nowYear = year.value.toString()
                 nowMonth = if (month.value < 10) "0${month.value}" else month.value.toString()
                 selectedDate.text = "$nowYear.$nowMonth"
+
+                // 날짜 변경 후 데이터 새로고침
+                var temp = ArrayList<DashboardItem>()
+                temp.apply {
+                    add(DashboardItem("1월", "123", R.drawable.happy))
+                    add(DashboardItem("2월", "1234", R.drawable.bored))
+                    add(DashboardItem("1월", "123", R.drawable.happy))
+                    add(DashboardItem("2월", "1234", R.drawable.bored))
+                }
+                dashboardViewModel.items.postValue(temp)
+
+
+
                 dialog.dismiss()
                 dialog.cancel()
             }
