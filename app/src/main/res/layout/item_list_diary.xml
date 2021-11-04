@@ -23,8 +23,7 @@
         <ImageView
             android:id="@+id/iv_list_diary"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:srcCompat="@tools:sample/avatars" />
+            android:layout_height="match_parent" />
 
     </androidx.cardview.widget.CardView>
 
@@ -35,7 +34,6 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/spoqa_han_sans_neo_medium"
-        android:text="21-10-19 (화)"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -52,8 +50,6 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:fontFamily="@font/spoqa_han_sans_neo_medium"
-        android:text="일기를 매일매일 작성하는 습관이야말로
-삶의 태도를 바꾸는 능동적인 첫 걸음이다."
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/cv_list_diary"
