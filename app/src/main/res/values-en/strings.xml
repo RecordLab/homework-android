@@ -31,6 +31,7 @@
     <string name="sign_yet1">you wanna signup?</string>
     <string name="sign_yet2">Go</string>
     <string name="splash">One Diary\nOne Scoop</string>
+    <string name="splash_content_description">Icecream Truck</string>
     <string name="dialog_datepick_title">Year &amp; Month</string>
     <string name="dialog_emotion_title">Choose today\'s flavor</string>
     <string name="emotion_happy">HAPPY</string>
@@ -51,4 +52,5 @@
     <string name="theme_window">window</string>
     <string name="theme_sky_day">sky(day)</string>
     <string name="theme_sky_night">sky(night)</string>
+    <string name="et_input_hint">Write down whatever you want.</string>
 </resources>
