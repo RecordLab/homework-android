@@ -31,9 +31,7 @@ class QuotationFragment : Fragment(), View.OnClickListener {
             } else {
                 val customDialog =
                     DialogYearMonth(requireContext())//context?.let { it1 -> DialogYearMonth(it1) }
-                customDialog.setOnOKClickedListener {
 
-                }
                 customDialog.init()
             }
         }

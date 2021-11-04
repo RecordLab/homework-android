@@ -1,6 +1,6 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -95,4 +95,40 @@
         <item name="android:textColor">@color/textBlack</item>
     </style>
 
+    <style name="diary_write_date_dark" parent="Widget.AppCompat.TextView">
+        <item name="fontFamily">@font/fontfamily</item>
+        <item name="android:fontWeight">500</item>
+        <item name="android:textFontWeight">500</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:textColor">@color/greyPorcelain</item>
+    </style>
+
+    <style name="diary_write_date_light" parent="Widget.AppCompat.TextView">
+        <item name="fontFamily">@font/fontfamily</item>
+        <item name="android:fontWeight">400</item>
+        <item name="android:textFontWeight">400</item>
+        <item name="android:textColor">@color/greyPorcelain</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="diary_content_black" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textColor">@color/textBlack</item>
+        <item name="alpha">80</item>
+    </style>
+
+    <style name="diary_content_white" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textColor">@color/white</item>
+        <item name="alpha">80</item>
+    </style>
+
+    <style name="chip_background_style" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="android:textColor">@color/textBlack</item>
+        <item name="chipBackgroundColor">@color/lightGrey</item>
+        <item name="chipIconVisible">false</item>
+        <item name="fontFamily">@font/fontfamily</item>
+    </style>
+
+    <style name="chip_style_emotion" parent="Widget.MaterialComponents.Chip.Choice">
+
+    </style>
 </resources>

@@ -36,4 +36,6 @@
     <color name="veryBerry">#B53471</color>
     <color name="hollyhock">#833471</color>
     <color name="margentaPurple">#6F1E51</color>
+    <color name="disableGray">#BDBDBD</color>
+    <color name="toolbarBackground">#FFFFFF</color>
 </resources>

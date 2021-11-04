@@ -15,7 +15,7 @@ class DialogYearMonth(context: Context) {
     private lateinit var btnCancel: Button
     private lateinit var numberPickerYear: NumberPicker
     private lateinit var numberPickerMonth: NumberPicker
-    private lateinit var listener: DialogOKClickedListener
+    private lateinit var onClicklistener: DialogOKClickedListener
 
     fun init() {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE) // 다이얼로그 타이틀바 제거
@@ -27,7 +27,7 @@ class DialogYearMonth(context: Context) {
 
         btnOk = dialog.findViewById(R.id.btn_datepicker_dlg_ok)
         btnOk.setOnClickListener {
-            listener.onOKClicked(true, numberPickerYear.value, numberPickerMonth.value)
+            onClicklistener.onOKClicked(true, numberPickerYear.value, numberPickerMonth.value)
             dialog.dismiss()
         }
         btnCancel = dialog.findViewById(R.id.btn_datepicker_dlg_cancel)
@@ -38,12 +38,8 @@ class DialogYearMonth(context: Context) {
         dialog.show()
     }
 
-    fun setOnOKClickedListener(listener: (Boolean, Int, Int) -> Unit) {
-        this.listener = object : DialogOKClickedListener {
-            override fun onOKClicked(content: Boolean, year: Int, month: Int) {
-                listener(content, year, month)
-            }
-        }
+    fun setOnClickListener(listener: DialogOKClickedListener) {
+        onClicklistener = listener
     }
 
     interface DialogOKClickedListener {

@@ -11,6 +11,9 @@
     <string name="close">close</string>
     <string name="dialog_withdrawal_title">Delete Account</string>
     <string name="dialog_withdrawal_message">Are you sure you want to delete your account?\nYour data would be deleted.</string>
+    <string name="back">back</string>
+    <string name="calender">calender</string>
+    <string name="grid">grid</string>
     <string name="title_overall">Most picked emo this month is</string>
     <string name="detail">More</string>
     <string name="dialog_datepick_title">Year &amp; Month</string>
@@ -27,4 +30,10 @@
     <string name="emotion_nervous">NERVOUS</string>
     <string name="emotion_tired">SLEEPY</string>
     <string name="emotion_anxious">WORRIED</string>
+    <string name="theme_paper_ivory">paper(cream)</string>
+    <string name="theme_paper_white">paper(light)</string>
+    <string name="theme_paper_black">paper(dark)</string>
+    <string name="theme_window">window</string>
+    <string name="theme_sky_day">sky(day)</string>
+    <string name="theme_sky_night">sky(night)</string>
 </resources>

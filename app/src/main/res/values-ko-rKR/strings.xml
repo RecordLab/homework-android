@@ -9,6 +9,9 @@
     <string name="cancel">취소</string>
     <string name="ok">확인</string>
     <string name="close">닫기</string>
+    <string name="back">뒤로가기</string>
+    <string name="calender">달력</string>
+    <string name="grid">그리드</string>
     <string name="dialog_withdrawal_title">계정 삭제</string>
     <string name="dialog_withdrawal_message">계정 삭제를 진행하시겠습니까?\n모든 데이터가 삭제됩니다.</string>
     <string name="title_overall">이번 달 가장 많이 표현한 감정은</string>
@@ -27,4 +30,10 @@
     <string name="emotion_nervous">긴장</string>
     <string name="emotion_tired">피곤</string>
     <string name="emotion_anxious">불안</string>
+    <string name="theme_paper_ivory">종이(미색)</string>
+    <string name="theme_paper_white">종이(흰색)</string>
+    <string name="theme_paper_black">종이(검정색)</string>
+    <string name="theme_window">창</string>
+    <string name="theme_sky_day">하늘(낮)</string>
+    <string name="theme_sky_night">하늘(밤)</string>
 </resources>

@@ -1,9 +1,13 @@
 package com.recordlab.dailyscoop.data
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import java.sql.Timestamp
 
-class Diary(
-    val id: Int,
+@Entity
+data class Diary(
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
     val writeDay: Timestamp,
     val content: String,
     val image: String,

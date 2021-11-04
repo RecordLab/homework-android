@@ -1,39 +1,37 @@
 package com.recordlab.dailyscoop.ui.home.diary
-//
-//import android.content.Context
-//import androidx.lifecycle.LiveData
-//import androidx.lifecycle.MutableLiveData
-//import androidx.lifecycle.ViewModel
-//import androidx.lifecycle.ViewModelProvider
-//import com.recordlab.dailyscoop.data.Diary
-//import javax.sql.DataSource
-//
-//class DiaryListViewModel(val dataSource: DataSource) : ViewModel() {
-//    val diaryListData = dataSource.get
-//    private val diaries: MutableLiveData<List<Diary>> by lazy {
-//        MutableLiveData<List<Diary>>().also {
-//            loadDiaries()
-//        }
-//    }
-//
-//    fun getDiaries() : LiveData<List<Diary>>{
-//        return diaryListData
-//    }
-//
-//    fun loadDiaries() {
-//
-//    }
-//}
-//
-//class DiaryListViewModelFactory(private val context: Context) : ViewModelProvider.Factory {
-//
-//    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-//        if (modelClass.isAssignableFrom(DiaryListViewModel::class.java)) {
-//            @Suppress("UNCHECKED_CAST")
-//            return DiaryListViewModel(
-//                dataSource = DataSource.
-//            ) as T
-//        }
-//        throw IllegalArgumentException("Unknown ViewModel class")
-//    }
-//}
+
+import android.app.Application
+import android.content.Context
+import androidx.lifecycle.*
+import com.recordlab.dailyscoop.data.Diary
+import javax.sql.DataSource
+
+class DiaryListViewModel(val dataSource: DataSource, application: Application) : AndroidViewModel(application) {
+
+    /*private val diaries: MutableLiveData<List<Diary>> by lazy {
+        MutableLiveData<List<Diary>>().also {
+            loadDiaries()
+        }
+    }
+
+    fun getDiaries() : LiveData<List<Diary>>{
+        return diaries
+    }
+
+    fun loadDiaries() {
+
+    }
+}
+
+class DiaryListViewModelFactory(private val context: Context) : ViewModelProvider.Factory {
+
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(DiaryListViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return DiaryListViewModel(
+                dataSource = DataSource.getSource("Diary")
+            ) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
+    }*/
+}

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -13,7 +14,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
-import com.github.sundeepk.compactcalendarview.CompactCalendarView
+import com.applikeysolutions.cosmocalendar.listeners.OnMonthChangeListener
+import com.applikeysolutions.cosmocalendar.model.Month
+import com.applikeysolutions.cosmocalendar.selection.SingleSelectionManager
+import com.applikeysolutions.cosmocalendar.utils.SelectionType
+import com.applikeysolutions.cosmocalendar.view.CalendarView
 import com.recordlab.dailyscoop.R
 import com.recordlab.dailyscoop.data.Diary
 import com.recordlab.dailyscoop.databinding.FragmentHomeBinding
@@ -22,7 +27,10 @@ import com.recordlab.dailyscoop.ui.home.diary.DiaryAdapter
 import com.recordlab.dailyscoop.ui.home.widget.QuickDiaryFragment
 import com.recordlab.dailyscoop.ui.home.widget.QuotationFragment
 import com.recordlab.dailyscoop.ui.SearchResultActivity
+import com.recordlab.dailyscoop.ui.home.diary.DiaryWriteActivity
+import java.text.SimpleDateFormat
 import java.util.*
+
 
 private const val NUM_WIDGET = 2
 private const val DEBUG_TAG = ">>>>>>HOME FRAGMENT >>>>>"
@@ -59,7 +67,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
             ViewModelProviders.of(this).get(HomeViewModel::class.java)
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val view = binding.root
-        val calendarView: CompactCalendarView = binding.cvHome
+        val calendarView: CalendarView = binding.cvHome
         var yearTextView = binding.tvHomeYear
         var monthTextView = binding.tvHomeMonth
 
@@ -88,21 +96,32 @@ class HomeFragment : Fragment(), View.OnClickListener {
         btnMore.text = "더보기"
         Log.d(DEBUG_TAG, "> btnMore.text" + btnMore.text + " 변경 확인하기 " + btnById.text)
 
-        calendarView.setListener(object : CompactCalendarView.CompactCalendarViewListener {
-            override fun onDayClick(dateClicked: Date) {
-                val events = calendarView.getEvents(dateClicked)
+        calendarView.selectionType = SelectionType.SINGLE
+        calendarView.calendarOrientation = 0
+        calendarView.setOnMonthChangeListener(object: OnMonthChangeListener {
+            /*fun
                 Log.d(DEBUG_TAG, "Day was clicked : $dateClicked with events $events")
-            }
-
-            override fun onMonthScroll(firstDayOfNewMonth: Date) {
                 Log.d(DEBUG_TAG, "Month was scrolled to : $firstDayOfNewMonth")
                 val cal = Calendar.getInstance()
                 cal.time = firstDayOfNewMonth
                 val year = cal.get(Calendar.YEAR)
                 val month = cal.get(Calendar.MONTH)
                 yearTextView.text = "$year"
-                monthTextView.text = "${month + 1}"
+                monthTextView.text = "$month"
+            }*/
+
+            override fun onMonthChanged(month: Month?) {
+                Log.d(DEBUG_TAG, "Month: ${month.toString()}")
             }
+        })
+
+        calendarView.selectedDays
+        calendarView.selectionManager(SingleSelectionManager {
+//            val dateformat: SimpleDateFormat = SimpleDateFormat("yyyy - MM - dd")
+//            var result = 
+            var result = SimpleDateFormat("yyyy - MM - dd").format(calendarView.selectedDays.get(0).calendar.time) + "\n"
+            Toast.makeText(requireContext(), result, Toast.LENGTH_SHORT).show()
+            Log.d(DEBUG_TAG, "호이!!!!! $result")
         })
 
         yearTextView.setOnClickListener {
@@ -110,22 +129,36 @@ class HomeFragment : Fragment(), View.OnClickListener {
             Log.d(">>>>>>>HOME FRAGMENT>>>>>>", "버튼 클릭 리스터 작동")
             val customDialog =
                 DialogYearMonth(requireContext())
-            /*customDialog.setOnOKClickedListener (object : DialogYearMonth.DialogOKClickedListener {
+            customDialog.init()
+            customDialog.setOnClickListener(object : DialogYearMonth.DialogOKClickedListener{
                 override fun onOKClicked(content: Boolean, year: Int, month: Int) {
                     yearTextView.text = "$year"
-                    monthTextView.text = "${month + 1}"
+                    monthTextView.text = "$month"
+
                 }
-            })*/
-            customDialog.init()
+            })
         }
 
         monthTextView.setOnClickListener {
             val customDialog =
                 DialogYearMonth(requireContext())
-            /*customDialog.setOnOKClickedListener {
-                Log.d(">>>>>>button clicked", "버튼 선택됨!")
-            }*/
             customDialog.init()
+            customDialog.setOnClickListener(object : DialogYearMonth.DialogOKClickedListener{
+                override fun onOKClicked(content: Boolean, year: Int, month: Int) {
+                    yearTextView.text = "$year"
+                    monthTextView.text = "${month}"
+                }
+            })
+        }
+
+        btnMore.setOnClickListener {
+            Log.d(DEBUG_TAG, "더보기 클")
+            val intent = Intent(activity, DiaryWriteActivity::class.java)
+            startActivity(intent)
+
+            if(activity != null){
+                Log.d(DEBUG_TAG, "activity is not null")
+            }
         }
         return view
     }
@@ -205,7 +238,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
         when (item.itemId) {
             R.id.action_search -> {
                 val intent = Intent(context, SearchResultActivity::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 startActivity(intent)
 
                 if(activity != null){
@@ -219,4 +252,8 @@ class HomeFragment : Fragment(), View.OnClickListener {
         }
         return super.onOptionsItemSelected(item)
     }
+}
+
+private fun CalendarView.selectionManager(singleSelectionManager: SingleSelectionManager) {
+
 }

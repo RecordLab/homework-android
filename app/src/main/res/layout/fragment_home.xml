@@ -41,20 +41,19 @@
         app:layout_constraintStart_toStartOf="@id/gl_center"
         app:layout_constraintTop_toTopOf="@id/tv_home_year" />
 
-    <com.github.sundeepk.compactcalendarview.CompactCalendarView
+    <com.applikeysolutions.cosmocalendar.view.CalendarView
         android:id="@+id/cv_home"
         android:layout_width="wrap_content"
-        android:layout_height="200dp"
+        android:layout_height="300dp"
         android:layout_marginTop="12dp"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        app:compactCalendarCurrentSelectedDayIndicatorStyle="fill_large_indicator"
-        app:compactCalendarMultiEventIndicatorColor="@color/colorPrimary"
-        app:compactCalendarTargetHeight="200dp"
-        app:compactCalendarTextSize="14dp"
+        app:selectionType="single"
+        app:weekDayTitleTextColor="@color/greyPorcelain"
         app:layout_constraintEnd_toEndOf="@id/gl_right_end"
         app:layout_constraintStart_toStartOf="@id/gl_left_begin"
         app:layout_constraintTop_toBottomOf="@id/tv_home_year" />
+        />
 
     <TextView
         android:id="@+id/text_home"
