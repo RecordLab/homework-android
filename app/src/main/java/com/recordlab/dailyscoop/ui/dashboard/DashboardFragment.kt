@@ -42,10 +42,6 @@ class DashboardFragment : Fragment() {
 
         setHasOptionsMenu(true) // 앱 바 작업 버튼 추가하기.
 
-        val selectedDate : TextView = root.findViewById(R.id.tv_nav_gallery_date)
-        var nowYear = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy"))
-        var nowMonth = LocalDate.now().format(DateTimeFormatter.ofPattern("MM"))
-        selectedDate.text = "$nowYear.$nowMonth"
         // RecyclerView
         val data = ArrayList<DashboardItem>()
         data.apply {
