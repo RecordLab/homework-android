@@ -18,4 +18,6 @@
 
     <dimen name="main_widget_height">102dp</dimen>
     <dimen name="main_widget_width">328dp</dimen>
+
+    <dimen name="chip_size_diary">50dp</dimen>
 </resources>
