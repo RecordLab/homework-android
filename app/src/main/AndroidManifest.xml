@@ -15,13 +15,18 @@
         android:largeHeap="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.SearchResultActivity"
+            android:name=".ui.SearchResultActivity"/>
+        <activity
+            android:name=".ui.auth.ForgotPasswordActivity"
             android:exported="false" />
         <activity
             android:name=".ui.auth.SignInActivity"
             android:exported="false" />
         <activity
             android:name=".ui.auth.SignUpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.diary.DiaryDetailActivity"
             android:exported="false" />
         <activity
             android:name=".ui.profile.ProfileAccountPasswordActivity"
