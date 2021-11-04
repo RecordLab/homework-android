@@ -7,6 +7,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,6 +38,8 @@ class ProfileFragment : Fragment() {
 //                binding.profile.setImageURI(uri)
 //            }
             binding.profile.setImageURI(it.data?.data)
+
+            //Log.d(">>>Profile Fragment", "${it.data?.data}")
         }
     }
 
@@ -48,12 +51,12 @@ class ProfileFragment : Fragment() {
     ): View? {
 //        val profileViewModel : ProfileViewModel by viewModels()
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
-        profileViewModel = ViewModelProviders.of(this).get(ProfileViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_profile, container, false)
-        val textView: TextView = root.findViewById(R.id.tv_profile_test)
-        profileViewModel.text.observe(viewLifecycleOwner, {
-            textView.text = it
-        })
+        //profileViewModel = ViewModelProviders.of(this).get(ProfileViewModel::class.java)
+        val root = binding.root
+//        val textView: TextView = root.findViewById(R.id.tv_profile_test)
+//        profileViewModel.text.observe(viewLifecycleOwner, {
+//            textView.text = it
+//        })
 
         // 프로필 변경(카메라 아이콘) 버튼 클릭
         val profileImageBtnClicked = root.findViewById<View>(R.id.profile2)
