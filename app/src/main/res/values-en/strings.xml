@@ -8,6 +8,9 @@
     <string name="cancel">cancel</string>
     <string name="ok">confirm</string>
     <string name="close">close</string>
+    <string name="back">back</string>
+    <string name="calender">calender</string>
+    <string name="grid">grid</string>
     <string name="withdrawal_title">Delete Account</string>
     <string name="withdrawal_message">Are you sure you want to delete your account? Your data would be deleted.</string>
     <string name="title_overall">Most picked emo this month is</string>
@@ -47,4 +50,5 @@
     <string name="emotion_happy">happy</string>
     <string name="dialog_emotion_title">today</string>
     <string name="dialog_datepick_title">when</string>
+    <string name="splash">One Diary\nOne Scoop</string>
 </resources>

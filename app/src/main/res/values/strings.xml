@@ -7,6 +7,9 @@
     <string name="cancel">취소</string>
     <string name="ok">확인</string>
     <string name="close">닫기</string>
+    <string name="back">뒤로가기</string>
+    <string name="calender">달력</string>
+    <string name="grid">그리드</string>
     <string name="dialog_withdrawal_title">계정 삭제</string>
     <string name="dialog_withdrawal_message">계정 삭제를 진행하시겠습니까? 모든 데이터가 삭제됩니다.</string>
     <string name="title_overall">이번 달 가장 많이 표현한 감정은 00 입니다.</string>
@@ -50,5 +53,7 @@
     <string name="new_pass2">비밀번호 변경</string>
     <string name="withdrawal_title">계정 삭제</string>
     <string name="withdrawal_message">계정 삭제를 진행하시겠습니까? 모든 데이터가 삭제됩니다.</string>
+    <string name="splash">하루 한 장\n하루 한 스쿱</string>
+    <string name="splash_content_description">아이스크림 트럭</string>
 
 </resources>
