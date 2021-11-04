@@ -87,6 +87,13 @@
         <item name="android:textColor">@color/textBlack</item>
     </style>
 
+    <style name="AuthEditText" parent="android:Widget.EditText">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo_medium</item>
+    </style>
+
+
     <style name="list_title_small_black" parent="Widget.AppCompat.TextView">
         <item name="android:textSize">14dp</item>
         <item name="fontFamily">@font/fontfamily</item>

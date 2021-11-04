@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.recordlab.dailyscoop.R
 import com.recordlab.dailyscoop.data.Diary
-import com.recordlab.dailyscoop.data.TimestampToString
+import com.recordlab.dailyscoop.data.TimeToString
 
 class DiaryListViewHolder(itemView: View, val onClick: (Diary, View) -> Unit) :
     RecyclerView.ViewHolder(itemView) {
@@ -35,7 +35,7 @@ class DiaryListViewHolder(itemView: View, val onClick: (Diary, View) -> Unit) :
                 .into(diaryThumbnail)
         }
         diaryPreview.text = diary.content.substring(0, 10)
-        diaryDate.text = TimestampToString().convert(diary.writeDay)
+        diaryDate.text = TimeToString().convert(diary.writeDay)
     }
 
 }
