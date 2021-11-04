@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.home.diary.DiaryActivity">
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/tb_diary_view"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_read_diary_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tb_diary_view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="11.02"
+        style="@style/diary_write_date_dark"/>
+
+    <TextView
+        android:id="@+id/tv_read_diary_emotion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/tv_read_diary_date"
+        app:layout_constraintEnd_toEndOf="@id/tv_read_diary_date"
+        app:layout_constraintTop_toBottomOf="@id/tv_read_diary_date"/>
+
+    <ImageView
+        android:id="@+id/iv_diary"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="@dimen/vertical_title_content_margin_reg"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintDimensionRatio="5:4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_read_diary_emotion" />
+
+    <TextView
+        android:id="@+id/et_diary"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:text="Name"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/iv_diary"
+        app:layout_constraintStart_toStartOf="@+id/iv_diary"
+        app:layout_constraintTop_toBottomOf="@+id/iv_diary" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

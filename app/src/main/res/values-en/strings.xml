@@ -5,9 +5,15 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">History</string>
     <string name="title_profile">Profile</string>
+    <string name="action_setting">Settings</string>
     <string name="cancel">cancel</string>
     <string name="ok">confirm</string>
     <string name="close">close</string>
+    <string name="dialog_withdrawal_title">Delete Account</string>
+    <string name="dialog_withdrawal_message">Are you sure you want to delete your account?\nYour data would be deleted.</string>
+    <string name="back">back</string>
+    <string name="calender">calender</string>
+    <string name="grid">grid</string>
     <string name="withdrawal_title">Delete Account</string>
     <string name="withdrawal_message">Are you sure you want to delete your account? Your data would be deleted.</string>
     <string name="title_overall">Most picked emo this month is</string>
@@ -31,8 +37,6 @@
     <string name="new_password">New Password</string>
     <string name="new_pass1">password</string>
     <string name="new_pass2">password</string>
-    <string name="dialog_withdrawal_title">Delete Account</string>
-    <string name="dialog_withdrawal_message">Are you sure you want to delete your account? Your data would be deleted.</string>
     <string name="emotion_anxious">anxious</string>
     <string name="emotion_tired">tired</string>
     <string name="emotion_nervous">nervous</string>
@@ -47,4 +51,13 @@
     <string name="emotion_happy">happy</string>
     <string name="dialog_emotion_title">today</string>
     <string name="dialog_datepick_title">when</string>
+    <string name="splash">One Diary\nOne Scoop</string>
+    <string name="splash_content_description">Icecream Truck</string>
+    <string name="theme_paper_ivory">paper(cream)</string>
+    <string name="theme_paper_white">paper(light)</string>
+    <string name="theme_paper_black">paper(dark)</string>
+    <string name="theme_window">window</string>
+    <string name="theme_sky_day">sky(day)</string>
+    <string name="theme_sky_night">sky(night)</string>
+    <string name="et_input_hint">Write down whatever you want.</string>
 </resources>

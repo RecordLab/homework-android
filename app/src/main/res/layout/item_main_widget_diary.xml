@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="@dimen/main_widget_width"
+    android:layout_height="@dimen/main_widget_height">
+
+    <TextView
+        android:id="@+id/tv_widget_diary"
+        style="@style/text_small_black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/widget_margin_top_small"
+        android:text="21.10.29"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_widget_emotion"
+        android:layout_width="@dimen/circular_button_radius_big"
+        android:layout_height="@dimen/circular_button_radius_big"
+        android:layout_marginTop="@dimen/widget_margin_top"
+        android:background="@drawable/button_circle"
+        app:layout_constraintEnd_toStartOf="@id/btn_widget_place"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_widget_diary" />
+
+    <Button
+        android:id="@+id/btn_widget_place"
+        android:layout_width="@dimen/circular_button_radius_big"
+        android:layout_height="@dimen/circular_button_radius_big"
+        android:background="@drawable/button_circle"
+        app:layout_constraintEnd_toStartOf="@id/btn_weight_event"
+        app:layout_constraintStart_toEndOf="@id/btn_widget_emotion"
+        app:layout_constraintTop_toTopOf="@id/btn_widget_emotion" />
+
+    <Button
+        android:id="@+id/btn_weight_event"
+        android:layout_width="@dimen/circular_button_radius_big"
+        android:layout_height="@dimen/circular_button_radius_big"
+        android:background="@drawable/button_circle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn_widget_place"
+        app:layout_constraintTop_toTopOf="@id/btn_widget_emotion" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
