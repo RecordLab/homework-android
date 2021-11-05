@@ -20,7 +20,7 @@ class AppPasswordActivity : AppCompatActivity() {
         _binding = ActivityAppLockPasswordBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val buttonArray = arrayListOf<Button>(
+        val buttonArray = arrayListOf(
             binding.btnLockNum0,
             binding.btnLockNum1,
             binding.btnLockNum2,
@@ -37,6 +37,23 @@ class AppPasswordActivity : AppCompatActivity() {
 
         for (button in buttonArray) {
             button.setOnClickListener(btnListener)
+        }
+
+        binding.tvLockContent.text = "비밀번호를 입력해 주세요"
+        val t = intent.getIntExtra("type", 0)
+        when (t) {
+            AppLockConst.ENABLE_PASSLOCK -> {
+                binding.tvLockTitle.text = "잠금 설정"
+            }
+            AppLockConst.CHANGE_PASSWORD -> {
+                binding.tvLockTitle.text = "비밀번호 변경"
+            }
+            AppLockConst.DISABLE_PASSLOCK -> {
+                binding.tvLockTitle.text = "잠금 해제"
+            }
+            AppLockConst.UNLOCK_PASSWORD -> {
+                binding.tvLockTitle.text = "비밀번호"
+            }
         }
     }
 
@@ -131,7 +148,7 @@ class AppPasswordActivity : AppCompatActivity() {
                 if (oldPwd.isEmpty()) {
                     oldPwd = inputedPassword()
                     onClear()
-                    binding.tvLockTitle.text = "다시 한번 입력"
+                    binding.tvLockContent.text = "비밀번호를 다시 한번 입력해 주세요"
                 } else {
                     if (oldPwd == inputedPassword()) {
                         AppLock(this).setPassLock(inputedPassword())
@@ -140,7 +157,7 @@ class AppPasswordActivity : AppCompatActivity() {
                     } else {
                         onClear()
                         oldPwd = ""
-                        binding.tvLockTitle.text = "비밀번호 입력"
+                        binding.tvLockContent.text = "비밀번호가 일치하지 않습니다"
                     }
                 }
             }
@@ -152,7 +169,7 @@ class AppPasswordActivity : AppCompatActivity() {
                         setResult(Activity.RESULT_OK)
                         finish()
                     } else {
-                        binding.tvLockTitle.text = "비밀번호가 틀립니다."
+                        binding.tvLockContent.text = "비밀번호를 다시 확인해 주십시오"
                         onClear()
                     }
                 } else {
@@ -161,25 +178,26 @@ class AppPasswordActivity : AppCompatActivity() {
                 }
             }
 
-            AppLockConst.UNLOCK_PASSWORD ->
+            AppLockConst.UNLOCK_PASSWORD -> {
                 if (AppLock(this).checkPassLock(inputedPassword())) {
                     setResult(Activity.RESULT_OK)
                     finish()
                 } else {
-                    binding.tvLockTitle.text = "비밀번호가 틀립니다."
+                    binding.tvLockContent.text = "비밀번호를 다시 확인해 주십시오"
                     onClear()
                 }
+            }
 
             AppLockConst.CHANGE_PASSWORD -> { // 비밀번호 변경
                 if (AppLock(this).checkPassLock(inputedPassword()) && !changePwdUnlock) {
                     onClear()
                     changePwdUnlock = true
-                    binding.tvLockTitle.text = "새로운 비밀번호 입력"
+                    binding.tvLockContent.text = "새로운 비밀번호를 입력해 주세요"
                 } else if (changePwdUnlock) {
                     if (oldPwd.isEmpty()) {
                         oldPwd = inputedPassword()
                         onClear()
-                        binding.tvLockTitle.text = "새로운 비밀번호 다시 입력"
+                        binding.tvLockContent.text = "비밀번호 다시 한번 입력해 주세요"
                     } else {
                         if (oldPwd == inputedPassword()) {
                             AppLock(this).setPassLock(inputedPassword())
@@ -188,16 +206,17 @@ class AppPasswordActivity : AppCompatActivity() {
                         } else {
                             onClear()
                             oldPwd = ""
-                            binding.tvLockTitle.text = "현재 비밀번호 다시 입력"
+                            binding.tvLockContent.text = "새로운 비밀번호를 다시 입력해 주세요"
                             changePwdUnlock = false
                         }
                     }
                 } else {
-                    binding.tvLockTitle.text = "비밀번호가 틀립니다."
+                    binding.tvLockContent.text = "비밀번호를 다시 확인해 주십시오"
                     changePwdUnlock = false
                     onClear()
                 }
             }
         }
     }
+
 }
