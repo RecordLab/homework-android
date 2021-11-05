@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import java.sql.Timestamp
 
 @Entity
-data class Diary(
+data class DiaryData(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
     val writeDay: Timestamp,
@@ -14,5 +14,5 @@ data class Diary(
     val emotion1: Int,
     val emotion2: Int?,
     val emotion3: Int?,
-    val theme: Int,
+    val theme: String,
 )

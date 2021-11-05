@@ -1,0 +1,38 @@
+package com.recordlab.dailyscoop.ui.home.diary
+
+import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.recordlab.dailyscoop.R
+import com.recordlab.dailyscoop.data.DiaryData
+import com.recordlab.dailyscoop.data.TimeToString
+import kotlin.properties.Delegates
+
+class DiaryViewHolder(itemView: View, val itemClick: (DiaryData, View) -> Unit) :
+    RecyclerView.ViewHolder(itemView) {
+    var diaryIdx by Delegates.notNull<Int>()
+    var diaryText = itemView.findViewById<TextView>(R.id.tv_main_diary_title)
+    var diaryDate = itemView.findViewById<TextView>(R.id.tv_main_diary_date)
+    var diaryImage = itemView.findViewById<ImageView>(R.id.iv_main_diary)
+
+    /* bind diary image, preview and date*/
+    fun bind(data: DiaryData) {
+        diaryIdx = data.id
+        if (data.image != null) {
+            Glide.with(itemView)
+                .load(data.image)
+                .error(R.drawable.img_error)
+                .into(diaryImage)
+        } else {
+            Glide.with(itemView)
+                .load(R.drawable.img_null)
+                .error(R.drawable.img_error)
+                .into(diaryImage)
+        }
+        diaryText.text = data.content.substring(0, 20)
+        diaryDate.text = TimeToString().convert(data.writeDay)
+        itemView.setOnClickListener { itemClick(data, itemView) }
+    }
+}

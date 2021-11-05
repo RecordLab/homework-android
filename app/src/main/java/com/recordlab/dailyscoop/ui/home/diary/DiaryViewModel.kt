@@ -2,13 +2,14 @@ package com.recordlab.dailyscoop.ui.home.diary
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.room.Room
-import com.recordlab.dailyscoop.data.AppDatabase
-import com.recordlab.dailyscoop.data.Diary
+import androidx.lifecycle.MutableLiveData
 
-class DiaryViewModel(application: Application): AndroidViewModel(application){
-    private val db: AppDatabase = Room.databaseBuilder(
+import com.recordlab.dailyscoop.data.DiaryData
+
+class DiaryViewModel(application: Application) : AndroidViewModel(application) {
+    var data = MutableLiveData<MutableList<DiaryData>>()
+
+    /*private val db: AppDatabase = Room.databaseBuilder(
         application,
         AppDatabase::class.java, "dailyscoop-db"
     ).build()
@@ -19,5 +20,5 @@ class DiaryViewModel(application: Application): AndroidViewModel(application){
 
     suspend fun insert(diary: Diary){
         db.diaryDao().insert(diary)
-    }
+    }*/
 }
