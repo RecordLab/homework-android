@@ -3,6 +3,8 @@ package com.recordlab.dailyscoop.ui.dashboard
 import android.content.Intent
 import android.view.*
 import android.app.AlertDialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -83,6 +85,8 @@ class DashboardFragment : Fragment() {
             val dialog = AlertDialog.Builder(context).create()
             val edialog : LayoutInflater = LayoutInflater.from(context)
             val mView : View = edialog.inflate(R.layout.custom_dialog_datepicker, null)
+            dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
 
             val year : com.shawnlin.numberpicker.NumberPicker = mView.findViewById(R.id.np_datepicker_year_picker)
             val month : com.shawnlin.numberpicker.NumberPicker = mView.findViewById(R.id.np_datepicker_month_picker)
