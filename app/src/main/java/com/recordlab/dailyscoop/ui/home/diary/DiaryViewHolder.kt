@@ -27,11 +27,15 @@ class DiaryViewHolder(itemView: View, val itemClick: (DiaryData, View) -> Unit) 
                 .into(diaryImage)
         } else {
             Glide.with(itemView)
-                .load(R.drawable.img_null)
+                .load(R.drawable.flower_unsplash)
                 .error(R.drawable.img_error)
                 .into(diaryImage)
         }
-        diaryText.text = data.content.substring(0, 20)
+        if( data.content.length > 10) {
+            diaryText.text = data.content.substring(0, 10)
+        } else {
+            diaryText.text = data.content
+        }
         diaryDate.text = TimeToString().convert(data.writeDay)
         itemView.setOnClickListener { itemClick(data, itemView) }
     }

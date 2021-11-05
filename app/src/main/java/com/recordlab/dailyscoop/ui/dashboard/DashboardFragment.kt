@@ -4,14 +4,12 @@ import android.content.Intent
 import android.view.*
 import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.NumberPicker
 import android.widget.TextView
-import androidx.compose.ui.Alignment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -20,7 +18,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.recordlab.dailyscoop.R
-import com.recordlab.dailyscoop.ui.SearchResultActivity
+import com.recordlab.dailyscoop.ui.search.SearchResultActivity
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 

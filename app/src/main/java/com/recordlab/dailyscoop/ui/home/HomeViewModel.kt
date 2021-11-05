@@ -9,7 +9,7 @@ import com.recordlab.dailyscoop.data.DiaryData
 class HomeViewModel(application: Application) : AndroidViewModel(application) {
     var data = MutableLiveData<MutableList<DiaryData>>()
     private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
+        value = "오늘의 일기를 작성해보세요"
     }
     val text: LiveData<String> = _text
 }
