@@ -48,6 +48,12 @@ class ProfileAccountActivity : AppCompatActivity() {
                 .show()
         }
 
+        val fontBtnClicked = findViewById<View>(R.id.bg8)
+        fontBtnClicked.setOnClickListener{
+            val intent = Intent(this, ProfileFontActivity::class.java)
+            startActivity(intent)
+        }
+
         // 뒤로가기 버튼 클릭
         val BackBtnClicked = findViewById<ImageView>(R.id.backBtn)
         BackBtnClicked.setOnClickListener{
