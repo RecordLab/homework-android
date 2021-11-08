@@ -18,6 +18,9 @@ android {
     buildFeatures {
         viewBinding = true
     }
+    viewBinding {
+        enabled = true
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -31,6 +34,7 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
 }
 
 dependencies {
@@ -83,4 +87,7 @@ dependencies {
 
     // okhttp
     implementation "com.squareup.okhttp3:okhttp:4.9.0"
+
+    // LRecyclerView 당겨서 새로고침, 슬라이드로 삭제 등 지원 https://github.com/jdsjlzx/LRecyclerView
+    implementation 'com.github.jdsjlzx:LRecyclerView:1.5.4.3'
 }

@@ -3,31 +3,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_marginStart="2dp"
+    android:layout_marginEnd="2dp"
     android:paddingBottom="8dp">
 
     <ImageView
         android:id="@+id/iv_main_diary"
         android:layout_width="135dp"
         android:layout_height="120dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/sample_image"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:layout_marginTop="6dp"
-        android:layout_marginStart="8dp"
         android:id="@+id/tv_main_diary_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="한강공원 산책"
+        style="@style/diary_title"
+        android:layout_marginStart="8dp"
         android:maxWidth="120dp"
+        android:layout_marginTop="6dp"
+        android:text="한강공원 산책"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iv_main_diary" />
 
     <TextView
         android:id="@+id/tv_main_diary_date"
-        android:layout_marginTop="1dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
         android:text="2021.10.13"
         app:layout_constraintStart_toStartOf="@id/tv_main_diary_title"
         app:layout_constraintTop_toBottomOf="@id/tv_main_diary_title" />
