@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -23,14 +22,14 @@ import com.recordlab.dailyscoop.MainActivity
 import com.recordlab.dailyscoop.R
 import com.recordlab.dailyscoop.data.DiaryData
 import com.recordlab.dailyscoop.databinding.FragmentHomeBinding
-import com.recordlab.dailyscoop.ui.SearchResultActivity
 import com.recordlab.dailyscoop.ui.home.diary.DiaryActivity
 import com.recordlab.dailyscoop.ui.home.diary.DiaryAdapter
 import com.recordlab.dailyscoop.ui.home.diary.DiaryWriteActivity
 import com.recordlab.dailyscoop.ui.home.widget.QuickDiaryFragment
 import com.recordlab.dailyscoop.ui.home.widget.QuotationFragment
+import com.recordlab.dailyscoop.ui.search.SearchResultActivity
 import java.sql.Timestamp
-import java.text.SimpleDateFormat
+import java.util.*
 
 
 private const val NUM_WIDGET = 2
@@ -43,6 +42,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
     private lateinit var widget1: QuotationFragment
     private lateinit var widget2: QuickDiaryFragment
     private var _binding: FragmentHomeBinding? = null
+    private lateinit var selectedDate: Calendar
 
     private val binding get() = _binding!!
 
@@ -71,8 +71,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val view = binding.root
         val calendarView: CalendarView = binding.cvHome
-//        var yearTextView = binding.tvHomeYear
-//        var monthTextView = binding.tvHomeMonth
+//        val fab: View = binding.fabDiary
 
         init(view)
 
@@ -109,14 +108,34 @@ class HomeFragment : Fragment(), View.OnClickListener {
         })
 
         calendarView.selectedDays
-        calendarView.selectionManager(SingleSelectionManager {
+        /*calendarView.selectionManager(SingleSelectionManager {
             var result =
                 SimpleDateFormat("yyyy - MM - dd").format(calendarView.selectedDays.get(0).calendar.time) + "\n"
+        }*/
+        /*fab.setOnClickListener {
+            if (calendarView.selectionManager is RangeSelectionManager) {
+                val selectionManager: RangeSelectionManager =
+                    calendarView.selectionManager as RangeSelectionManager
+                if (selectionManager.days != null) {
+                    var day = selectionManager.days.first
+                    selectedDate = day.calendar
+                    Log.d(
+                        DEBUG_TAG,
+                        "day 타입 스트링 ${day.toString()} calendar 타입으로 : ${selectedDate.time}"
+                    )
+
+                }
+            }
+        }*/
+
+
+        /*calendarView.selectionManager(SingleSelectionManager {
+            var result = SimpleDateFormat("yyyy - MM - dd").format(calendarView.selectedDays.get(0).calendar.time) + "\n"
             Toast.makeText(requireContext(), result, Toast.LENGTH_SHORT).show()
             Log.d(DEBUG_TAG, "호이!!!!! $result")
         })
 
-        /*
+
 
         monthTextView.setOnClickListener {
             val customDialog =
@@ -167,9 +186,9 @@ class HomeFragment : Fragment(), View.OnClickListener {
                 add(
                     DiaryData(
                         id = 0,
-                        writeDay = Timestamp.valueOf("2021-11-05"),
+                        writeDay = Timestamp.valueOf("2021-11-05 09:52:11"),
                         content = "배가 고픈 오늘!",
-                        image = "",
+                        image = "/flower_unsplash.png",
                         emotion1 = 0,
                         emotion2 = 1,
                         emotion3 = 2,
@@ -236,9 +255,10 @@ class HomeFragment : Fragment(), View.OnClickListener {
                 val intent = Intent(context, SearchResultActivity::class.java)
 //                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 startActivity(intent)
+                activity?.overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
 
-                if (activity != null) {
-                    Log.d(DEBUG_TAG, "activity is not null")
+                if(activity != null){
+                       Log.d(DEBUG_TAG, "activity is not null")
                 }
 
                 Log.d(DEBUG_TAG, "search button clicked!!")

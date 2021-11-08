@@ -15,7 +15,7 @@
         android:largeHeap="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.SearchResultActivity"/>
+            android:name=".ui.search.SearchResultActivity"/>
         <activity
             android:name=".ui.auth.ForgotPasswordActivity"
             android:exported="false" />
