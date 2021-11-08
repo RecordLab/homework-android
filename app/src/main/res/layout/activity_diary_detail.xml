@@ -47,8 +47,9 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"/>
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_gravity="center"/>
 
         <ImageView
             android:id="@+id/imageView2"
@@ -57,13 +58,19 @@
             android:scaleType="fitXY"
             app:srcCompat="@drawable/diary_detail_sample" />
 
-        <TextView
-            android:text="\n시간이 다가옴을 느꼈다.\n\n짧았던 가을이 지나고 겨울이 찾아오고 있었다.\n나무들도 빠르게 붉은 옷으로 갈아입기 시작했다.\n\n해가 갈수록 시간은 점점 더 빨라져만 간다."
-            android:textColor="@color/white"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"/>
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="\n시간이 다가옴을 느꼈다.\n\n짧았던 가을이 지나고 겨울이 찾아오고 있었다.\n나무들도 빠르게 붉은 옷으로 갈아입기 시작했다.\n\n해가 갈수록 시간은 점점 더 빨라져만 간다.\n\n시간이 다가옴을 느꼈다.\n\n짧았던 가을이 지나고 겨울이 찾아오고 있었다.\n나무들도 빠르게 붉은 옷으로 갈아입기 시작했다.\n\n해가 갈수록 시간은 점점 더 빨라져만 간다.\n\n시간이 다가옴을 느꼈다.\n\n짧았던 가을이 지나고 겨울이 찾아오고 있었다.\n나무들도 빠르게 붉은 옷으로 갈아입기 시작했다.\n\n해가 갈수록 시간은 점점 더 빨라져만 간다.\n\n시간이 다가옴을 느꼈다.\n\n짧았던 가을이 지나고 겨울이 찾아오고 있었다.\n나무들도 빠르게 붉은 옷으로 갈아입기 시작했다.\n\n해가 갈수록 시간은 점점 더 빨라져만 간다."
+                android:textColor="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"/>
+
+        </ScrollView>
 
     </LinearLayout>
 

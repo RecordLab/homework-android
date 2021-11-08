@@ -3,15 +3,15 @@ package com.recordlab.dailyscoop.ui.dashboard
 import android.content.Intent
 import android.view.*
 import android.app.AlertDialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.NumberPicker
 import android.widget.TextView
-import androidx.compose.ui.Alignment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.recordlab.dailyscoop.R
-import com.recordlab.dailyscoop.ui.SearchResultActivity
+import com.recordlab.dailyscoop.ui.search.SearchResultActivity
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -83,6 +83,8 @@ class DashboardFragment : Fragment() {
             val dialog = AlertDialog.Builder(context).create()
             val edialog : LayoutInflater = LayoutInflater.from(context)
             val mView : View = edialog.inflate(R.layout.custom_dialog_datepicker, null)
+            dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
 
             val year : com.shawnlin.numberpicker.NumberPicker = mView.findViewById(R.id.np_datepicker_year_picker)
             val month : com.shawnlin.numberpicker.NumberPicker = mView.findViewById(R.id.np_datepicker_month_picker)

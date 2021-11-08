@@ -22,7 +22,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/view"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_arrow_back_ios_242" />
+        app:srcCompat="@drawable/ic_baseline_arrow_back_ios_black_24" />
 
     <TextView
         android:id="@+id/textView9"
@@ -249,7 +249,7 @@
         app:layout_constraintTop_toTopOf="@+id/tap11"
         tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button"
         style="@android:style/Widget.Material.Light.Button.Inset"
         android:layout_width="0dp"
@@ -266,7 +266,7 @@
         app:layout_constraintTop_toTopOf="@+id/tap1"
         tools:ignore="TouchTargetSizeCheck" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button2"
         style="@android:style/Widget.Material.Light.Button.Inset"
         android:layout_width="0dp"
@@ -283,7 +283,7 @@
         app:layout_constraintTop_toTopOf="@+id/tap11"
         tools:ignore="TouchTargetSizeCheck" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button3"
         android:layout_width="0dp"
         android:layout_height="44dp"
