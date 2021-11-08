@@ -1,6 +1,8 @@
 package com.recordlab.dailyscoop.ui.home
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -22,6 +24,8 @@ import com.recordlab.dailyscoop.MainActivity
 import com.recordlab.dailyscoop.R
 import com.recordlab.dailyscoop.data.DiaryData
 import com.recordlab.dailyscoop.databinding.FragmentHomeBinding
+import com.recordlab.dailyscoop.network.Result
+import com.recordlab.dailyscoop.network.RetrofitClient
 import com.recordlab.dailyscoop.ui.home.diary.DiaryActivity
 import com.recordlab.dailyscoop.ui.home.diary.DiaryAdapter
 import com.recordlab.dailyscoop.ui.home.diary.DiaryWriteActivity
@@ -43,6 +47,8 @@ class HomeFragment : Fragment(), View.OnClickListener {
     private lateinit var widget2: QuickDiaryFragment
     private var _binding: FragmentHomeBinding? = null
     private lateinit var selectedDate: Calendar
+    private val service = RetrofitClient.service
+    private lateinit var sharedPref: SharedPreferences
 
     private val binding get() = _binding!!
 
@@ -72,6 +78,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
         val view = binding.root
         val calendarView: CalendarView = binding.cvHome
 //        val fab: View = binding.fabDiary
+        sharedPref = requireActivity().getSharedPreferences("token", Context.MODE_PRIVATE)
 
         init(view)
 
@@ -181,6 +188,32 @@ class HomeFragment : Fragment(), View.OnClickListener {
     }
 
     private fun loadData(view: View) {
+        val header = mutableMapOf<String, String?>()
+        header["Content-type"] = "application/json; charset=UTF-8"
+        header["Authorization"] = sharedPref.getString("token", "token")
+        if (header["Authorization"].equals("token")) { // 로그인 안 한 상태..?
+
+        } else { // 로그인 한 상태.
+            val response = service.requestGetDiaries(header = header)
+            when (response) {
+                is Result.Success -> {
+//                    val diaries = response.data.data
+                    diaryData.clear()
+                    diaryData.addAll(response.data.data)
+                    diaryAdapter.data = diaryData
+                    diaryAdapter.notifyDataSetChanged()
+                }
+                is Result.ApiError -> {
+
+                }
+                is Result.NetworkError -> {
+
+                }
+                is Result.NullResult -> {
+
+                }
+            }
+        }
         diaryData.apply {
             for (i in 0..5) {
                 add(
@@ -257,8 +290,8 @@ class HomeFragment : Fragment(), View.OnClickListener {
                 startActivity(intent)
                 activity?.overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
 
-                if(activity != null){
-                       Log.d(DEBUG_TAG, "activity is not null")
+                if (activity != null) {
+                    Log.d(DEBUG_TAG, "activity is not null")
                 }
 
                 Log.d(DEBUG_TAG, "search button clicked!!")
