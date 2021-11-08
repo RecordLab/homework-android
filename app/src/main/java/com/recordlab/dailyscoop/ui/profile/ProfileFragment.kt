@@ -38,9 +38,9 @@ class ProfileFragment : Fragment() {
 //            it.data?.data?.let{ uri ->
 //                binding.profile.setImageURI(uri)
 //            }
-            binding.profile.setImageURI(it.data?.data)
+            //binding.profile.setImageURI(it.data?.data)
             Glide.with(this).load(it.data?.data).into(binding.profile)
-            Log.d(">>> Profile Fragment","${it.data?.data}")
+//            Log.d(">>> Profile Fragment","${it.data?.data}")
         }
     }
 
@@ -117,6 +117,8 @@ class ProfileFragment : Fragment() {
             builder.setView(dialogView)
                 .show()
         }
+
+
 
         return root
     }
