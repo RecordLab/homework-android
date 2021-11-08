@@ -1,9 +1,7 @@
 package com.recordlab.dailyscoop.ui.home.diary
 
 import android.app.Application
-import android.content.Context
-import androidx.lifecycle.*
-import com.recordlab.dailyscoop.data.Diary
+import androidx.lifecycle.AndroidViewModel
 import javax.sql.DataSource
 
 class DiaryListViewModel(val dataSource: DataSource, application: Application) : AndroidViewModel(application) {

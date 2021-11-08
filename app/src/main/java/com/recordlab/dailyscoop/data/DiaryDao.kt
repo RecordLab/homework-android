@@ -7,11 +7,11 @@ import androidx.room.Query
 
 @Dao
 interface DiaryDao {
-    @Query("select * from Diary")
-    fun getAll(): LiveData<List<Diary>>
+    @Query("select * from DiaryData")
+    fun getAll(): LiveData<List<DiaryData>>
 
     @Insert
-    fun insert(diary: Diary)
+    fun insert(diaryData: DiaryData)
 
 
 }

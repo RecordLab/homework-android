@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.recordlab.dailyscoop.R
-import com.recordlab.dailyscoop.ui.SearchResultActivity
+import com.recordlab.dailyscoop.ui.search.SearchResultActivity
 
 class HistoryFragment : Fragment() {
 

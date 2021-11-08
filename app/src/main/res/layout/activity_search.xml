@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.SearchResultActivity">
+    tools:context=".ui.search.SearchResultActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tb_search"
