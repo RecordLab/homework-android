@@ -8,10 +8,7 @@ import com.recordlab.dailyscoop.network.response.ResponseWriteDiary
 import com.recordlab.dailyscoop.network.response.TokenData
 import com.recordlab.dailyscoop.network.response.UserInfoData
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.HeaderMap
-import retrofit2.http.POST
+import retrofit2.http.*
 
 public interface RequestService {
     // 회원가입
@@ -25,11 +22,16 @@ public interface RequestService {
     fun requestWriteDiary(
         @HeaderMap header: Map<String, String?>,
         @Body diary: RequestWriteDiary
-    ): Result<ResponseWriteDiary>
+    ): Call<ResponseWriteDiary>
 
     @GET("/api/diaries")
     fun requestGetDiaries(
         @HeaderMap header: Map<String, String?>
-    ): Result<ResponseDiaryList>
+    ): Call<ResponseDiaryList>
 
+    @GET("/api/diaries/{diaryDate}")
+    fun requestGetDiaryDetail(
+        @HeaderMap header: Map<String, String?>,
+        @Path("diaryDate") date: String
+    ): Call<ResponseDiaryList>
 }

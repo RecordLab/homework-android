@@ -30,6 +30,7 @@ class DiaryAdapter(context: Context, val itemClick: (DiaryData, View) -> Unit) :
     }
 }
 
+/*
 object DiaryDiffCallback : DiffUtil.ItemCallback<DiaryData>() {
     override fun areItemsTheSame(oldItem: DiaryData, newItem: DiaryData): Boolean =
         (oldItem == newItem)
@@ -37,4 +38,4 @@ object DiaryDiffCallback : DiffUtil.ItemCallback<DiaryData>() {
     override fun areContentsTheSame(oldItem: DiaryData, newItem: DiaryData): Boolean =
         (oldItem.id == newItem.id)
 
-}
+}*/
