@@ -60,4 +60,5 @@
     <string name="theme_sky_day">sky(day)</string>
     <string name="theme_sky_night">sky(night)</string>
     <string name="et_input_hint">Write down whatever you want.</string>
+    <string name="dialog_sign_out_message">Sign Out</string>
 </resources>
