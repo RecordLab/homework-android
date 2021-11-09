@@ -1,6 +1,6 @@
 package com.recordlab.dailyscoop.network
 
-import com.recordlab.dailyscoop.network.request.RequestSignin
+import com.recordlab.dailyscoop.network.request.RequestSignIn
 import com.recordlab.dailyscoop.network.request.RequestSignup
 import com.recordlab.dailyscoop.network.request.RequestWriteDiary
 import com.recordlab.dailyscoop.network.response.ResponseDiaryList
@@ -12,11 +12,11 @@ import retrofit2.http.*
 
 public interface RequestService {
     // 회원가입
-    @POST("/signup")
-    suspend fun requestSignup(@Body body: RequestSignup): Call<TokenData> // Call<ResponseSignup>
+    @POST("/api/signup")
+    fun requestSignup(@Body body: RequestSignup): Call<TokenData> // Call<ResponseSignup>
 
-    @POST("/singin")
-    fun requestSingin(@Body body: RequestSignin): Call<UserInfoData> //Call<ResponseSignin>
+    @POST("/api/login")
+    fun requestSingIn(@Body body: RequestSignIn): Call<UserInfoData> //Call<ResponseSignin>
 
     @POST("/diaries")
     fun requestWriteDiary(
