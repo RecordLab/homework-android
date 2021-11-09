@@ -1,6 +1,6 @@
 package com.recordlab.dailyscoop.network.request
 
-data class RequestSignin(
+data class RequestSignIn(
     val id: String,
     val password: String
 )

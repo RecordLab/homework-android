@@ -30,11 +30,11 @@ class ProfileAccountActivity : AppCompatActivity() {
 
         val passBtnClicked = findViewById<View>(R.id.bg454)
         passBtnClicked.setOnClickListener{
-//            val intent = Intent(this, ProfileAccountPasswordActivity::class.java)
-//            startActivity(intent)
-
-            val intent = Intent(this, SignInActivity::class.java)
+            val intent = Intent(this, ProfileAccountPasswordActivity::class.java)
             startActivity(intent)
+
+//            val intent = Intent(this, SignInActivity::class.java)
+//            startActivity(intent)
         }
 
         val disconBtnClicked = findViewById<View>(R.id.bg4544)
