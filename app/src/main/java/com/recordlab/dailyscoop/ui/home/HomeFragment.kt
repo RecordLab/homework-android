@@ -1,5 +1,6 @@
 package com.recordlab.dailyscoop.ui.home
 
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -49,14 +50,12 @@ class HomeFragment : Fragment(), View.OnClickListener {
     private var _binding: FragmentHomeBinding? = null
     private lateinit var selectedDate: Calendar
     private val service = RetrofitClient.service
-//    private lateinit var service: RequestService //=
     private lateinit var sharedPref: SharedPreferences
 
     private val binding get() = _binding!!
 
     private lateinit var diaryAdapter: DiaryAdapter
 
-    //    private lateinit var dialog: DialogYearMonth
     val diaryData = mutableListOf<DiaryData>()
 
     //    private val diaryListViewModel by viewModels<DiaryListViewModel> {
@@ -80,9 +79,17 @@ class HomeFragment : Fragment(), View.OnClickListener {
         val view = binding.root
         val calendarView: CalendarView = binding.cvHome
 //        val fab: View = binding.fabDiary
-//        sharedPref = requireActivity().getSharedPreferences("token", Context.MODE_PRIVATE)
-//        val token: String? = sharedPref.getString("token", "token")
-
+        sharedPref = requireActivity().getSharedPreferences("TOKEN", Context.MODE_PRIVATE)
+        val token: String? = sharedPref.getString("token", "token")
+        if (token == "token") {
+            with(sharedPref.edit()) {
+                putString(
+                    "token",
+                    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImhhaWxleWhpMTRAZ21haWwuY29tIiwiZXhwIjoxNjM2NTkwNjg5fQ.jCFGuLtsOwKNNJ601IeO8ueXke5GMOmpF5TfUkztjvU"
+                )
+                commit()
+            }
+        }
 
         init(view)
 
@@ -191,8 +198,10 @@ class HomeFragment : Fragment(), View.OnClickListener {
     private fun loadData(view: View) {
         val header = mutableMapOf<String, String?>()
         header["Content-type"] = "application/json; charset=UTF-8"
-        header["Authorization"] = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImhhaWxleWhpMTRAZ21haWwuY29tIiwiZXhwIjoxNjM2NTkwNjg5fQ.jCFGuLtsOwKNNJ601IeO8ueXke5GMOmpF5TfUkztjvU"
-            //"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImlkIiwiZXhwIjoxNjM2NTk2NzE4fQ.JOb447DOeSlRpa-NNF_KRg5NylfuKorzni8evoQimvo"//sharedPref.getString("token", "token")
+        header["Authorization"] = sharedPref.getString("token", "token")
+
+        //    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImhhaWxleWhpMTRAZ21haWwuY29tIiwiZXhwIjoxNjM2NTkwNjg5fQ.jCFGuLtsOwKNNJ601IeO8ueXke5GMOmpF5TfUkztjvU"
+        //"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImlkIiwiZXhwIjoxNjM2NTk2NzE4fQ.JOb447DOeSlRpa-NNF_KRg5NylfuKorzni8evoQimvo"//sharedPref.getString("token", "token")
 
 
         if (header["Authorization"] == "token") { // 로그인 안 한 상태..?
@@ -208,9 +217,10 @@ class HomeFragment : Fragment(), View.OnClickListener {
                 )
             }
         } else { // 로그인 한 상태.
-           service.requestGetDiaries(header = header).enqueue(
+            service.requestGetDiaries(header = header).enqueue(
                 onSuccess = {
-                    if (it.code() == 200){
+                    it.message()
+                    if (it.code() == 200) {
                         Log.d("통신 성공", it.body()!!.data[0].content)
                         diaryData.clear()
                         diaryData.addAll(it.body()!!.data)
@@ -219,7 +229,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
                     }
                 },
                 onError = {
-                    Toast.makeText(requireContext(),"다시 시도해주세요.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "다시 시도해주세요.", Toast.LENGTH_SHORT).show()
                 },
                 onFail = {
 

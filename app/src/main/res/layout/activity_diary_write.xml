@@ -1,119 +1,352 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/cl_diary_write"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cl_diary_write"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <ImageView
         android:id="@+id/iv_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"/>
-    <include
-        android:id="@+id/tb_diary_write"
-        layout="@layout/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:scaleType="centerCrop" />
 
-    <TextView
-        android:id="@+id/tv_diary_emotion"
-        android:layout_width="0dp"
-        android:layout_height="19dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="16dp"
-        android:text="감정 들어갈 자리"
-        android:textAlignment="center"
-        style="@style/diary_write_date_dark"
-        app:layout_constraintBottom_toTopOf="@+id/iv_write_diary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tb_diary_write"
-        app:layout_constraintVertical_bias="0.0" />
-    <ImageView
-        android:id="@+id/iv_write_diary"
-        android:layout_width="0dp"
-        android:layout_height="300dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        android:layout_marginTop="8dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintTop_toBottomOf="@id/hsv_diary_theme"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_gallery"
-        tools:layout_editor_absoluteY="83dp" />
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/abl_diary_write"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <include
+                android:id="@+id/tb_diary_write"
+                layout="@layout/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_collapseMode="pin" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_diary_option"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="?attr/actionBarSize"
+                android:background="@color/white"
+                app:layout_collapseMode="parallax">
+
+                <HorizontalScrollView
+                    android:id="@+id/hsv_diary_theme"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+                    android:layout_marginTop="@dimen/dp_4"
+                    android:overScrollMode="never"
+                    android:scrollbars="none"
+                    app:layout_collapseMode="parallax"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/chip_group_theme"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:singleLine="true"
+                        app:singleSelection="true"
+                        tools:layout_editor_absoluteX="39dp"
+                        tools:layout_editor_absoluteY="83dp">
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_paper_white"
+                            style="@style/chip_background_style"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/theme_paper_white" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_paper_ivory"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/theme_paper_ivory" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_paper_black"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/theme_paper_black" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_window"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/theme_window" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_sky_day"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/theme_sky_day" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_sky_night"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/theme_sky_night" />
+                    </com.google.android.material.chip.ChipGroup>
+                </HorizontalScrollView>
+
+                <HorizontalScrollView
+                    android:id="@+id/hsv_diary_emotion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+                    android:orientation="horizontal"
+                    android:overScrollMode="never"
+                    android:scrollbars="none"
+                    app:layout_collapseMode="parallax"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/hsv_diary_theme">
+
+                    <TableRow
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content">
+
+                        <RadioButton
+                            android:id="@+id/emotion_angry"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:button="@null"
+                            android:drawableTop="@drawable/selector_angry"
+                            android:drawablePadding="8dp"
+                            android:fontFamily="@font/fontfamily"
+                            android:includeFontPadding="false"
+                            android:padding="8dp"
+                            android:text="@string/emotion_angry"
+                            android:textAlignment="center"
+                            android:textFontWeight="500"
+                            android:textSize="12sp" />
+
+                        <RadioButton
+                            android:id="@+id/emotion_relax"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:button="@null"
+                            android:drawableTop="@drawable/selector_relax"
+                            android:drawablePadding="8dp"
+                            android:fontFamily="@font/fontfamily"
+                            android:includeFontPadding="false"
+                            android:padding="8dp"
+                            android:text="@string/emotion_relax"
+                            android:textAlignment="center"
+                            android:textFontWeight="500"
+                            android:textSize="12sp" />
+
+                        <RadioButton
+                            android:id="@+id/emotion_fun"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:button="@null"
+                            android:drawableTop="@drawable/selector_fun"
+                            android:drawablePadding="8dp"
+                            android:fontFamily="@font/fontfamily"
+                            android:includeFontPadding="false"
+                            android:padding="8dp"
+                            android:text="@string/emotion_fun"
+                            android:textAlignment="center"
+                            android:textFontWeight="500"
+                            android:textSize="12sp" />
+
+                        <RadioButton
+                            android:id="@+id/emotion_joy"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:button="@null"
+                            android:drawableTop="@drawable/selector_joy"
+                            android:drawablePadding="8dp"
+                            android:fontFamily="@font/fontfamily"
+                            android:includeFontPadding="false"
+                            android:padding="8dp"
+                            android:text="@string/emotion_joy"
+                            android:textAlignment="center"
+                            android:textFontWeight="500"
+                            android:textSize="12sp" />
+
+                        <RadioButton
+                            android:id="@+id/emotion_sound"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:button="@null"
+                            android:drawableTop="@drawable/selector_sound"
+                            android:drawablePadding="8dp"
+                            android:fontFamily="@font/fontfamily"
+                            android:includeFontPadding="false"
+                            android:padding="8dp"
+                            android:text="@string/emotion_sound"
+                            android:textAlignment="center"
+                            android:textFontWeight="500"
+                            android:textSize="12sp" />
+
+                        <RadioButton
+                            android:id="@+id/emotion_excitement"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:button="@null"
+                            android:drawableTop="@drawable/selector_expect"
+                            android:drawablePadding="8dp"
+                            android:fontFamily="@font/fontfamily"
+                            android:includeFontPadding="false"
+                            android:padding="8dp"
+                            android:text="@string/emotion_expect"
+                            android:textAlignment="center"
+                            android:textFontWeight="500"
+                            android:textSize="12sp" />
+
+                        <RadioButton
+                            android:id="@+id/emotion_bored"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:button="@null"
+                            android:drawableTop="@drawable/selector_bored"
+                            android:drawablePadding="8dp"
+                            android:fontFamily="@font/fontfamily"
+                            android:includeFontPadding="false"
+                            android:padding="8dp"
+                            android:text="@string/emotion_bored"
+                            android:textAlignment="center"
+                            android:textFontWeight="500"
+                            android:textSize="12sp" />
+
+                        <RadioButton
+                            android:id="@+id/emotion_sad"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:button="@null"
+                            android:drawableTop="@drawable/selector_sad"
+                            android:drawablePadding="8dp"
+                            android:fontFamily="@font/fontfamily"
+                            android:includeFontPadding="false"
+                            android:padding="8dp"
+                            android:text="@string/emotion_sad"
+                            android:textAlignment="center"
+                            android:textFontWeight="500"
+                            android:textSize="12sp" />
+
+                        <RadioButton
+                            android:id="@+id/emotion_tired"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:button="@null"
+                            android:drawableTop="@drawable/selector_tired"
+                            android:drawablePadding="8dp"
+                            android:fontFamily="@font/fontfamily"
+                            android:includeFontPadding="false"
+                            android:padding="8dp"
+                            android:text="@string/emotion_tired"
+                            android:textAlignment="center"
+                            android:textFontWeight="500"
+                            android:textSize="12sp" />
+
+                        <RadioButton
+                            android:id="@+id/emotion_nervous"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:button="@null"
+                            android:drawableTop="@drawable/selector_nervous"
+                            android:drawablePadding="8dp"
+                            android:fontFamily="@font/fontfamily"
+                            android:includeFontPadding="false"
+                            android:padding="8dp"
+                            android:text="@string/emotion_nervous"
+                            android:textAlignment="center"
+                            android:textFontWeight="500"
+                            android:textSize="12sp" />
+
+                        <RadioButton
+                            android:id="@+id/emotion_anxious"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:button="@null"
+                            android:drawableTop="@drawable/selector_anxious"
+                            android:drawablePadding="8dp"
+                            android:fontFamily="@font/fontfamily"
+                            android:includeFontPadding="false"
+                            android:padding="8dp"
+                            android:text="@string/emotion_anxious"
+                            android:textAlignment="center"
+                            android:textFontWeight="500"
+                            android:textSize="12sp" />
+
+                        <RadioButton
+                            android:id="@+id/emotion_happy"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:button="@null"
+                            android:drawableTop="@drawable/selector_happy"
+                            android:drawablePadding="8dp"
+                            android:fontFamily="@font/fontfamily"
+                            android:includeFontPadding="false"
+                            android:padding="8dp"
+                            android:text="@string/emotion_happy"
+                            android:textAlignment="center"
+                            android:textFontWeight="500"
+                            android:textSize="12sp" />
+
+                    </TableRow>
+
+                </HorizontalScrollView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_save"
+                android:layout_width="99dp"
+                android:layout_height="wrap_content"
+                android:text="image"
+                app:layout_constraintEnd_toEndOf="parent"
+
+                app:layout_constraintTop_toBottomOf="@id/tb_diary_write" />
+
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        <ImageView
+            android:id="@+id/iv_write_diary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:contentDescription="diary image"
+            android:maxHeight="300dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/flower_unsplash"
+            app:layout_collapseMode="pin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cl_diary_option"
+            app:srcCompat="@android:drawable/ic_menu_gallery" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+
     <EditText
         android:id="@+id/et_write_diary"
+        style="@style/diary_content_black"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
-        android:ems="10"
-        android:inputType="textMultiLine"
-        android:hint="@string/et_input_hint"
-        style="@style/diary_content_black"
-        android:gravity="top"
         android:background="@color/transparent"
+        android:ems="10"
+        android:gravity="top"
+        android:hint="@string/et_input_hint"
+        android:inputType="textMultiLine"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/iv_write_diary"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="@+id/iv_write_diary"
         app:layout_constraintTop_toBottomOf="@+id/iv_write_diary" />
-    
-    <HorizontalScrollView
-        android:id="@+id/hsv_diary_theme"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="none"
-        android:overScrollMode="never"
-        android:layout_marginTop="@dimen/dp_4"
-        android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
-        app:layout_constraintStart_toStartOf="@id/tv_diary_emotion"
-        app:layout_constraintTop_toBottomOf="@id/tv_diary_emotion">
-        <com.google.android.material.chip.ChipGroup
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:singleLine="true"
-            app:singleSelection="true"
-            tools:layout_editor_absoluteX="39dp"
-            tools:layout_editor_absoluteY="83dp">
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_paper_white"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/chip_background_style"
-                android:text="@string/theme_paper_white"/>
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_paper_ivory"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/theme_paper_ivory"/>
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_paper_black"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/theme_paper_black"/>
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_window"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/theme_window"/>
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_sky_day"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/theme_sky_day"/>
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_sky_night"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/theme_sky_night"/>
-        </com.google.android.material.chip.ChipGroup>
-    </HorizontalScrollView>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
