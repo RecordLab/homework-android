@@ -1,10 +1,12 @@
 package com.recordlab.dailyscoop.ui.home
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -21,7 +23,10 @@ import com.applikeysolutions.cosmocalendar.view.CalendarView
 import com.recordlab.dailyscoop.MainActivity
 import com.recordlab.dailyscoop.R
 import com.recordlab.dailyscoop.data.DiaryData
+import com.recordlab.dailyscoop.data.TimeToString
 import com.recordlab.dailyscoop.databinding.FragmentHomeBinding
+import com.recordlab.dailyscoop.network.RetrofitClient
+import com.recordlab.dailyscoop.network.enqueue
 import com.recordlab.dailyscoop.ui.home.diary.DiaryActivity
 import com.recordlab.dailyscoop.ui.home.diary.DiaryAdapter
 import com.recordlab.dailyscoop.ui.home.diary.DiaryWriteActivity
@@ -43,6 +48,9 @@ class HomeFragment : Fragment(), View.OnClickListener {
     private lateinit var widget2: QuickDiaryFragment
     private var _binding: FragmentHomeBinding? = null
     private lateinit var selectedDate: Calendar
+    private val service = RetrofitClient.service
+//    private lateinit var service: RequestService //=
+    private lateinit var sharedPref: SharedPreferences
 
     private val binding get() = _binding!!
 
@@ -72,6 +80,9 @@ class HomeFragment : Fragment(), View.OnClickListener {
         val view = binding.root
         val calendarView: CalendarView = binding.cvHome
 //        val fab: View = binding.fabDiary
+//        sharedPref = requireActivity().getSharedPreferences("token", Context.MODE_PRIVATE)
+//        val token: String? = sharedPref.getString("token", "token")
+
 
         init(view)
 
@@ -169,19 +180,54 @@ class HomeFragment : Fragment(), View.OnClickListener {
     private fun init(view: View) {
         diaryAdapter = DiaryAdapter(view.context) { DiaryData, View ->
             val intent = Intent(activity as MainActivity, DiaryActivity::class.java)
-            intent.putExtra("diaryIdx", DiaryData.id)
+            intent.putExtra("diaryDate", TimeToString().convert(DiaryData.date))
             startActivity(intent)
         }
         binding.rvHomeDiary.adapter = diaryAdapter
         loadData(view)
     }
 
-    private fun initCalendar() {
-
-    }
 
     private fun loadData(view: View) {
-        diaryData.apply {
+        val header = mutableMapOf<String, String?>()
+        header["Content-type"] = "application/json; charset=UTF-8"
+        header["Authorization"] = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImhhaWxleWhpMTRAZ21haWwuY29tIiwiZXhwIjoxNjM2NTkwNjg5fQ.jCFGuLtsOwKNNJ601IeO8ueXke5GMOmpF5TfUkztjvU"
+            //"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImlkIiwiZXhwIjoxNjM2NTk2NzE4fQ.JOb447DOeSlRpa-NNF_KRg5NylfuKorzni8evoQimvo"//sharedPref.getString("token", "token")
+
+
+        if (header["Authorization"] == "token") { // 로그인 안 한 상태..?
+            diaryData.apply {
+                add(
+                    DiaryData(
+                        date = Timestamp.valueOf("2021-11-08 09:52:11"),
+                        content = "로그인 하셈!",
+                        image = "/flower_unsplash.png",
+                        emotions = mutableListOf("happy", "sound"),
+                        theme = "sky(night)",
+                    )
+                )
+            }
+        } else { // 로그인 한 상태.
+           service.requestGetDiaries(header = header).enqueue(
+                onSuccess = {
+                    if (it.code() == 200){
+                        Log.d("통신 성공", it.body()!!.data[0].content)
+                        diaryData.clear()
+                        diaryData.addAll(it.body()!!.data)
+                        diaryAdapter.data = diaryData
+                        diaryAdapter.notifyDataSetChanged()
+                    }
+                },
+                onError = {
+                    Toast.makeText(requireContext(),"다시 시도해주세요.", Toast.LENGTH_SHORT).show()
+                },
+                onFail = {
+
+                }
+            )
+
+        }
+        /*diaryData.apply {
             for (i in 0..5) {
                 add(
                     DiaryData(
@@ -196,7 +242,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
                     )
                 )
             }
-        }
+        }*/
         diaryAdapter.data = diaryData
         diaryAdapter.notifyDataSetChanged()
     }
@@ -257,8 +303,8 @@ class HomeFragment : Fragment(), View.OnClickListener {
                 startActivity(intent)
                 activity?.overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
 
-                if(activity != null){
-                       Log.d(DEBUG_TAG, "activity is not null")
+                if (activity != null) {
+                    Log.d(DEBUG_TAG, "activity is not null")
                 }
 
                 Log.d(DEBUG_TAG, "search button clicked!!")

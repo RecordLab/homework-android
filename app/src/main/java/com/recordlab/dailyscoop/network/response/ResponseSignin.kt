@@ -1,6 +1,6 @@
 package com.recordlab.dailyscoop.network.response
 
-data class ResponseSignin(
+data class ResponseSignIn(
     val data: UserInfoData
 )
 
