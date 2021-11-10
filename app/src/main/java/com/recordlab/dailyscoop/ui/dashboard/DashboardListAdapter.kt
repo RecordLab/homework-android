@@ -7,9 +7,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.recordlab.dailyscoop.R
+import com.recordlab.dailyscoop.data.DiaryData
+import com.recordlab.dailyscoop.data.TimeToString
 
-class DashboardListAdapter(private val items: ArrayList<DashboardItem>) :
+class DashboardListAdapter(private val items: List<DiaryData>) :
     RecyclerView.Adapter<DashboardListAdapter.ViewHolder>() {
 
         // RecyclerView 초기화 때 호출
@@ -32,13 +36,13 @@ class DashboardListAdapter(private val items: ArrayList<DashboardItem>) :
 
         // ViewHolder 단위 객체로 View 의 데이터를 설정
         class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-            fun bind(item: DashboardItem) {
+            fun bind(item: DiaryData) {
                 val date = view.findViewById<TextView>(R.id.tv_list_diary_date)
                 val content = view.findViewById<TextView>(R.id.tv_list_diary_content)
                 val img = view.findViewById<ImageView>(R.id.iv_list_diary)
-                date.text = item.date
+                date.text = TimeToString().convert(item.date)
                 content.text = item.content
-                Glide.with(itemView).load(item.img).into(img)
+                Glide.with(itemView).load(item.image).transform(CenterCrop(), RoundedCorners(16)).into(img)
             }
         }
     }

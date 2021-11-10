@@ -6,12 +6,14 @@ import android.app.AlertDialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.NumberPicker
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -20,13 +22,24 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.recordlab.dailyscoop.R
+import com.recordlab.dailyscoop.data.DiaryData
+import com.recordlab.dailyscoop.databinding.FragmentDashboardBinding
+import com.recordlab.dailyscoop.databinding.FragmentHomeBinding
+import com.recordlab.dailyscoop.network.RetrofitClient
+import com.recordlab.dailyscoop.network.RetrofitClient.service
+import com.recordlab.dailyscoop.network.enqueue
 import com.recordlab.dailyscoop.ui.search.SearchResultActivity
+import java.sql.Timestamp
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import javax.security.auth.callback.Callback
 
 class DashboardFragment : Fragment() {
 
     private lateinit var dashboardViewModel: DashboardViewModel
+    private var _binding: FragmentDashboardBinding? = null
+    private val binding get() = _binding!!
+    val diaryData = mutableListOf<DiaryData>()
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -35,11 +48,14 @@ class DashboardFragment : Fragment() {
     ): View? {
         dashboardViewModel =
             ViewModelProviders.of(this).get(DashboardViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_dashboard, container, false)
-        val textView: TextView = root.findViewById(R.id.text_dashboard)
-        dashboardViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
+        _binding = FragmentDashboardBinding.inflate(inflater, container, false)
+        val root = binding.root
+//        val textView: TextView = root.findViewById(R.id.text_dashboard)
+//        dashboardViewModel.text.observe(viewLifecycleOwner, Observer {
+//            textView.text = it
+//        })
+
+        init(root)
 
         setHasOptionsMenu(true) // 앱 바 작업 버튼 추가하기.
 
@@ -100,7 +116,7 @@ class DashboardFragment : Fragment() {
             month.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
 
             // 최솟값, 최댓값 설정
-            year.minValue = 2015
+            year.minValue = 2021
             year.maxValue = 2022
             month.minValue = 1
             month.maxValue = 12
@@ -122,17 +138,6 @@ class DashboardFragment : Fragment() {
                 selectedDate.text = "$nowYear.$nowMonth"
 
                 // 날짜 변경 후 데이터 새로고침
-                var temp = ArrayList<DashboardItem>()
-                temp.apply {
-                    add(DashboardItem("1월", "123", R.drawable.happy))
-                    add(DashboardItem("2월", "1234", R.drawable.bored))
-                    add(DashboardItem("1월", "123", R.drawable.happy))
-                    add(DashboardItem("2월", "1234", R.drawable.bored))
-                }
-                dashboardViewModel.items.postValue(temp)
-
-
-
                 dialog.dismiss()
                 dialog.cancel()
             }
@@ -158,5 +163,46 @@ class DashboardFragment : Fragment() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun loadData(view: View) {
+        val header = mutableMapOf<String, String?>()
+        header["Content-type"] = "application/json; charset=UTF-8"
+        header["Authorization"] = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImhhaWxleWhpMTRAZ21haWwuY29tIiwiZXhwIjoxNjM2NTkwNjg5fQ.jCFGuLtsOwKNNJ601IeO8ueXke5GMOmpF5TfUkztjvU"
+        //"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImlkIiwiZXhwIjoxNjM2NTk2NzE4fQ.JOb447DOeSlRpa-NNF_KRg5NylfuKorzni8evoQimvo"//sharedPref.getString("token", "token")
+
+        if (header["Authorization"] == "token") {
+
+        } else {
+            service.requestGetDiaries(header = header).enqueue(
+                onSuccess = {
+                    when (it.code()) {
+                        in 200..299 -> {
+                            // 성공 처리
+                            Log.d("통신 성공", it.body()!!.data[0].content)
+                            diaryData.clear()
+                            diaryData.addAll(it.body()!!.data)
+                            dashboardViewModel.items.postValue(diaryData)
+                        }
+                        400 -> {
+                            // 400 처리
+                        }
+                        else -> {
+
+                        }
+                    }
+                },
+                onError = {
+                },
+                onFail = {
+                }
+
+            )
+        }
+
+    }
+
+    private fun init(view: View) {
+        loadData(view)
     }
 }
