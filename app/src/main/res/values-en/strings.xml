@@ -26,7 +26,7 @@
     <string name="certification">certification</string>
     <string name="cert">cert</string>
     <string name="signup_val1">nickname 2~8 plz</string>
-    <string name="signup_val2">one more number and special character plz</string>
+    <string name="signup_val2">password and password confirm are same same</string>
     <string name="signup_val3">password 8~16 plz</string>
     <string name="signin">SignIn</string>
     <string name="find_password">Forgot password?</string>

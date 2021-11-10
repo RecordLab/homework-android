@@ -24,7 +24,7 @@
     <string name="certification">인증번호</string>
     <string name="cert">인증</string>
     <string name="signup_val1">닉네임은 2자~8자 이내여야 합니다</string>
-    <string name="signup_val2">비밀번호는 최소 1개 이상의 숫자와 특수문자를 포함해야 합니다</string>
+    <string name="signup_val2">비밀번호와 비밀번호 확인이 같아야 합니다</string>
     <string name="signup_val3">비밀번호는 8자~16자 이내여야 합니다</string>
     <string name="signin">로그인</string>
     <string name="find_password">비밀번호를 잊어버렸어요</string>
