@@ -48,7 +48,7 @@
             android:name=".ui.profile.ProfileLockActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.profile.ProfileNoticeActivity"
+            android:name=".ui.profile.notice.ProfileNoticeActivity"
             android:exported="false" />
         <activity
             android:name=".ui.profile.ProfileAccountActivity"
