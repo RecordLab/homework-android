@@ -1,5 +1,7 @@
 package com.recordlab.dailyscoop.ui.dashboard
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,6 +9,7 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.recordlab.dailyscoop.R
+import com.recordlab.dailyscoop.ui.diary.DiaryDetailActivity
 import com.recordlab.dailyscoop.data.DiaryData
 
 class DashboardGridAdapter(private val items: List<DiaryData>) :
@@ -31,6 +34,13 @@ class DashboardGridAdapter(private val items: List<DiaryData>) :
             fun bind(item: DiaryData) {
                 val img = view.findViewById<ImageView>(R.id.iv_grid_diary)
                 Glide.with(itemView).load(item.image).into(img)
+
+                itemView.setOnClickListener {
+                    val intent = Intent(itemView.context, DiaryDetailActivity::class.java)
+                    // 임시 하드코딩
+                    intent.putExtra("diaryDate", "2021-11-08")
+                    itemView.context.startActivity(intent)
+                }
             }
         }
 

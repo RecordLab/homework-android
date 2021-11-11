@@ -1,6 +1,5 @@
 package com.recordlab.dailyscoop.ui.home.diary
 
-import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -20,8 +19,6 @@ import com.bumptech.glide.Glide
 import com.recordlab.dailyscoop.R
 import com.recordlab.dailyscoop.data.TimeToString
 import com.recordlab.dailyscoop.databinding.ActivityDiaryWriteBinding
-import java.text.DateFormat
-import java.text.SimpleDateFormat
 import java.util.*
 
 class DiaryWriteActivity: AppCompatActivity(), View.OnClickListener {
@@ -99,30 +96,30 @@ class DiaryWriteActivity: AppCompatActivity(), View.OnClickListener {
                 getContent.launch(intent)
             }
             R.id.chip_paper_white -> {
-                Glide.with(backgroundLayout).load(R.drawable.paper_texture_1).into(backgroundImage)
+                Glide.with(backgroundLayout).load(R.drawable.theme_paper_white).into(backgroundImage)
                 setTextColor(0)
             }
             R.id.chip_paper_ivory -> {
-                Glide.with(backgroundLayout).load(R.drawable.paper_texture_2).into(backgroundImage)
+                Glide.with(backgroundLayout).load(R.drawable.theme_paper_ivory).into(backgroundImage)
                 setTextColor(0)
             }
             R.id.chip_paper_black -> {
-                Glide.with(backgroundLayout).load(R.drawable.annie_unsplash_black_paper).into(backgroundImage)
+                Glide.with(backgroundLayout).load(R.drawable.theme_paper_black).into(backgroundImage)
                 Log.d(DW_DEBUG_TAG, "paper black chosen")
                 setTextColor(1)
             }
             R.id.chip_window -> {
-                Glide.with(backgroundLayout).load(R.drawable.kevin_unsplash_window).into(backgroundImage)
+                Glide.with(backgroundLayout).load(R.drawable.theme_window).into(backgroundImage)
                 setTextColor(1)
                 Log.d(DW_DEBUG_TAG, "window chosen")
             }
             R.id.chip_sky_day -> {
-                Glide.with(backgroundLayout).load(R.drawable.sky_with_moon).into(backgroundImage)
+                Glide.with(backgroundLayout).load(R.drawable.theme_sky_day).into(backgroundImage)
                 setTextColor(0)
                 Log.d(DW_DEBUG_TAG, "sky day chosen")
             }
             R.id.chip_sky_night -> {
-                Glide.with(backgroundLayout).load(R.drawable.night_sky).into(backgroundImage)
+                Glide.with(backgroundLayout).load(R.drawable.theme_sky_night).into(backgroundImage)
                 setTextColor(1)
                 Log.d(DW_DEBUG_TAG, "sky night chosen")
             }

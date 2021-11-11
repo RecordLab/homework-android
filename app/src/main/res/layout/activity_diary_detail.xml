@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+    android:id="@+id/diaryBg"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -34,7 +35,6 @@
             android:layout_weight="1"
             android:fontFamily="@font/spoqa_han_sans_neo_regular"
             android:gravity="center"
-            android:text="10월 14일 목요일"
             android:textColor="@color/white"
             android:textSize="16sp" />
 
@@ -52,7 +52,7 @@
             android:layout_gravity="center"/>
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/diaryImg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scaleType="fitXY"
@@ -63,7 +63,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:text="\n시간이 다가옴을 느꼈다.\n\n짧았던 가을이 지나고 겨울이 찾아오고 있었다.\n나무들도 빠르게 붉은 옷으로 갈아입기 시작했다.\n\n해가 갈수록 시간은 점점 더 빨라져만 간다.\n\n시간이 다가옴을 느꼈다.\n\n짧았던 가을이 지나고 겨울이 찾아오고 있었다.\n나무들도 빠르게 붉은 옷으로 갈아입기 시작했다.\n\n해가 갈수록 시간은 점점 더 빨라져만 간다.\n\n시간이 다가옴을 느꼈다.\n\n짧았던 가을이 지나고 겨울이 찾아오고 있었다.\n나무들도 빠르게 붉은 옷으로 갈아입기 시작했다.\n\n해가 갈수록 시간은 점점 더 빨라져만 간다.\n\n시간이 다가옴을 느꼈다.\n\n짧았던 가을이 지나고 겨울이 찾아오고 있었다.\n나무들도 빠르게 붉은 옷으로 갈아입기 시작했다.\n\n해가 갈수록 시간은 점점 더 빨라져만 간다."
+                android:id="@+id/diaryContent"
                 android:textColor="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

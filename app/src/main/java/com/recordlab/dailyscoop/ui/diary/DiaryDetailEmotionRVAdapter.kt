@@ -8,13 +8,14 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.recordlab.dailyscoop.R
 
-class DiaryDetailEmotionRVAdapter(val emotions : ArrayList<String>) : RecyclerView.Adapter<DiaryDetailEmotionRVAdapter.Viewholder>() {
+class DiaryDetailEmotionRVAdapter(val emotions : List<String>) : RecyclerView.Adapter<DiaryDetailEmotionRVAdapter.Viewholder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DiaryDetailEmotionRVAdapter.Viewholder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.rv_diary_emotion, parent, false)
         return Viewholder(v)
     }
 
     override fun onBindViewHolder(holder: DiaryDetailEmotionRVAdapter.Viewholder, position: Int) {
+        Log.d("DiaryDetailEmotionRVAdapter", emotions.toString())
         holder.bindEmotions(emotions[position])
     }
 
