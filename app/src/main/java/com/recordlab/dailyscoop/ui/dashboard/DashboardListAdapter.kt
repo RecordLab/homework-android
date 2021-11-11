@@ -1,5 +1,6 @@
 package com.recordlab.dailyscoop.ui.dashboard
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.recordlab.dailyscoop.R
 import com.recordlab.dailyscoop.data.DiaryData
 import com.recordlab.dailyscoop.data.TimeToString
+import com.recordlab.dailyscoop.ui.diary.DiaryDetailActivity
 
 class DashboardListAdapter(private val items: List<DiaryData>) :
     RecyclerView.Adapter<DashboardListAdapter.ViewHolder>() {
@@ -43,6 +45,12 @@ class DashboardListAdapter(private val items: List<DiaryData>) :
                 date.text = TimeToString().convert(item.date)
                 content.text = item.content
                 Glide.with(itemView).load(item.image).transform(CenterCrop(), RoundedCorners(16)).into(img)
+
+                itemView.setOnClickListener {
+                    val intent = Intent(itemView.context, DiaryDetailActivity::class.java)
+                    intent.putExtra("diaryDate", item.date.toString().substring(0, 10))
+                    itemView.context.startActivity(intent)
+                }
             }
         }
     }

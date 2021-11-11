@@ -64,6 +64,9 @@ class DiaryDetailEmotionRVAdapter(val emotions : List<String>) : RecyclerView.Ad
                 "tired" -> {
                     imageView.setImageResource(R.drawable.tired_small)
                 }
+                "sound" -> {
+                    imageView.setImageResource(R.drawable.sound_small)
+                }
             }
         }
     }

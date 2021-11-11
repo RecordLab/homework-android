@@ -2,6 +2,7 @@ package com.recordlab.dailyscoop.ui.dashboard
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,8 +38,7 @@ class DashboardGridAdapter(private val items: List<DiaryData>) :
 
                 itemView.setOnClickListener {
                     val intent = Intent(itemView.context, DiaryDetailActivity::class.java)
-                    // 임시 하드코딩
-                    intent.putExtra("diaryDate", "2021-11-08")
+                    intent.putExtra("diaryDate", item.date.toString().substring(0, 10))
                     itemView.context.startActivity(intent)
                 }
             }
