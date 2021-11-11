@@ -1,6 +1,7 @@
 package com.recordlab.dailyscoop.ui.diary
 
 import android.content.Context
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -11,6 +12,7 @@ import com.recordlab.dailyscoop.R
 import com.recordlab.dailyscoop.databinding.ActivityDiaryDetailBinding
 import com.recordlab.dailyscoop.network.RetrofitClient.service
 import com.recordlab.dailyscoop.network.enqueue
+import java.util.*
 
 class DiaryDetailActivity : AppCompatActivity() {
 
@@ -33,6 +35,10 @@ class DiaryDetailActivity : AppCompatActivity() {
         val rv : RecyclerView = findViewById(R.id.rv)
         rv.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         rv.adapter = rvAdapter
+
+        binding.backBtn.setOnClickListener {
+            finish()
+        }
     }
 
     private fun getDiary(binding: ActivityDiaryDetailBinding) {
@@ -49,8 +55,39 @@ class DiaryDetailActivity : AppCompatActivity() {
 
                         binding.diaryContent.text = "\n${res?.content.toString()}\n"
                         Glide.with(this).load(res?.image).into(binding.diaryImg)
+
                         val datetime = res?.date.toString()
-                        binding.dateHeader.text = "${datetime.substring(5, 7)}월 ${datetime.substring(8, 10)}일 요일"
+                        val year = datetime.substring(0, 4).toInt()
+                        val month = datetime.substring(5, 7)
+                        val day = datetime.substring(8, 10)
+                        val date = Calendar.getInstance()
+                        date.set(year, month.toInt()-1, day.toInt())
+                        var dayOfWeek = ""
+                        when (date.get(Calendar.DAY_OF_WEEK)) {
+                            1 -> {
+                                dayOfWeek = "일"
+                            }
+                            2 -> {
+                                dayOfWeek = "월"
+                            }
+                            3 -> {
+                                dayOfWeek = "화"
+                            }
+                            4 -> {
+                                dayOfWeek = "수"
+                            }
+                            5 -> {
+                                dayOfWeek = "목"
+                            }
+                            6 -> {
+                                dayOfWeek = "금"
+                            }
+                            7 -> {
+                                dayOfWeek = "토"
+                            }
+                        }
+                        binding.dateHeader.text = "${month.toString()}월 ${day.toString()}일 ${dayOfWeek}요일"
+
                         emotions.addAll(res?.emotions!!)
                         setTheme(binding, res?.theme)
 
