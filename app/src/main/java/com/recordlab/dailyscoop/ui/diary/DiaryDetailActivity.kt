@@ -5,6 +5,8 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import androidx.activity.addCallback
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -39,6 +41,26 @@ class DiaryDetailActivity : AppCompatActivity() {
         binding.backBtn.setOnClickListener {
             finish()
         }
+
+        // 사진 클릭 시 전체화면 기능
+       var imgFull = false
+        binding.diaryImg.setOnClickListener {
+            binding.diaryImgFullLayout.visibility = View.VISIBLE
+            imgFull = true
+        }
+        binding.diaryImgFullBackBtn.setOnClickListener {
+            binding.diaryImgFullLayout.visibility = View.INVISIBLE
+            imgFull = false
+        }
+        // 뒤로가기 버튼 누를 시 finish()가 아닌 사진 전체화면 닫기
+        onBackPressedDispatcher.addCallback(this) {
+            if (imgFull) {
+                binding.diaryImgFullLayout.visibility = View.INVISIBLE
+                imgFull = false
+            } else {
+                finish()
+            }
+        }
     }
 
     private fun getDiary(binding: ActivityDiaryDetailBinding) {
@@ -55,6 +77,7 @@ class DiaryDetailActivity : AppCompatActivity() {
 
                         binding.diaryContent.text = "\n${res?.content.toString()}\n"
                         Glide.with(this).load(res?.image).into(binding.diaryImg)
+                        Glide.with(this).load(res?.image).into(binding.diaryImgFull)
 
                         val datetime = res?.date.toString()
                         val year = datetime.substring(0, 4).toInt()
