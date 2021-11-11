@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -11,12 +12,15 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.recordlab.dailyscoop.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.recordlab.dailyscoop.ui.SettingActivity
+import com.recordlab.dailyscoop.ui.auth.SignInActivity
 import com.recordlab.dailyscoop.ui.profile.ProfileFriendActivity
+import com.recordlab.dailyscoop.ui.profile.SignOutDialogInterface
 import com.recordlab.dailyscoop.ui.profile.lock.AppLock
 import com.recordlab.dailyscoop.ui.profile.lock.AppLockConst
 import com.recordlab.dailyscoop.ui.profile.lock.AppPasswordActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), SignOutDialogInterface {
     var lock = true
 
     private lateinit var binding: ActivityMainBinding
@@ -86,6 +90,24 @@ class MainActivity : AppCompatActivity() {
 
     private fun init() {
         lock = if (AppLock(this).isPassLockSet()) true else false
+    }
+
+    // 로그아웃 다이얼로그 확인 버튼 클릭
+    override fun okBtnClicked() {
+        Toast.makeText(this, "로그아웃 되었습니다", Toast.LENGTH_SHORT).show()
+
+        // 토큰 제거
+        val pref = getSharedPreferences("TOKEN", 0)
+        val edit = pref.edit() // 수정모드(추가, 수정)
+        edit.remove("token") // key, value
+        edit.apply() // 저장 완료
+        //val to = pref.getString("token","없음")
+        //Toast.makeText(this, "토큰 : $to", Toast.LENGTH_SHORT).show()
+
+        // 로그인 액티비티로 이동
+        val intent = Intent(this, SignInActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
 }

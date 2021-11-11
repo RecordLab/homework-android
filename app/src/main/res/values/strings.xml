@@ -63,5 +63,6 @@
     <string name="splash">하루 한 장\n하루 한 스쿱</string>
     <string name="splash_content_description">아이스크림 트럭</string>
     <string name="et_input_hint">내용을 입력해주세요</string>
+    <string name="dialog_sign_out_message">로그아웃 하시겠습니까?</string>
 
 </resources>

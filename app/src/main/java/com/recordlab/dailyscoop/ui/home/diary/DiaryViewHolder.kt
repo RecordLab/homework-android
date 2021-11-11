@@ -12,14 +12,12 @@ import kotlin.properties.Delegates
 
 class DiaryViewHolder(itemView: View, val itemClick: (DiaryData, View) -> Unit) :
     RecyclerView.ViewHolder(itemView) {
-    var diaryIdx by Delegates.notNull<Int>()
     var diaryText = itemView.findViewById<TextView>(R.id.tv_main_diary_title)
     var diaryDate = itemView.findViewById<TextView>(R.id.tv_main_diary_date)
     var diaryImage = itemView.findViewById<ImageView>(R.id.iv_main_diary)
 
     /* bind diary image, preview and date*/
     fun bind(data: DiaryData) {
-        diaryIdx = data.id
         if (data.image != null) {
             Glide.with(itemView)
                 .load(data.image)
@@ -36,7 +34,7 @@ class DiaryViewHolder(itemView: View, val itemClick: (DiaryData, View) -> Unit) 
         } else {
             diaryText.text = data.content
         }
-        diaryDate.text = TimeToString().convert(data.writeDay)
+        diaryDate.text = TimeToString().convert(data.date)
         itemView.setOnClickListener { itemClick(data, itemView) }
     }
 }
