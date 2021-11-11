@@ -12,6 +12,7 @@ class TimeToString {
     fun convert(date: Date, mode: Int): String {
         val format1= SimpleDateFormat("yy-MM-dd")
         val format2= SimpleDateFormat("yy.MM.dd")
+        val format3= SimpleDateFormat("yyyy-MM-dd")
         when(mode){
             0 -> {
                 return format1.format(date)
@@ -19,7 +20,11 @@ class TimeToString {
             1 -> {
                 return format2.format(date)
             }
+            2 -> {
+                return format3.format(date)
+            }
         }
         return format1.format(date)
     }
+
 }

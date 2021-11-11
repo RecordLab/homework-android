@@ -63,5 +63,6 @@
     <string name="splash">하루 한 장\n하루 한 스쿱</string>
     <string name="splash_content_description">아이스크림 트럭</string>
     <string name="et_input_hint">내용을 입력해주세요</string>
-
+    <string name="checkout_these_diaries">최근 작성한 일기 보러가기</string>
+    <string name="toast_emotion_limit_3">감정은 최대 세 개까지 선택할 수 있어요.</string>
 </resources>

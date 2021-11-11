@@ -16,6 +16,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
+import com.applikeysolutions.cosmocalendar.dialog.OnDaysSelectionListener
 import com.applikeysolutions.cosmocalendar.listeners.OnMonthChangeListener
 import com.applikeysolutions.cosmocalendar.model.Month
 import com.applikeysolutions.cosmocalendar.selection.SingleSelectionManager
@@ -36,6 +37,12 @@ import com.recordlab.dailyscoop.ui.home.widget.QuotationFragment
 import com.recordlab.dailyscoop.ui.search.SearchResultActivity
 import java.sql.Timestamp
 import java.util.*
+import com.applikeysolutions.cosmocalendar.selection.OnDaySelectedListener
+
+import com.applikeysolutions.cosmocalendar.selection.RangeSelectionManager
+
+
+
 
 
 private const val NUM_WIDGET = 2
@@ -85,8 +92,17 @@ class HomeFragment : Fragment(), View.OnClickListener {
             with(sharedPref.edit()) {
                 putString(
                     "token",
-                    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImhhaWxleWhpMTRAZ21haWwuY29tIiwiZXhwIjoxNjM2NTkwNjg5fQ.jCFGuLtsOwKNNJ601IeO8ueXke5GMOmpF5TfUkztjvU"
+                    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImhhaWxleWhpMTRAZ21haWwuY29tIiwiZXhwIjoxNjM2ODUyMDI1fQ.8LPeWC8OMM80q-lipCe0eIiMgV-8O-8qYmFAOkuvLW8"
                 )
+                commit()
+            }
+        }else { // 로그인 붙이고 이 부분 지우기.
+            with(sharedPref.edit()) {
+                putString(
+                    "token",
+                    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImhhaWxleWhpMTRAZ21haWwuY29tIiwiZXhwIjoxNjM2ODUyMDI1fQ.8LPeWC8OMM80q-lipCe0eIiMgV-8O-8qYmFAOkuvLW8"
+                )
+                apply()
                 commit()
             }
         }
@@ -122,50 +138,18 @@ class HomeFragment : Fragment(), View.OnClickListener {
 
             override fun onMonthChanged(month: Month?) {
                 Log.d(DEBUG_TAG, "Month: ${month.toString()}")
+                // connected 일기 날짜
             }
         })
 
-        calendarView.selectedDays
-        /*calendarView.selectionManager(SingleSelectionManager {
-            var result =
-                SimpleDateFormat("yyyy - MM - dd").format(calendarView.selectedDays.get(0).calendar.time) + "\n"
-        }*/
-        /*fab.setOnClickListener {
-            if (calendarView.selectionManager is RangeSelectionManager) {
-                val selectionManager: RangeSelectionManager =
-                    calendarView.selectionManager as RangeSelectionManager
-                if (selectionManager.days != null) {
-                    var day = selectionManager.days.first
-                    selectedDate = day.calendar
-                    Log.d(
-                        DEBUG_TAG,
-                        "day 타입 스트링 ${day.toString()} calendar 타입으로 : ${selectedDate.time}"
-                    )
-
-                }
-            }
-        }*/
-
-
-        /*calendarView.selectionManager(SingleSelectionManager {
-            var result = SimpleDateFormat("yyyy - MM - dd").format(calendarView.selectedDays.get(0).calendar.time) + "\n"
-            Toast.makeText(requireContext(), result, Toast.LENGTH_SHORT).show()
-            Log.d(DEBUG_TAG, "호이!!!!! $result")
-        })
-
-
-
-        monthTextView.setOnClickListener {
-            val customDialog =
-                DialogYearMonth(requireContext())
-            customDialog.init()
-            customDialog.setOnClickListener(object : DialogYearMonth.DialogOKClickedListener{
-                override fun onOKClicked(content: Boolean, year: Int, month: Int) {
-                    yearTextView.text = "$year"
-                    monthTextView.text = "${month}"
-                }
-            })
-        }*/
+        calendarView.selectionManager = SingleSelectionManager {
+            // if selected day has its own diary record -> send to diary detail activity
+            Log.d(DEBUG_TAG, "${calendarView.selectedDays[0].calendar.get(Calendar.YEAR)}-" +
+                    "${calendarView.selectedDays[0].calendar.get(Calendar.MONTH) + 1}-" +
+                    "${calendarView.selectedDays[0].calendar.get(Calendar.DAY_OF_MONTH)}"
+            )
+            Log.d(DEBUG_TAG, ">> 시간은 이렇게 표시된다. ${TimeToString().convert(calendarView.selectedDays[0].calendar.time, 2)}")
+        }
 
         btnMore.setOnClickListener {
             Log.d(DEBUG_TAG, "더보기 클릭")
