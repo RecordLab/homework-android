@@ -3,10 +3,7 @@ package com.recordlab.dailyscoop.network
 import com.recordlab.dailyscoop.network.request.RequestSignIn
 import com.recordlab.dailyscoop.network.request.RequestSignup
 import com.recordlab.dailyscoop.network.request.RequestWriteDiary
-import com.recordlab.dailyscoop.network.response.ResponseDiaryList
-import com.recordlab.dailyscoop.network.response.ResponseWriteDiary
-import com.recordlab.dailyscoop.network.response.TokenData
-import com.recordlab.dailyscoop.network.response.UserInfoData
+import com.recordlab.dailyscoop.network.response.*
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -33,5 +30,5 @@ public interface RequestService {
     fun requestGetDiaryDetail(
         @HeaderMap header: Map<String, String?>,
         @Path("diaryDate") date: String
-    ): Call<ResponseDiaryList>
+    ): Call<ResponseDiaryDetail>
 }
