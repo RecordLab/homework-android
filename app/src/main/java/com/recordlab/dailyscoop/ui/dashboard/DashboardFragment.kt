@@ -3,6 +3,7 @@ package com.recordlab.dailyscoop.ui.dashboard
 import android.content.Intent
 import android.view.*
 import android.app.AlertDialog
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -55,8 +56,6 @@ class DashboardFragment : Fragment() {
 //            textView.text = it
 //        })
 
-        init(root)
-
         setHasOptionsMenu(true) // 앱 바 작업 버튼 추가하기.
 
         // RecyclerView
@@ -91,6 +90,8 @@ class DashboardFragment : Fragment() {
         var nowYear = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy"))
         var nowMonth = LocalDate.now().format(DateTimeFormatter.ofPattern("MM"))
         selectedDate.text = "$nowYear.$nowMonth"
+
+        loadData(root, "$nowYear-$nowMonth-01")
 
         // 모아보기 날짜 변경
         val datePickBtn = root.findViewById<View>(R.id.iv_nav_gallery_calender)
@@ -137,6 +138,8 @@ class DashboardFragment : Fragment() {
                 nowMonth = if (month.value < 10) "0${month.value}" else month.value.toString()
                 selectedDate.text = "$nowYear.$nowMonth"
 
+                loadData(root, "$nowYear-$nowMonth-01")
+
                 // 날짜 변경 후 데이터 새로고침
                 dialog.dismiss()
                 dialog.cancel()
@@ -165,21 +168,21 @@ class DashboardFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun loadData(view: View) {
+    private fun loadData(view: View, date: String) {
         val header = mutableMapOf<String, String?>()
         header["Content-type"] = "application/json; charset=UTF-8"
-        header["Authorization"] = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImhhaWxleWhpMTRAZ21haWwuY29tIiwiZXhwIjoxNjM2NTkwNjg5fQ.jCFGuLtsOwKNNJ601IeO8ueXke5GMOmpF5TfUkztjvU"
+        header["Authorization"] = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImhhaWxleWhpMTRAZ21haWwuY29tIiwiZXhwIjoxNjM2ODUyMDI1fQ.8LPeWC8OMM80q-lipCe0eIiMgV-8O-8qYmFAOkuvLW8"
         //"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImlkIiwiZXhwIjoxNjM2NTk2NzE4fQ.JOb447DOeSlRpa-NNF_KRg5NylfuKorzni8evoQimvo"//sharedPref.getString("token", "token")
 
         if (header["Authorization"] == "token") {
 
         } else {
-            service.requestGetDiaries(header = header).enqueue(
+            service.requestGetCalendar(header = header, date = date, type = "monthly").enqueue(
                 onSuccess = {
                     when (it.code()) {
                         in 200..299 -> {
                             // 성공 처리
-                            Log.d("통신 성공", it.body()!!.data[0].content)
+//                            Log.d("통신 성공", it.body()!!.data[0].content)
                             diaryData.clear()
                             diaryData.addAll(it.body()!!.data)
                             dashboardViewModel.items.postValue(diaryData)
@@ -202,7 +205,4 @@ class DashboardFragment : Fragment() {
 
     }
 
-    private fun init(view: View) {
-        loadData(view)
-    }
 }

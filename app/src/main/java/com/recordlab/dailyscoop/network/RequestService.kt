@@ -34,4 +34,11 @@ public interface RequestService {
         @HeaderMap header: Map<String, String?>,
         @Path("diaryDate") date: String
     ): Call<ResponseDiaryList>
+
+    @GET("/api/diaries/calendar")
+    fun requestGetCalendar(
+        @HeaderMap header: Map<String, String?>,
+        @Query("date") date: String,
+        @Query("type") type: String
+    ) : Call<ResponseDiaryList>
 }
