@@ -42,7 +42,7 @@
             android:name=".ui.profile.ProfileAccountEmailActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.profile.ProfileDdayActivity"
+            android:name=".ui.profile.day.ProfileDdayActivity"
             android:exported="false" />
         <activity
             android:name=".ui.profile.ProfileLockActivity"

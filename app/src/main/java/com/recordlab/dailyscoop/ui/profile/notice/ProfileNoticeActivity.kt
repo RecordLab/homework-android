@@ -24,19 +24,17 @@ class ProfileNoticeActivity : AppCompatActivity(), ProfileNoticeDialogInterface 
         // 현재 알람 설정 상태 확인
         loadNoticeData()
 
+        // 스위치 변경 리스너
         val switch = binding.switch1
-        // val switchValue = switch.isSelected // 현재 상태
         switch.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener{
             override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
                 isNoticeOn = if(isChecked){
                     // off -> on
-                    Toast.makeText(applicationContext,"off -> on", Toast.LENGTH_SHORT).show()
                     binding.textView4.setTextColor(getColor(R.color.default_textview))
                     binding.textView14.setTextColor(getColor(R.color.default_textview))
                     true
                 }else{
                     // on -> off
-                    Toast.makeText(applicationContext,"on -> off", Toast.LENGTH_SHORT).show()
                     binding.textView4.setTextColor(getColor(R.color.disableGray))
                     binding.textView14.setTextColor(getColor(R.color.disableGray))
                     false
@@ -60,9 +58,10 @@ class ProfileNoticeActivity : AppCompatActivity(), ProfileNoticeDialogInterface 
     // 현재 알림 설정 상태 불러오기
     private fun loadNoticeData() {
         val pref = getSharedPreferences("com.example.DailyScoop.PREFERENCE_FILE_KEY", 0)
-
+        // 스위치 on/off
         isNoticeOn = pref.getBoolean("noticeStatus", false)
         binding.switch1.isChecked = isNoticeOn
+        // on/off 따른 텍스트 색상 변경
         if(isNoticeOn) {
             binding.textView4.setTextColor(getColor(R.color.default_textview))
             binding.textView14.setTextColor(getColor(R.color.default_textview))
@@ -71,18 +70,17 @@ class ProfileNoticeActivity : AppCompatActivity(), ProfileNoticeDialogInterface 
             binding.textView4.setTextColor(getColor(R.color.disableGray))
             binding.textView14.setTextColor(getColor(R.color.disableGray))
         }
-
+        // 저장된 알림 시간으로 변경
         val hour = pref.getInt("noticeHour", 23)
         val minute = pref.getInt("noticeMinute", 0)
-
         binding.textView4.text = getString(R.string.month_picker_formatter, hour).plus(":").plus(getString(R.string.month_picker_formatter, minute))
-
     }
 
     // 알림 시간 설정
     private fun timePick() {
         if(!isNoticeOn) return
 
+        // 알림 시간 고르는 다이얼로그
         val noticeDialog = ProfileNoticeDialog(this, this)
         noticeDialog.show()
     }
@@ -99,15 +97,14 @@ class ProfileNoticeActivity : AppCompatActivity(), ProfileNoticeDialogInterface 
     }
 
     override fun dialogOkBtnClicked(hour:Int, minute:Int) {
-        // 알림 시간 저장
-        Log.d("notice", "notice Activity")
+        // 알림 시간
         val pref = getSharedPreferences("com.example.DailyScoop.PREFERENCE_FILE_KEY", 0)
         val edit = pref.edit()
         edit.putInt("noticeHour", hour)
         edit.putInt("noticeMinute", minute)
         edit.apply()
 
+        // 설정한 시간으로 변경
         binding.textView4.text = getString(R.string.month_picker_formatter, hour).plus(":").plus(getString(R.string.month_picker_formatter, minute))
-
     }
 }

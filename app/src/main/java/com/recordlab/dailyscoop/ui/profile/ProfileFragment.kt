@@ -20,6 +20,7 @@ import com.recordlab.dailyscoop.MainActivity
 import com.recordlab.dailyscoop.R
 import com.recordlab.dailyscoop.databinding.FragmentProfileBinding
 import com.recordlab.dailyscoop.ui.SettingActivity
+import com.recordlab.dailyscoop.ui.profile.day.ProfileDdayActivity
 import com.recordlab.dailyscoop.ui.profile.notice.ProfileNoticeActivity
 
 class ProfileFragment : Fragment() {
