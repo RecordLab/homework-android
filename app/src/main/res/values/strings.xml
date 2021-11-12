@@ -46,7 +46,6 @@
     <string name="certification">인증번호</string>
     <string name="cert">인증</string>
     <string name="signup_val1">닉네임은 2자~8자 이내여야 합니다</string>
-    <string name="signup_val2">비밀번호는 최소 1개 이상의 숫자와 특수문자를 포함해야 합니다</string>
     <string name="signup_val3">비밀번호는 8자~16자 이내여야 합니다</string>
     <string name="signin">로그인</string>
     <string name="find_password">비밀번호를 잊어버렸어요</string>
@@ -65,4 +64,9 @@
     <string name="checkout_these_diaries">최근 작성한 일기 보러가기</string>
     <string name="toast_emotion_limit_3">감정은 최대 세 개까지 선택할 수 있어요.</string>
     <string name="dialog_sign_out_message">로그아웃 하시겠습니까?</string>
+    <string name="signup_val2">비밀번호와 비밀번호 확인이 같아야 합니다</string>
+    <string name="dialog_time_pick_title">알림 시간 설정</string>
+    <string name="dialog_dday_title">날짜를 선택하세요</string>
+    <string name="lorem">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</string>
+
 </resources>

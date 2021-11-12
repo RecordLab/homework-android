@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import com.recordlab.dailyscoop.R
 import com.recordlab.dailyscoop.ui.auth.SignInActivity
@@ -15,6 +16,8 @@ class ProfileAccountActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile_account)
+
+        loadData()
 
         val emailBtnClicked = findViewById<View>(R.id.bg4)
         emailBtnClicked.setOnClickListener{
@@ -60,5 +63,11 @@ class ProfileAccountActivity : AppCompatActivity() {
             finish()
         }
 
+    }
+
+    private fun loadData() {
+        val pref = getSharedPreferences("TOKEN", 0)
+        findViewById<TextView>(R.id.textView).text = pref.getString("email", "error")
+        findViewById<TextView>(R.id.textView2).text = pref.getString("nickname", "error")
     }
 }

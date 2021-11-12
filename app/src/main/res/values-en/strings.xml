@@ -26,7 +26,7 @@
     <string name="certification">certification</string>
     <string name="cert">cert</string>
     <string name="signup_val1">nickname 2~8 plz</string>
-    <string name="signup_val2">one more number and special character plz</string>
+    <string name="signup_val2">password and password confirm are same same</string>
     <string name="signup_val3">password 8~16 plz</string>
     <string name="signin">SignIn</string>
     <string name="find_password">Forgot password?</string>
@@ -63,4 +63,7 @@
     <string name="checkout_these_diaries">New Releases</string>
     <string name="toast_emotion_limit_3">Maximum choice must be under 3.</string>
     <string name="dialog_sign_out_message">Sign Out</string>
+    <string name="dialog_time_pick_title">Ding Dong Time</string>
+    <string name="dialog_dday_title">Choose day</string>
+    <string name="lorem">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</string>
 </resources>

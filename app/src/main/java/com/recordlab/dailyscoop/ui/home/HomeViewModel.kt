@@ -14,7 +14,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     private lateinit var repository: Repository
     private lateinit var header : Map<String, String?>
 
-    private var diaryData: MutableLiveData<List<DiaryData>>? = null
+    var diaryData = MutableLiveData<List<DiaryData>>()
     private val _text = MutableLiveData<String>().apply {
         value = R.string.checkout_these_diaries.toString()
     }
@@ -25,10 +25,10 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         repository = Repository(getApplication(), header)
     }
 
-    fun getDiaryData(): MutableLiveData<List<DiaryData>> {
+    /*fun getDiaryData(): MutableLiveData<List<DiaryData>> {
         diaryData = repository.getDiaryData()
         return diaryData as MutableLiveData<List<DiaryData>>
-    }
+    }*/
 
 
 }

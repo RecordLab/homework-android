@@ -16,7 +16,7 @@ interface RequestService {
 
     // 로그인
     @POST("/api/login")
-    fun requestSingin(@Body body: RequestSignIn): Call<UserInfoData> //Call<ResponseSignin>
+    fun requestSignIn(@Body body: RequestSignIn): Call<UserInfoData> //Call<ResponseSignin>
 
     // 일기 작성
     @POST("/diaries")
