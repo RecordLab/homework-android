@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.provider.MediaStore
 import android.text.Editable
@@ -18,15 +19,20 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
-import androidx.core.view.get
 import com.bumptech.glide.Glide
 import com.recordlab.dailyscoop.R
-import com.recordlab.dailyscoop.data.TimeToString
 import com.recordlab.dailyscoop.databinding.ActivityDiaryWriteBinding
 import com.recordlab.dailyscoop.network.RetrofitClient
 import com.recordlab.dailyscoop.network.enqueue
 import com.recordlab.dailyscoop.network.request.RequestWriteDiary
+import com.recordlab.dailyscoop.ui.diary.DiaryDetailActivity
 import java.util.*
+import kotlin.collections.List
+import kotlin.collections.arrayListOf
+import kotlin.collections.mutableListOf
+import kotlin.collections.mutableMapOf
+import kotlin.collections.set
+
 
 class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: ActivityDiaryWriteBinding
@@ -65,8 +71,9 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
             writeDate = intent.getStringExtra("date")
         }
         sharedPref = getSharedPreferences("TOKEN", Context.MODE_PRIVATE)
-        header["Content-type"] = "application/json; charset=UTF-8"
+        header["Content-type"] = "application/json"
         header["Authorization"] = sharedPref.getString("token", "token")
+        Log.d(DW_DEBUG_TAG, "토큰 값 : ${header["Authorization"]}")
         val image = findViewById<ImageView>(R.id.iv_write_diary)
         val toolbar = binding.tbDiaryWrite.toolbar
         toolbar.background.alpha = 0
@@ -221,6 +228,7 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
                         emotionWarning()
                     }
                 }
+                saveButtonCheck()
             }
         })
 
@@ -237,6 +245,7 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
                         emotionWarning()
                     }
                 }
+                saveButtonCheck()
             }
         })
 
@@ -253,7 +262,7 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
                         emotionWarning()
                     }
                 }
-
+                saveButtonCheck()
             }
         })
 
@@ -270,7 +279,7 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
                         emotionWarning()
                     }
                 }
-
+                saveButtonCheck()
             }
         })
 
@@ -287,7 +296,7 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
                         emotionWarning()
                     }
                 }
-
+                saveButtonCheck()
             }
         })
 
@@ -304,6 +313,7 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
                         emotionWarning()
                     }
                 }
+                saveButtonCheck()
             }
         })
 
@@ -320,7 +330,7 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
                         emotionWarning()
                     }
                 }
-
+                saveButtonCheck()
             }
         })
 
@@ -337,6 +347,7 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
                         emotionWarning()
                     }
                 }
+                saveButtonCheck()
             }
         })
 
@@ -364,8 +375,10 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
     private fun saveButtonCheck() {
         if (emotionCnt > 0 && binding.etWriteDiary.length() > 0){
             // 작성 버튼 활성화하기.
+            binding.btnSave.isEnabled = true
         } else {
             // 작성 버튼 비활성화
+            binding.btnSave.isEnabled = false
         }
     }
 
@@ -377,6 +390,9 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
         binding.emotionSad.isActivated = false
         binding.emotionHappy.isActivated = false
         binding.emotionJoy.isActivated = false
+        binding.emotionHappy.isActivated = true
+        binding.emotionJoy.isActivated = true
+        binding.emotionTired.isActivated = true
         binding.emotionTired.isActivated = false
         binding.emotionSad.isActivated = false
         binding.emotionSound.isActivated = false
@@ -390,9 +406,6 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
         binding.emotionBored.isActivated = true
         binding.emotionFun.isActivated = true
         binding.emotionSad.isActivated = true
-        binding.emotionHappy.isActivated = true
-        binding.emotionJoy.isActivated = true
-        binding.emotionTired.isActivated = true
         binding.emotionSad.isActivated = true
         binding.emotionSound.isActivated = true
         binding.emotionRelax.isActivated = true
@@ -455,11 +468,7 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
             }
 
             override fun afterTextChanged(s: Editable?) {
-                if (emotionCnt > 0 && s.toString().isNotEmpty()) {
-
-                } else {
-
-                }
+                saveButtonCheck()
             }
 
         })
@@ -479,7 +488,8 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
         val selectedEmo = arrayListOf<String>()
         for (emo in emotionType) {
             if (emo.isSelected) {
-                val st = StringTokenizer(emo.id.toString(), "_")
+                val st = StringTokenizer(emo.contentDescription.toString(), "_")
+                Log.d(DW_DEBUG_TAG, "id >> ${emo.id.toString()}")
                 st.nextToken()
                 selectedEmo.add(st.nextToken())
             }
@@ -543,12 +553,12 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
                 if (binding.btnSave.isEnabled) { // 이미지?, 텍스트 최소 한 글자, 감정 최소 한개, 테마 (기본 paper_white)
                     service.requestWriteDiary(
                         header = header,
-                        RequestWriteDiary(
+                        diary = RequestWriteDiary(
                             content = binding.etWriteDiary.text.toString(),
+                            image = (binding.ivWriteDiary.drawable as BitmapDrawable).bitmap.toString(),
                             emotions = getEmotionAsList(),
                             theme = theme!!,
-                            date = writeDate,
-                            image = ""
+                            date = writeDate
                         )
                     ).enqueue(
                         onSuccess = {
@@ -556,7 +566,8 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
                                 in 200..206 -> {
                                     Log.d(DW_DEBUG_TAG, "작성완료 ${it.code()}")
                                     // 작성 완료 되면 완료 액티비티로 보내기.
-                                    val intent = Intent(this, DiaryActivity::class.java)
+                                    val intent = Intent(this, DiaryDetailActivity::class.java)
+                                    intent.putExtra("date", writeDate)
                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
                                     startActivity(intent)
                                 }
@@ -580,9 +591,9 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
 
                 } else {
                     if (emotionCnt > 0){
-                        Toast.makeText(applicationContext, "감정을 선택해주세요.", Toast.LENGTH_SHORT).show()
-                    } else {
                         Toast.makeText(applicationContext, "내용을 작성해주세요.", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(applicationContext, "감정을 선택해주세요.", Toast.LENGTH_SHORT).show()
                     }
                 }
 

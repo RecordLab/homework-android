@@ -132,6 +132,7 @@
                             android:drawablePadding="8dp"
                             android:fontFamily="@font/fontfamily"
                             android:includeFontPadding="false"
+                            android:contentDescription="emotion_angry"
                             android:padding="8dp"
                             android:text="@string/emotion_angry"
                             android:textAlignment="center"
@@ -147,6 +148,7 @@
                             android:drawablePadding="8dp"
                             android:fontFamily="@font/fontfamily"
                             android:includeFontPadding="false"
+                            android:contentDescription="emotion_relax"
                             android:padding="8dp"
                             android:text="@string/emotion_relax"
                             android:textAlignment="center"
@@ -164,6 +166,7 @@
                             android:includeFontPadding="false"
                             android:padding="8dp"
                             android:text="@string/emotion_fun"
+                            android:contentDescription="emotion_fun"
                             android:textAlignment="center"
                             android:textFontWeight="500"
                             android:textSize="12sp" />
@@ -179,6 +182,7 @@
                             android:includeFontPadding="false"
                             android:padding="8dp"
                             android:text="@string/emotion_joy"
+                            android:contentDescription="emotion_joy"
                             android:textAlignment="center"
                             android:textFontWeight="500"
                             android:textSize="12sp" />
@@ -194,6 +198,7 @@
                             android:includeFontPadding="false"
                             android:padding="8dp"
                             android:text="@string/emotion_sound"
+                            android:contentDescription="emotion_sound"
                             android:textAlignment="center"
                             android:textFontWeight="500"
                             android:textSize="12sp" />
@@ -209,6 +214,7 @@
                             android:includeFontPadding="false"
                             android:padding="8dp"
                             android:text="@string/emotion_expect"
+                            android:contentDescription="emotion_expect"
                             android:textAlignment="center"
                             android:textFontWeight="500"
                             android:textSize="12sp" />
@@ -224,6 +230,7 @@
                             android:includeFontPadding="false"
                             android:padding="8dp"
                             android:text="@string/emotion_bored"
+                            android:contentDescription="emotion_bored"
                             android:textAlignment="center"
                             android:textFontWeight="500"
                             android:textSize="12sp" />
@@ -239,6 +246,7 @@
                             android:includeFontPadding="false"
                             android:padding="8dp"
                             android:text="@string/emotion_sad"
+                            android:contentDescription="emotion_sad"
                             android:textAlignment="center"
                             android:textFontWeight="500"
                             android:textSize="12sp" />
@@ -254,6 +262,7 @@
                             android:includeFontPadding="false"
                             android:padding="8dp"
                             android:text="@string/emotion_tired"
+                            android:contentDescription="emotion_tired"
                             android:textAlignment="center"
                             android:textFontWeight="500"
                             android:textSize="12sp" />
@@ -269,6 +278,7 @@
                             android:includeFontPadding="false"
                             android:padding="8dp"
                             android:text="@string/emotion_nervous"
+                            android:contentDescription="emotion_nervous"
                             android:textAlignment="center"
                             android:textFontWeight="500"
                             android:textSize="12sp" />
@@ -284,6 +294,7 @@
                             android:includeFontPadding="false"
                             android:padding="8dp"
                             android:text="@string/emotion_anxious"
+                            android:contentDescription="emotion_anxious"
                             android:textAlignment="center"
                             android:textFontWeight="500"
                             android:textSize="12sp" />
@@ -299,6 +310,7 @@
                             android:includeFontPadding="false"
                             android:padding="8dp"
                             android:text="@string/emotion_happy"
+                            android:contentDescription="emotion_happy"
                             android:textAlignment="center"
                             android:textFontWeight="500"
                             android:textSize="12sp" />

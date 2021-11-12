@@ -17,7 +17,7 @@ interface RequestService {
     fun requestSignIn(@Body body: RequestSignIn): Call<UserInfoData> //Call<ResponseSignin>
 
     // 일기 작성
-    @POST("/diaries")
+    @POST("/api/diaries")
     fun requestWriteDiary(
         @HeaderMap header: Map<String, String?>,
         @Body diary: RequestWriteDiary
