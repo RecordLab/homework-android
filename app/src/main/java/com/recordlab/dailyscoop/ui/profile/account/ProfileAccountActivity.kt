@@ -1,37 +1,39 @@
-package com.recordlab.dailyscoop.ui.profile
+package com.recordlab.dailyscoop.ui.profile.account
 
 import android.app.AlertDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import com.recordlab.dailyscoop.R
-import com.recordlab.dailyscoop.ui.auth.SignInActivity
-import com.recordlab.dailyscoop.ui.auth.SignUpActivity
+import com.recordlab.dailyscoop.databinding.ActivityProfileAccountBinding
+import com.recordlab.dailyscoop.ui.profile.ProfileFontActivity
+import com.recordlab.dailyscoop.ui.profile.notice.ProfileNoticeDialog
 
-class ProfileAccountActivity : AppCompatActivity() {
+class ProfileAccountActivity : AppCompatActivity(), ProfileWithdrawDialogInterface {
+    private lateinit var binding: ActivityProfileAccountBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_profile_account)
+        binding= ActivityProfileAccountBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         loadData()
 
-        val emailBtnClicked = findViewById<View>(R.id.bg4)
+        val emailBtnClicked = binding.bg4
         emailBtnClicked.setOnClickListener{
             val intent = Intent(this, ProfileAccountEmailActivity::class.java)
             startActivity(intent)
         }
 
-        val nickBtnClicked = findViewById<View>(R.id.bg45)
+        val nickBtnClicked = binding.bg45
         nickBtnClicked.setOnClickListener{
             val intent = Intent(this, ProfileAccountNicknameActivity::class.java)
             startActivity(intent)
         }
 
-        val passBtnClicked = findViewById<View>(R.id.bg454)
+        val passBtnClicked = binding.bg454
         passBtnClicked.setOnClickListener{
             val intent = Intent(this, ProfileAccountPasswordActivity::class.java)
             startActivity(intent)
@@ -40,26 +42,24 @@ class ProfileAccountActivity : AppCompatActivity() {
 //            startActivity(intent)
         }
 
-        val disconBtnClicked = findViewById<View>(R.id.bg4544)
-        disconBtnClicked.setOnClickListener{
+        val disconnectBtnClicked = binding.bg4544
+        disconnectBtnClicked.setOnClickListener{
             //Toast.makeText(this.getApplicationContext(),"이것은 회원 탈퇴 메시지입니다.", Toast.LENGTH_SHORT).show();
 
-            val builder = AlertDialog.Builder(this)
-            val dialogView = layoutInflater.inflate(R.layout.custom_dialog_withdraw, null)
-
-            builder.setView(dialogView)
-                .show()
+            // 회원탈퇴 다이얼로그
+            val withdrawDialog = ProfileWithdrawDialog(this, this)
+            withdrawDialog.show()
         }
 
-        val fontBtnClicked = findViewById<View>(R.id.bg8)
+        val fontBtnClicked = binding.bg8
         fontBtnClicked.setOnClickListener{
             val intent = Intent(this, ProfileFontActivity::class.java)
             startActivity(intent)
         }
 
         // 뒤로가기 버튼 클릭
-        val BackBtnClicked = findViewById<ImageView>(R.id.backBtn)
-        BackBtnClicked.setOnClickListener{
+        val backBtnClicked = findViewById<ImageView>(R.id.backBtn)
+        backBtnClicked.setOnClickListener{
             finish()
         }
 
@@ -67,7 +67,11 @@ class ProfileAccountActivity : AppCompatActivity() {
 
     private fun loadData() {
         val pref = getSharedPreferences("TOKEN", 0)
-        findViewById<TextView>(R.id.textView).text = pref.getString("email", "error")
-        findViewById<TextView>(R.id.textView2).text = pref.getString("nickname", "error")
+        binding.textView.text = pref.getString("email", "error")
+        binding.textView2.text = pref.getString("nickname", "error")
+    }
+
+    override fun dialogOkBtnClicked() {
+        Toast.makeText(this,"사실 탈퇴는 할 수 없습니다 \uD83D\uDE1C", Toast.LENGTH_SHORT).show();
     }
 }
