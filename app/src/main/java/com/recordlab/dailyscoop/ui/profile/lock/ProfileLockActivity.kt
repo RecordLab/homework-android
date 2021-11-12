@@ -34,17 +34,22 @@ class ProfileLockActivity : AppCompatActivity() {
                 // off -> on
 //                val intent = Intent(this, AppPasswordActivity::class.java)
 //                getResultText.launch(intent)
-                val intent = Intent(this, AppPasswordActivity::class.java).apply {
-                    putExtra(AppLockConst.type, AppLockConst.ENABLE_PASSLOCK)
+                val pref = getSharedPreferences("appLock", 0)
+                if(!pref.contains("applock")) {
+                    val intent = Intent(this, AppPasswordActivity::class.java).apply {
+                        putExtra(AppLockConst.type, AppLockConst.ENABLE_PASSLOCK)
+                    }
+                    startActivityForResult(intent, AppLockConst.ENABLE_PASSLOCK)
                 }
-                startActivityForResult(intent, AppLockConst.ENABLE_PASSLOCK)
-
             } else {
                 // on -> off
-                 val intent = Intent(this, AppPasswordActivity::class.java).apply {
-                     putExtra(AppLockConst.type, AppLockConst.DISABLE_PASSLOCK)
+                 val pref = getSharedPreferences("appLock", 0)
+                 if(pref.contains("applock")) {
+                     val intent = Intent(this, AppPasswordActivity::class.java).apply {
+                         putExtra(AppLockConst.type, AppLockConst.DISABLE_PASSLOCK)
+                     }
+                     startActivityForResult(intent, AppLockConst.DISABLE_PASSLOCK)
                  }
-                 startActivityForResult(intent, AppLockConst.DISABLE_PASSLOCK)
             }
         }
 
@@ -90,19 +95,19 @@ class ProfileLockActivity : AppCompatActivity() {
 
         when (requestCode) {
             AppLockConst.ENABLE_PASSLOCK ->
-                if (resultCode == Activity.RESULT_OK) {
+                //if (resultCode == Activity.RESULT_OK) {
                     init()
-                }
+                //}
 
             AppLockConst.DISABLE_PASSLOCK ->
-                if (resultCode == Activity.RESULT_OK) {
+                //if (resultCode == Activity.RESULT_OK) {
                     init()
-                }
+                //}
 
             AppLockConst.CHANGE_PASSWORD ->
-                if (resultCode == Activity.RESULT_OK) {
+                //if (resultCode == Activity.RESULT_OK) {
                     init()
-                }
+                //}
         }
     }
 
