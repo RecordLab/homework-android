@@ -1,6 +1,5 @@
 package com.recordlab.dailyscoop.ui.home.diary
 
-import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
@@ -435,13 +434,13 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
                 Log.d(DW_DEBUG_TAG, "window chosen")
             }
             R.id.chip_sky_day -> {
-                Glide.with(backgroundLayout).load(R.drawable.sky_with_moon).into(backgroundImage)
+                Glide.with(backgroundLayout).load(R.drawable.theme_sky_day).into(backgroundImage)
                 setTextColor(0)
                 theme = "sky_day"
                 Log.d(DW_DEBUG_TAG, "sky day chosen")
             }
             R.id.chip_sky_night -> {
-                Glide.with(backgroundLayout).load(R.drawable.night_sky).into(backgroundImage)
+                Glide.with(backgroundLayout).load(R.drawable.theme_sky_night).into(backgroundImage)
                 setTextColor(1)
                 theme = "sky_night"
                 Log.d(DW_DEBUG_TAG, "sky night chosen")
