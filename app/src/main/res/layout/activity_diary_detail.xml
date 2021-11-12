@@ -1,77 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
+    android:id="@+id/diaryBg"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/diary_detail_background"
-    android:orientation="vertical"
     tools:context=".ui.diary.DiaryDetailActivity">
-
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp">
-
-        <ImageButton
-            android:id="@+id/imageButton"
-            android:layout_width="70dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:scaleX="1.3"
-            android:scaleY="1.3"
-            app:srcCompat="@drawable/ic_baseline_arrow_back_ios_24" />
-
-        <TextView
-            android:id="@+id/dateHeader"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:fontFamily="@font/spoqa_han_sans_neo_regular"
-            android:gravity="center"
-            android:text="10월 14일 목요일"
-            android:textColor="@color/white"
-            android:textSize="16sp" />
-
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_gravity="center"/>
-
-        <ImageView
-            android:id="@+id/imageView2"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scaleType="fitXY"
-            app:srcCompat="@drawable/diary_detail_sample" />
+            android:layout_height="56dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp">
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            <ImageButton
+                android:id="@+id/backBtn"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:scaleX="1.3"
+                android:scaleY="1.3"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/dateHeader"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_baseline_arrow_back_ios_24" />
 
             <TextView
-                android:text="\n시간이 다가옴을 느꼈다.\n\n짧았던 가을이 지나고 겨울이 찾아오고 있었다.\n나무들도 빠르게 붉은 옷으로 갈아입기 시작했다.\n\n해가 갈수록 시간은 점점 더 빨라져만 간다.\n\n시간이 다가옴을 느꼈다.\n\n짧았던 가을이 지나고 겨울이 찾아오고 있었다.\n나무들도 빠르게 붉은 옷으로 갈아입기 시작했다.\n\n해가 갈수록 시간은 점점 더 빨라져만 간다.\n\n시간이 다가옴을 느꼈다.\n\n짧았던 가을이 지나고 겨울이 찾아오고 있었다.\n나무들도 빠르게 붉은 옷으로 갈아입기 시작했다.\n\n해가 갈수록 시간은 점점 더 빨라져만 간다.\n\n시간이 다가옴을 느꼈다.\n\n짧았던 가을이 지나고 겨울이 찾아오고 있었다.\n나무들도 빠르게 붉은 옷으로 갈아입기 시작했다.\n\n해가 갈수록 시간은 점점 더 빨라져만 간다."
-                android:textColor="@color/white"
+                android:id="@+id/dateHeader"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"/>
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:fontFamily="@font/spoqa_han_sans_neo_regular"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        </ScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv"
+                android:layout_width="wrap_content"
+                android:layout_height="70dp"
+                android:layout_gravity="center" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/diaryImg"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintDimensionRatio="5:4"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:layout_editor_absoluteX="0dp" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ScrollView
+                android:id="@+id/scrollView2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#59000000">
+
+                <TextView
+                    android:id="@+id/diaryContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:textColor="@color/white" />
+
+            </ScrollView>
+
+        </LinearLayout>
 
     </LinearLayout>
 
-</LinearLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/diaryImgFullLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#CC000000"
+        android:visibility="invisible">
+
+        <ImageButton
+            android:id="@+id/diaryImgFullBackBtn"
+            android:layout_width="50dp"
+            android:layout_height="56dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginLeft="16dp"
+            android:scaleX="1.3"
+            android:scaleY="1.3"
+            android:src="@drawable/ic_baseline_arrow_back_ios_24"
+            android:background="@color/transparent"/>
+
+        <ImageView
+            android:id="@+id/diaryImgFull"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

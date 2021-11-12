@@ -107,9 +107,9 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
                 if (buttonView != null) {
                     if (buttonView.isChecked == true) {
                         Log.d(DW_DEBUG_TAG, "$emotionCnt")
-                        emotionCnt++;
+                        emotionCnt++
                     } else {
-                        emotionCnt--;
+                        emotionCnt--
                     }
                 }
                 if (emotionCnt == 3) {
@@ -124,9 +124,9 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
         binding.emotionRelax.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 Log.d(DW_DEBUG_TAG, "$emotionCnt")
-                emotionCnt++;
+                emotionCnt++
             } else {
-                emotionCnt--;
+                emotionCnt--
                 binding.emotionRelax.isChecked = false
             }
 
@@ -143,13 +143,13 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
 
         binding.emotionAngry.setOnClickListener {
             if( binding.emotionAngry.isSelected){
-                emotionCnt--;
+                emotionCnt--
                 (!binding.emotionAngry.isSelected).also {
                     binding.emotionAngry.isSelected = it
                 }
             }else {
                 if(binding.emotionAngry.isEnabled && emotionCnt < 3){
-                    emotionCnt++;
+                    emotionCnt++
                     (!binding.emotionAngry.isSelected).also {
                         binding.emotionAngry.isSelected = it
                     }
@@ -162,11 +162,11 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
 
         binding.emotionRelax.setOnClickListener {
             if (binding.emotionRelax.isSelected) { // 선택 해제.
-                emotionCnt--;
+                emotionCnt--
                 (!binding.emotionRelax.isSelected).also { binding.emotionRelax.isSelected = it }
             } else { // 새로 선택하기.
                 if (binding.emotionRelax.isEnabled && emotionCnt < 3) {
-                    emotionCnt++;
+                    emotionCnt++
                     (!binding.emotionRelax.isSelected).also { binding.emotionRelax.isSelected = it }
                 } else {
                     emotionWarning()
@@ -178,11 +178,11 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
 
         binding.emotionFun.setOnClickListener {
             if (binding.emotionFun.isSelected) {
-                emotionCnt--;
+                emotionCnt--
                 (!binding.emotionFun.isSelected).also { binding.emotionFun.isSelected = it }
             } else {
                 if (emotionCnt < 3) {
-                    emotionCnt++;
+                    emotionCnt++
                     (!binding.emotionFun.isSelected).also { binding.emotionFun.isSelected = it }
                 } else {
                     emotionWarning()
@@ -198,7 +198,7 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
                     (!binding.emotionJoy.isSelected).also { binding.emotionJoy.isSelected = it }
                 } else {
                     if (emotionCnt < 3){
-                        emotionCnt++;
+                        emotionCnt++
                         (!binding.emotionJoy.isSelected).also { binding.emotionJoy.isSelected = it }
                     }else {
                         emotionWarning()
@@ -411,37 +411,33 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
                 getContent.launch(intent)
             }
             R.id.chip_paper_white -> {
-                Glide.with(backgroundLayout).load(R.drawable.paper_texture_1).into(backgroundImage)
-                theme = "paper_white"
+                Glide.with(backgroundLayout).load(R.drawable.theme_paper_white).into(backgroundImage)
                 setTextColor(0)
             }
             R.id.chip_paper_ivory -> {
-                Glide.with(backgroundLayout).load(R.drawable.paper_texture_2).into(backgroundImage)
-                theme = "paper_ivory"
+                Glide.with(backgroundLayout).load(R.drawable.theme_paper_ivory).into(backgroundImage)
                 setTextColor(0)
             }
             R.id.chip_paper_black -> {
-                Glide.with(backgroundLayout).load(R.drawable.annie_unsplash_black_paper)
-                    .into(backgroundImage)
+                Glide.with(backgroundLayout).load(R.drawable.theme_paper_black).into(backgroundImage)
                 Log.d(DW_DEBUG_TAG, "paper black chosen")
                 theme = "paper_dark"
                 setTextColor(1)
             }
             R.id.chip_window -> {
-                Glide.with(backgroundLayout).load(R.drawable.kevin_unsplash_window)
-                    .into(backgroundImage)
+                Glide.with(backgroundLayout).load(R.drawable.theme_window).into(backgroundImage)
                 setTextColor(1)
                 theme = "window"
                 Log.d(DW_DEBUG_TAG, "window chosen")
             }
             R.id.chip_sky_day -> {
-                Glide.with(backgroundLayout).load(R.drawable.sky_with_moon).into(backgroundImage)
+                Glide.with(backgroundLayout).load(R.drawable.theme_sky_day).into(backgroundImage)
                 setTextColor(0)
                 theme = "sky_day"
                 Log.d(DW_DEBUG_TAG, "sky day chosen")
             }
             R.id.chip_sky_night -> {
-                Glide.with(backgroundLayout).load(R.drawable.night_sky).into(backgroundImage)
+                Glide.with(backgroundLayout).load(R.drawable.theme_sky_night).into(backgroundImage)
                 setTextColor(1)
                 theme = "sky_night"
                 Log.d(DW_DEBUG_TAG, "sky night chosen")

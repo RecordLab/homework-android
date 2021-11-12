@@ -20,6 +20,7 @@ object RetrofitClient {
     var retrofit = Retrofit.Builder()
         .client(client)
         .baseUrl(BuildConfig.BASE_URL)
+        .addConverterFactory(NullOnEmptyConverterFactory())
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 

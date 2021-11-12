@@ -1,5 +1,8 @@
 package com.recordlab.dailyscoop.ui.dashboard
 
+import android.content.Context
+import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,8 +10,10 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.recordlab.dailyscoop.R
+import com.recordlab.dailyscoop.ui.diary.DiaryDetailActivity
+import com.recordlab.dailyscoop.data.DiaryData
 
-class DashboardGridAdapter(private val items: ArrayList<DashboardItem>) :
+class DashboardGridAdapter(private val items: List<DiaryData>) :
     RecyclerView.Adapter<DashboardGridAdapter.ViewHolder>() {
 
         override fun onCreateViewHolder(
@@ -27,9 +32,15 @@ class DashboardGridAdapter(private val items: ArrayList<DashboardItem>) :
         override fun getItemCount(): Int = items.size
 
         class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-            fun bind(item: DashboardItem) {
+            fun bind(item: DiaryData) {
                 val img = view.findViewById<ImageView>(R.id.iv_grid_diary)
-                Glide.with(itemView).load(item.img).into(img)
+                Glide.with(itemView).load(item.image).into(img)
+
+                itemView.setOnClickListener {
+                    val intent = Intent(itemView.context, DiaryDetailActivity::class.java)
+                    intent.putExtra("diaryDate", item.date.toString().substring(0, 10))
+                    itemView.context.startActivity(intent)
+                }
             }
         }
 

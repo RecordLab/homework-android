@@ -11,7 +11,11 @@ fun<ResponseType> Call<ResponseType>.enqueue(
     onFail: () -> Unit = { Log.d("Network Error", "통신 실패")}
 ) {
     this.enqueue(object: Callback<ResponseType> {
-        override fun onResponse(call: Call<ResponseType>, response: Response<ResponseType>) {
+        override fun onResponse(call: Call<ResponseType>, response: Response<ResponseType>?) {
+            if(response == null){
+                Log.d("로그", "null")
+            }
+            else{
             when(response.code()){
                 in 200..299 -> { // success
 
@@ -26,7 +30,7 @@ fun<ResponseType> Call<ResponseType>.enqueue(
                     // 서버 에러
                 }
             }
-            onSuccess(response) ?: onError()
+            onSuccess(response) ?: onError()}
         }
 
         override fun onFailure(call: Call<ResponseType>, t: Throwable) {
