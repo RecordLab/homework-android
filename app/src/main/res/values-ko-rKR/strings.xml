@@ -43,7 +43,7 @@
     <string name="emotion_fun">재미</string>
     <string name="emotion_joy">즐거움</string>
     <string name="emotion_sound">평온</string>
-    <string name="emotion_hopeful">기대</string>
+    <string name="emotion_expect">기대</string>
     <string name="emotion_bored">심심</string>
     <string name="emotion_sad">슬픔</string>
     <string name="emotion_nervous">긴장</string>
@@ -58,6 +58,8 @@
     <string name="theme_sky_day">하늘(낮)</string>
     <string name="theme_sky_night">하늘(밤)</string>
     <string name="et_input_hint">내용을 입력해주세요</string>
+    <string name="checkout_these_diaries">최근 작성한 일기 보러가기</string>
+    <string name="toast_emotion_limit_3">감정은 최대 세 개까지 선택할 수 있어요.</string>
     <string name="dialog_sign_out_message">로그아웃 하시겠습니까?</string>
     <string name="withdrawal_title">계정 삭제</string>
     <string name="withdrawal_message">계정 삭제를 진행하시겠습니까? 모든 데이터가 삭제됩니다.</string>

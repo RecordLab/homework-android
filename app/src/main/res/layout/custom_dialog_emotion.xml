@@ -81,7 +81,7 @@
             android:layout_height="70dp"
             android:background="@color/transparent"
             android:drawableTop="@drawable/excitement_small"
-            android:text="@string/emotion_hopeful" />
+            android:text="@string/emotion_expect" />
 
         <Button
             style="@style/text_small_black"

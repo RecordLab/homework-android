@@ -2,6 +2,7 @@ package com.recordlab.dailyscoop.ui.profile.lock
 
 import android.app.Activity
 import android.os.Bundle
+import android.view.MotionEvent
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -14,6 +15,10 @@ class AppPasswordActivity : AppCompatActivity() {
     private var changePwdUnlock = false
     private var _binding: ActivityAppLockPasswordBinding? = null
     private val binding get() = _binding!!
+    private var num1 = ""
+    private var num2 = ""
+    private var num3 = ""
+    private var num4 = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,8 +40,23 @@ class AppPasswordActivity : AppCompatActivity() {
             binding.btnLockDel
         )
 
+        val editTextArray = arrayListOf(
+            binding.etPasscode1,
+            binding.etPasscode2,
+            binding.etPasscode3,
+            binding.etPasscode4
+        )
+
         for (button in buttonArray) {
             button.setOnClickListener(btnListener)
+        }
+
+        for (e_text in editTextArray) {
+            e_text.setOnTouchListener(object : View.OnTouchListener {
+                override fun onTouch(p0: View?, p1: MotionEvent?): Boolean {
+                    return true
+                }
+            })
         }
 
         binding.tvLockContent.text = "비밀번호를 입력해 주세요"
@@ -79,16 +99,26 @@ class AppPasswordActivity : AppCompatActivity() {
         if (currentValue != -1) {
             when {
                 binding.etPasscode1.isFocused -> {
-                    setEditText(binding.etPasscode1, binding.etPasscode2, strCurrentValue)
+                    num1 = strCurrentValue
+                    binding.etPasscode1.setText("●")
+                    binding.etPasscode2.setText("")
+                    binding.etPasscode2.requestFocus()
                 }
                 binding.etPasscode2.isFocused -> {
-                    setEditText(binding.etPasscode2, binding.etPasscode3, strCurrentValue)
+                    num2 = strCurrentValue
+                    binding.etPasscode2.setText("●")
+                    binding.etPasscode3.setText("")
+                    binding.etPasscode3.requestFocus()
                 }
                 binding.etPasscode3.isFocused -> {
-                    setEditText(binding.etPasscode3, binding.etPasscode4, strCurrentValue)
+                    num3 = strCurrentValue
+                    binding.etPasscode3.setText("●")
+                    binding.etPasscode4.setText("")
+                    binding.etPasscode4.requestFocus()
                 }
                 binding.etPasscode4.isFocused -> {
-                    binding.etPasscode4.setText(strCurrentValue)
+                    num4 = strCurrentValue
+                    binding.etPasscode4.setText("●")
                 }
             }
         }
@@ -104,18 +134,22 @@ class AppPasswordActivity : AppCompatActivity() {
         when {
             binding.etPasscode1.isFocused -> {
                 binding.etPasscode1.setText("")
+                num1 = ""
             }
             binding.etPasscode2.isFocused -> {
                 binding.etPasscode1.setText("")
                 binding.etPasscode1.requestFocus()
+                num1 = ""
             }
             binding.etPasscode3.isFocused -> {
                 binding.etPasscode2.setText("")
                 binding.etPasscode2.requestFocus()
+                num2 = ""
             }
             binding.etPasscode4.isFocused -> {
                 binding.etPasscode3.setText("")
                 binding.etPasscode3.requestFocus()
+                num3 = ""
             }
         }
     }
@@ -126,19 +160,16 @@ class AppPasswordActivity : AppCompatActivity() {
         binding.etPasscode2.setText("")
         binding.etPasscode3.setText("")
         binding.etPasscode4.setText("")
+        num1 = ""
+        num2 = ""
+        num3 = ""
+        num4 = ""
         binding.etPasscode1.requestFocus()
     }
 
     // 입력된 비밀번호 합치기
     private fun inputedPassword() : String {
-        return "${binding.etPasscode1.text}${binding.etPasscode2.text}${binding.etPasscode3.text}${binding.etPasscode4.text}"
-    }
-
-    // EditText 설정
-    private fun setEditText(currentEditText : EditText, nextEditText : EditText, strCurrentValue : String) {
-        currentEditText.setText(strCurrentValue)
-        nextEditText.requestFocus()
-        nextEditText.setText("")
+        return "${num1}${num2}${num3}${num4}"
     }
 
     // intent type 분류

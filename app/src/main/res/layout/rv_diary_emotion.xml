@@ -6,7 +6,7 @@
 
     <ImageView
         android:id="@+id/emotionImage"
-        android:layout_width="45dp"
-        android:layout_height="45dp"/>
+        android:layout_width="60dp"
+        android:layout_height="60dp"/>
 
 </LinearLayout>

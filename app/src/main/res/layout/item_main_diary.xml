@@ -8,6 +8,7 @@
     android:background="@color/white"
     android:elevation="2dp">
 
+
     <ImageView
         android:id="@+id/iv_main_diary"
         android:layout_width="135dp"
