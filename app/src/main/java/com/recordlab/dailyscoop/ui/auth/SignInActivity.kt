@@ -62,7 +62,7 @@ class SignInActivity : AppCompatActivity() {
     }
 
     private fun signIn(data: RequestSignIn) {
-        service.requestSingIn(body = data).enqueue(
+        service.requestSignIn(body = data).enqueue(
             onSuccess = {
                 when (it.code()){
                     in 200..209 -> {

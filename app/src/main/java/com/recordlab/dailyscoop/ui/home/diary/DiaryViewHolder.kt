@@ -1,5 +1,6 @@
 package com.recordlab.dailyscoop.ui.home.diary
 
+import android.content.Intent
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -8,19 +9,19 @@ import com.bumptech.glide.Glide
 import com.recordlab.dailyscoop.R
 import com.recordlab.dailyscoop.data.DiaryData
 import com.recordlab.dailyscoop.data.TimeToString
-import kotlin.properties.Delegates
+import com.recordlab.dailyscoop.ui.diary.DiaryDetailActivity
 
-class DiaryViewHolder(itemView: View, val itemClick: (DiaryData, View) -> Unit) :
+class DiaryViewHolder(val itemView: View) :
     RecyclerView.ViewHolder(itemView) {
     var diaryText = itemView.findViewById<TextView>(R.id.tv_main_diary_title)
     var diaryDate = itemView.findViewById<TextView>(R.id.tv_main_diary_date)
     var diaryImage = itemView.findViewById<ImageView>(R.id.iv_main_diary)
 
     /* bind diary image, preview and date*/
-    fun bind(data: DiaryData) {
-        if (data.image != null) {
+    fun bind(item: DiaryData) {
+        if (item.image != null) {
             Glide.with(itemView)
-                .load(data.image)
+                .load(item.image)
                 .error(R.drawable.img_error)
                 .into(diaryImage)
         } else {
@@ -29,12 +30,16 @@ class DiaryViewHolder(itemView: View, val itemClick: (DiaryData, View) -> Unit) 
                 .error(R.drawable.img_error)
                 .into(diaryImage)
         }
-        if( data.content.length > 10) {
-            diaryText.text = data.content.substring(0, 10)
+        if( item.content.length > 10) {
+            diaryText.text = item.content.substring(0, 10)
         } else {
-            diaryText.text = data.content
+            diaryText.text = item.content
         }
-        diaryDate.text = TimeToString().convert(data.date)
-        itemView.setOnClickListener { itemClick(data, itemView) }
+        diaryDate.text = TimeToString().convert(item.date)
+        itemView.setOnClickListener {
+            val intent = Intent(itemView.context, DiaryDetailActivity::class.java)
+            intent.putExtra("diaryDate", item.date.toString().substring(0, 10))
+            itemView.context.startActivity(intent)
+        }
     }
 }

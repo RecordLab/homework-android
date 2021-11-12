@@ -16,11 +16,14 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp">
-
-            <ImageButton
+            android:layout_height="56dp">
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/tb_diary_detail"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+            <!--<ImageButton
                 android:id="@+id/backBtn"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
@@ -33,7 +36,7 @@
                 app:layout_constraintStart_toStartOf="@+id/dateHeader"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_baseline_arrow_back_ios_24" />
-
+-->
             <TextView
                 android:id="@+id/dateHeader"
                 android:layout_width="match_parent"
