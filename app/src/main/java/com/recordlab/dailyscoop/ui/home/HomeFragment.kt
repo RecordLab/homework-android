@@ -8,16 +8,15 @@ import android.util.Log
 import android.view.*
 import android.widget.TextView
 import android.widget.Toast
-import androidx.compose.ui.graphics.Color
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
-import com.applikeysolutions.cosmocalendar.dialog.OnDaysSelectionListener
 import com.applikeysolutions.cosmocalendar.listeners.OnMonthChangeListener
 import com.applikeysolutions.cosmocalendar.model.Month
 import com.applikeysolutions.cosmocalendar.selection.SingleSelectionManager
@@ -30,7 +29,6 @@ import com.recordlab.dailyscoop.data.TimeToString
 import com.recordlab.dailyscoop.databinding.FragmentHomeBinding
 import com.recordlab.dailyscoop.network.RetrofitClient
 import com.recordlab.dailyscoop.network.enqueue
-import com.recordlab.dailyscoop.ui.home.diary.DiaryActivity
 import com.recordlab.dailyscoop.ui.home.diary.DiaryAdapter
 import com.recordlab.dailyscoop.ui.home.diary.DiaryWriteActivity
 import com.recordlab.dailyscoop.ui.home.widget.QuickDiaryFragment
@@ -38,9 +36,7 @@ import com.recordlab.dailyscoop.ui.home.widget.QuotationFragment
 import com.recordlab.dailyscoop.ui.search.SearchResultActivity
 import java.sql.Timestamp
 import java.util.*
-import com.applikeysolutions.cosmocalendar.selection.OnDaySelectedListener
 
-import com.applikeysolutions.cosmocalendar.selection.RangeSelectionManager
 import com.applikeysolutions.cosmocalendar.settings.appearance.ConnectedDayIconPosition
 
 import com.applikeysolutions.cosmocalendar.settings.lists.connected_days.ConnectedDays
@@ -121,16 +117,22 @@ class HomeFragment : Fragment(), View.OnClickListener {
             "view Id : " + view.id + "... " + viewPager.get(0) + "<<<<< 뷰 페이저 id"
         )
 
+        // 뷰 페이저 어댑터
         var adapter = PagerAdpater(this.requireActivity())
         viewPager!!.adapter = adapter
         viewPager.setCurrentItem(0)
 
         val btnMore = binding.btnMore
 
+        // observer
         homeViewModel.text.observe(viewLifecycleOwner, Observer {
             binding.textHome.text = it
             //textView.text = it
         })
+        homeViewModel.diaryData.observe(viewLifecycleOwner, {
+            binding.rvHomeDiary.adapter = DiaryAdapter(it)
+        })
+
         val btnById: TextView = binding.btnMore //root.findViewById(R.id.btn_more)
         Log.d(DEBUG_TAG, ">" + btnById.text + "<<  이게 원래 텍스트")
         btnMore.text = "더보기"
@@ -196,12 +198,12 @@ class HomeFragment : Fragment(), View.OnClickListener {
     }
 
     private fun init(view: View) {
-        diaryAdapter = DiaryAdapter(view.context) { DiaryData, View ->
-            val intent = Intent(activity as MainActivity, DiaryActivity::class.java)
+        /*diaryAdapter = DiaryAdapter() { DiaryData, View ->
+            val intent = Intent(activity as MainActivity, DiaryDetailActivity::class.java)
             intent.putExtra("diaryDate", TimeToString().convert(DiaryData.date))
             startActivity(intent)
         }
-        binding.rvHomeDiary.adapter = diaryAdapter
+        binding.rvHomeDiary.adapter = diaryAdapter*/
         loadData(view)
     }
 
@@ -211,6 +213,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
         header["Content-type"] = "application/json; charset=UTF-8"
         header["Authorization"] = sharedPref.getString("token", "token")
 
+//        homeViewModel.setHeader(header)
 
         //    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImhhaWxleWhpMTRAZ21haWwuY29tIiwiZXhwIjoxNjM2NTkwNjg5fQ.jCFGuLtsOwKNNJ601IeO8ueXke5GMOmpF5TfUkztjvU"
         //"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImlkIiwiZXhwIjoxNjM2NTk2NzE4fQ.JOb447DOeSlRpa-NNF_KRg5NylfuKorzni8evoQimvo"//sharedPref.getString("token", "token")
@@ -231,34 +234,42 @@ class HomeFragment : Fragment(), View.OnClickListener {
         } else { // 로그인 한 상태.
             service.requestGetDiaries(header = header).enqueue(
                 onSuccess = {
-                    it.message()
-                    if (it.code() == 200) {
-                        Log.d("통신 성공", it.body()!!.data[0].content)
-                        diaryData.clear()
-                        diaryData.addAll(it.body()!!.data)
-                        diaryAdapter.data = diaryData
-                        diaryAdapter.notifyDataSetChanged()
+                    when (it.code()) {
+                        in 200..299 -> {
+                            Log.d("통신 성공", it.body()!!.data[0].content)
+                            diaryData.clear()
+                            diaryData.addAll(it.body()!!.data)
+                            homeViewModel.diaryData.postValue(diaryData)
+//                        diaryAdapter.data = diaryData
+//                        diaryAdapter.notifyDataSetChanged()
 
-                        // 달력에 일기 작성날짜 mark하기.
-                        days.clear()
-                        val sdf = SimpleDateFormat("MM-dd-yyyy")
-                        for (item in diaryData){
-                            days.add(Date(item.date.time).time)
-                            Log.d(DEBUG_TAG, "${Date(item.date.time).time}")
+                            // 달력에 일기 작성날짜 mark하기.
+                            days.clear()
+                            val sdf = SimpleDateFormat("MM-dd-yyyy")
+                            for (item in diaryData){
+                                days.add(Date(item.date.time).time)
+                                Log.d(DEBUG_TAG, "${Date(item.date.time).time}")
+                            }
+
+                            val textColor: Int = R.color.veryBerry
+                            val selectedTextColor: Int = R.color.baraRed
+                            val disabledTextColor: Int = R.color.twinkleBlue
+                            val connectedDays = ConnectedDays(days, textColor, selectedTextColor, disabledTextColor)
+
+                            //Add Connect days to calendar
+                            binding.cvHome.addConnectedDays(connectedDays)
+
+                            binding.cvHome.connectedDayIconRes = R.drawable.ic_baseline_flag_coral_12
+                            binding.cvHome.connectedDayIconPosition = ConnectedDayIconPosition.TOP // TOP & BOTTOM
+
+                            binding.cvHome.update()
                         }
+                        400 -> {
 
-                        val textColor: Int = R.color.veryBerry
-                        val selectedTextColor: Int = R.color.baraRed
-                        val disabledTextColor: Int = R.color.twinkleBlue
-                        val connectedDays = ConnectedDays(days, textColor, selectedTextColor, disabledTextColor)
-
-                        //Add Connect days to calendar
-                        binding.cvHome.addConnectedDays(connectedDays)
-
-                        binding.cvHome.connectedDayIconRes = R.drawable.ic_baseline_flag_coral_12
-                        binding.cvHome.connectedDayIconPosition = ConnectedDayIconPosition.TOP // TOP & BOTTOM
-
-                        binding.cvHome.update()
+                        }
+                        in 500..599 -> {
+                            // 서버 에러.
+                        }
                     }
                 },
                 onError = {
