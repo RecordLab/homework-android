@@ -7,14 +7,14 @@ import com.recordlab.dailyscoop.network.response.*
 import retrofit2.Call
 import retrofit2.http.*
 
-public interface RequestService {
+interface RequestService {
     // 회원가입
     @POST("/api/signup")
     fun requestSignup(@Body body: RequestSignup): Call<TokenData> // Call<ResponseSignup>
 
     // 로그인
-    @POST("/singin")
-    fun requestSingin(@Body body: RequestSignin): Call<UserInfoData> //Call<ResponseSignin>
+    @POST("/api/login")
+    fun requestSingin(@Body body: RequestSignIn): Call<UserInfoData> //Call<ResponseSignin>
 
     // 일기 작성
     @POST("/diaries")
