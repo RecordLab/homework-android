@@ -42,7 +42,6 @@ class SignOutDialog(context: Context,
     override fun onClick(view: View?) {
         when(view){
             findViewById<AppCompatButton>(R.id.btn_sign_out_dlg_ok) ->{
-                //asdfafdasfd
                 signOutDialogInterface?.okBtnClicked()
             }
         }

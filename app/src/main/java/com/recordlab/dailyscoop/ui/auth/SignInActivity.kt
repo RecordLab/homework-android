@@ -36,6 +36,11 @@ class SignInActivity : AppCompatActivity() {
 
             val data = RequestSignIn(email, password)
             signIn(data)
+
+            val pref = getSharedPreferences("TOKEN", 0)
+            val edit = pref.edit() // 수정모드(추가, 수정)
+            edit.putString("email", email) // key, value
+            edit.apply() // 저장 완료
         }
 
         // 비밀번호 찾기 버튼 클릭
@@ -73,6 +78,7 @@ class SignInActivity : AppCompatActivity() {
                         val pref = getSharedPreferences("TOKEN", 0)
                         val edit = pref.edit() // 수정모드(추가, 수정)
                         edit.putString("token", "Bearer ".plus(to)) // key, value
+                        edit.putString("nickname", nic)
                         edit.apply() // 저장 완료
 
                         val intent = Intent(this, MainActivity::class.java)

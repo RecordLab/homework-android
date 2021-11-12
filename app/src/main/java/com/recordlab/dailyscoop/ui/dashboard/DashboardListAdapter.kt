@@ -43,7 +43,12 @@ class DashboardListAdapter(private val items: List<DiaryData>) :
                 val content = view.findViewById<TextView>(R.id.tv_list_diary_content)
                 val img = view.findViewById<ImageView>(R.id.iv_list_diary)
                 date.text = TimeToString().convert(item.date)
-                content.text = item.content
+                if (item.content.length < 30) {
+                    content.text = item.content
+                } else {
+                    content.text = "${item.content.substring(0, 30)}..."
+                }
+
                 Glide.with(itemView).load(item.image).transform(CenterCrop(), RoundedCorners(16)).into(img)
 
                 itemView.setOnClickListener {

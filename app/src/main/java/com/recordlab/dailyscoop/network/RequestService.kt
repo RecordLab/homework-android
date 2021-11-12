@@ -6,6 +6,8 @@ import com.recordlab.dailyscoop.network.request.RequestWriteDiary
 import com.recordlab.dailyscoop.network.response.*
 import retrofit2.Call
 import retrofit2.http.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 interface RequestService {
     // 회원가입
@@ -49,4 +51,10 @@ interface RequestService {
         @HeaderMap header: Map<String, String?>,
         @Body diary: RequestWriteDiary
     ): Call<ResponseWriteDiary>
+
+    // 명언 api
+    @GET("https://api.qwer.pw/request/helpful_text")
+    fun requestQuotation(
+        @Query("apikey") apikey: String
+    ): Call<List<ResponseQuotation>>
 }
