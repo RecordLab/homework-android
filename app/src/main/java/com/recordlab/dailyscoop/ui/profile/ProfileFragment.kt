@@ -2,7 +2,6 @@ package com.recordlab.dailyscoop.ui.profile
 
 import android.Manifest
 import android.app.Activity
-import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -21,21 +20,17 @@ import com.recordlab.dailyscoop.MainActivity
 import com.recordlab.dailyscoop.R
 import com.recordlab.dailyscoop.databinding.FragmentProfileBinding
 import com.recordlab.dailyscoop.ui.SettingActivity
+import com.recordlab.dailyscoop.ui.profile.day.ProfileDdayActivity
+import com.recordlab.dailyscoop.ui.profile.lock.ProfileLockActivity
+import com.recordlab.dailyscoop.ui.profile.notice.ProfileNoticeActivity
 
 class ProfileFragment : Fragment() {
-    private val REQ_STORAGE_PERMISSION = 9
-    private val REQ_GALLERY = 10
+    private val reqStoragePermission = 9
 
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
 
-    private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-        if(it.resultCode == Activity.RESULT_OK){
-            Glide.with(this).load(it.data?.data).into(binding.profile)
-        }
-    }
-
-    lateinit var mainActivity: MainActivity
+    private lateinit var mainActivity: MainActivity
 
     // 프래그먼트에서 컨텍스트를 사용하기 위해 콜백메서드의 매개변수를 형변환해서 사용
     override fun onAttach(context: Context) {
@@ -43,6 +38,17 @@ class ProfileFragment : Fragment() {
         mainActivity = context as MainActivity
     }
 
+    private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if(it.resultCode == Activity.RESULT_OK){
+            Glide.with(this).load(it.data?.data).into(binding.profile)
+
+            // 프로필 이미지 앱에 저장(서버에 저장하는 게 더 맞는듯)
+            val pref = mainActivity.getSharedPreferences("com.example.DailyScoop.PREFERENCE_FILE_KEY", 0)
+            val edit = pref.edit() // 수정모드(추가, 수정)
+            edit.putString("profileImage", it.data?.data.toString()) // key, value
+            edit.apply() // 저장 완료
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,6 +60,9 @@ class ProfileFragment : Fragment() {
 
         setHasOptionsMenu(true)
 
+        // 저장된 프로필 이미지 불러오기
+        loadProfileImage()
+
         // 프로필 변경(카메라 아이콘) 버튼 클릭
         val profileImageBtnClicked = root.findViewById<View>(R.id.profile2)
         profileImageBtnClicked.setOnClickListener {
@@ -62,7 +71,7 @@ class ProfileFragment : Fragment() {
 
             if(readPermission == PackageManager.PERMISSION_DENIED){
                 // 권한 없으면 권한 요청
-                ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), REQ_STORAGE_PERMISSION)
+                ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), reqStoragePermission)
             }else{
                 // 사진 선택
                 val intent = Intent(Intent.ACTION_PICK)
@@ -116,6 +125,15 @@ class ProfileFragment : Fragment() {
         }
 
         return root
+    }
+
+    // 저장된 프로필 이미지 불러오기
+    private fun loadProfileImage() {
+        val pref = mainActivity.getSharedPreferences("com.example.DailyScoop.PREFERENCE_FILE_KEY", 0)
+        val savedImage = pref.getString("profileImage", "false")
+        if(savedImage != "false"){
+            Glide.with(this).load(savedImage).into(binding.profile)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
