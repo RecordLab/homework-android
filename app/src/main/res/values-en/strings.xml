@@ -42,7 +42,7 @@
     <string name="emotion_nervous">nervous</string>
     <string name="emotion_sad">sad</string>
     <string name="emotion_bored">bored</string>
-    <string name="emotion_hopeful">hopeful</string>
+    <string name="emotion_expect">hopeful</string>
     <string name="emotion_sound">sound</string>
     <string name="emotion_joy">joy</string>
     <string name="emotion_fun">fun</string>
@@ -60,5 +60,7 @@
     <string name="theme_sky_day">sky(day)</string>
     <string name="theme_sky_night">sky(night)</string>
     <string name="et_input_hint">Write down whatever you want.</string>
+    <string name="checkout_these_diaries">New Releases</string>
+    <string name="toast_emotion_limit_3">Maximum choice must be under 3.</string>
     <string name="dialog_sign_out_message">Sign Out</string>
 </resources>

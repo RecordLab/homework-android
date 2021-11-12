@@ -26,7 +26,7 @@
     <string name="emotion_fun">재미</string>
     <string name="emotion_joy">즐거움</string>
     <string name="emotion_sound">평온</string>
-    <string name="emotion_hopeful">기대</string>
+    <string name="emotion_expect">기대</string>
     <string name="emotion_bored">심심</string>
     <string name="emotion_sad">슬픔</string>
     <string name="emotion_nervous">긴장</string>
@@ -53,7 +53,6 @@
     <string name="sign_yet1">아직 회원이 아니신가요?</string>
     <string name="sign_yet2">가입하기</string>
     <string name="forgot_password">비밀번호 찾기</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="find_password_email">회원가입 시 사용한 이메일을 입력해주세요</string>
     <string name="new_password">새 비밀번호 설정하기</string>
     <string name="new_pass1">비밀번호 재설정</string>
@@ -63,6 +62,7 @@
     <string name="splash">하루 한 장\n하루 한 스쿱</string>
     <string name="splash_content_description">아이스크림 트럭</string>
     <string name="et_input_hint">내용을 입력해주세요</string>
+    <string name="checkout_these_diaries">최근 작성한 일기 보러가기</string>
+    <string name="toast_emotion_limit_3">감정은 최대 세 개까지 선택할 수 있어요.</string>
     <string name="dialog_sign_out_message">로그아웃 하시겠습니까?</string>
-
 </resources>
