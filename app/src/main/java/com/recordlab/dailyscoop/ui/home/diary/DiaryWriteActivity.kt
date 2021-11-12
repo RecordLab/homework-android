@@ -204,7 +204,7 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
                         emotionWarning()
                     }
                 }
-
+                saveButtonCheck()
             }
         })
 
@@ -544,7 +544,7 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
             }
             R.id.action_save -> {
                 // 여기에서 통신 붙이기
-                if (binding.btnSave.isActivated && theme != null) { // 이미지?, 텍스트 최소 한 글자, 감정 최소 한개, 테마 (기본 paper_white)
+                if (binding.btnSave.isEnabled) { // 이미지?, 텍스트 최소 한 글자, 감정 최소 한개, 테마 (기본 paper_white)
                     service.requestWriteDiary(
                         header = header,
                         RequestWriteDiary(

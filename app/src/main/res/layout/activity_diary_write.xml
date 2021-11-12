@@ -313,9 +313,7 @@
                 android:id="@+id/btn_save"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:text="image"
-                android:visibility="invisible"
-                android:src="@drawable/save_diary"
+                android:src="@drawable/selector_save_diary"
                 android:layout_gravity="end"/>
 
 

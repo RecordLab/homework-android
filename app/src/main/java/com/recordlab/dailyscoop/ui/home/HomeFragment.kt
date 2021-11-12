@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.*
 import android.widget.TextView
 import android.widget.Toast
+import androidx.compose.ui.graphics.Color
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -40,9 +41,11 @@ import java.util.*
 import com.applikeysolutions.cosmocalendar.selection.OnDaySelectedListener
 
 import com.applikeysolutions.cosmocalendar.selection.RangeSelectionManager
+import com.applikeysolutions.cosmocalendar.settings.appearance.ConnectedDayIconPosition
 
-
-
+import com.applikeysolutions.cosmocalendar.settings.lists.connected_days.ConnectedDays
+import com.recordlab.dailyscoop.ui.diary.DiaryDetailActivity
+import java.text.SimpleDateFormat
 
 
 private const val NUM_WIDGET = 2
@@ -64,6 +67,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
     private lateinit var diaryAdapter: DiaryAdapter
 
     val diaryData = mutableListOf<DiaryData>()
+    private var days = mutableSetOf<Long>()
 
     //    private val diaryListViewModel by viewModels<DiaryListViewModel> {
 //        DiaryListViewModelFactory(this)
@@ -148,7 +152,28 @@ class HomeFragment : Fragment(), View.OnClickListener {
                     "${calendarView.selectedDays[0].calendar.get(Calendar.MONTH) + 1}-" +
                     "${calendarView.selectedDays[0].calendar.get(Calendar.DAY_OF_MONTH)}"
             )
-            Log.d(DEBUG_TAG, ">> 시간은 이렇게 표시된다. ${TimeToString().convert(calendarView.selectedDays[0].calendar.time, 2)}")
+//            Log.d(DEBUG_TAG, ">> 시간은 이렇게 표시된다. ${TimeToString().convert(calendarView.selectedDays[0].calendar.time, 2)}")
+            val chosenDate = TimeToString().convert(calendarView.selectedDays[0].calendar.time, 3)
+            //set에 있는지 확인하고 꺼내 쓰기.
+            Log.d(DEBUG_TAG, "선택한 날짜 as 시간 :${calendarView.selectedDays[0].calendar.timeInMillis} 현재 날짜 AS Long ${System.currentTimeMillis()}")
+            // 미래 시점이면 아직 날짜가 되지 않았다고 띄워주기.
+            if (calendarView.selectedDays[0].calendar.timeInMillis > System.currentTimeMillis()){
+
+                Toast.makeText(this.context, "...", Toast.LENGTH_SHORT).show()
+            }else {
+                if (days.contains(calendarView.selectedDays[0].calendar.timeInMillis)){ // 일기 있는 경우
+                    val intent = Intent(activity, DiaryDetailActivity::class.java)
+                    intent.putExtra("date", chosenDate)
+                    startActivity(intent)
+                } else { // 없는 경우
+                    // 다이얼로그로 먼저 물어보기.
+                    val intent = Intent(activity, DiaryWriteActivity::class.java)
+                    intent.putExtra("date", chosenDate)
+                    startActivity(intent)
+
+                }
+            }
+
         }
 
         btnMore.setOnClickListener {
@@ -160,6 +185,8 @@ class HomeFragment : Fragment(), View.OnClickListener {
                 Log.d(DEBUG_TAG, "activity is not null")
             }
         }
+
+
         return view
     }
 
@@ -183,6 +210,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
         val header = mutableMapOf<String, String?>()
         header["Content-type"] = "application/json; charset=UTF-8"
         header["Authorization"] = sharedPref.getString("token", "token")
+
 
         //    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImhhaWxleWhpMTRAZ21haWwuY29tIiwiZXhwIjoxNjM2NTkwNjg5fQ.jCFGuLtsOwKNNJ601IeO8ueXke5GMOmpF5TfUkztjvU"
         //"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImlkIiwiZXhwIjoxNjM2NTk2NzE4fQ.JOb447DOeSlRpa-NNF_KRg5NylfuKorzni8evoQimvo"//sharedPref.getString("token", "token")
@@ -210,6 +238,27 @@ class HomeFragment : Fragment(), View.OnClickListener {
                         diaryData.addAll(it.body()!!.data)
                         diaryAdapter.data = diaryData
                         diaryAdapter.notifyDataSetChanged()
+
+                        // 달력에 일기 작성날짜 mark하기.
+                        days.clear()
+                        val sdf = SimpleDateFormat("MM-dd-yyyy")
+                        for (item in diaryData){
+                            days.add(Date(item.date.time).time)
+                            Log.d(DEBUG_TAG, "${Date(item.date.time).time}")
+                        }
+
+                        val textColor: Int = R.color.veryBerry
+                        val selectedTextColor: Int = R.color.baraRed
+                        val disabledTextColor: Int = R.color.twinkleBlue
+                        val connectedDays = ConnectedDays(days, textColor, selectedTextColor, disabledTextColor)
+
+                        //Add Connect days to calendar
+                        binding.cvHome.addConnectedDays(connectedDays)
+
+                        binding.cvHome.connectedDayIconRes = R.drawable.ic_baseline_flag_coral_12
+                        binding.cvHome.connectedDayIconPosition = ConnectedDayIconPosition.TOP // TOP & BOTTOM
+
+                        binding.cvHome.update()
                     }
                 },
                 onError = {
@@ -236,9 +285,11 @@ class HomeFragment : Fragment(), View.OnClickListener {
                     )
                 )
             }
-        }*/
+        }
         diaryAdapter.data = diaryData
-        diaryAdapter.notifyDataSetChanged()
+        diaryAdapter.notifyDataSetChanged()*/
+
+
     }
 
     private inner class PagerAdpater(fa: FragmentActivity) : FragmentStateAdapter(fa) {
@@ -310,6 +361,3 @@ class HomeFragment : Fragment(), View.OnClickListener {
     }
 }
 
-private fun CalendarView.selectionManager(singleSelectionManager: SingleSelectionManager) {
-
-}
