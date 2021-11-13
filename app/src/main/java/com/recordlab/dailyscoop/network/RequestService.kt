@@ -4,6 +4,7 @@ import com.recordlab.dailyscoop.network.request.RequestSignIn
 import com.recordlab.dailyscoop.network.request.RequestSignup
 import com.recordlab.dailyscoop.network.request.RequestWriteDiary
 import com.recordlab.dailyscoop.network.response.*
+import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.*
 import java.util.*
@@ -57,4 +58,11 @@ interface RequestService {
     fun requestQuotation(
         @Query("apikey") apikey: String
     ): Call<List<ResponseQuotation>>
+
+    @Multipart
+    @POST("/api/image")
+    fun reqeustImageUrl(
+        @HeaderMap header: Map<String, String?>,
+        @Part file: MultipartBody.Part
+    ): Call<ResponseImageUrl>
 }

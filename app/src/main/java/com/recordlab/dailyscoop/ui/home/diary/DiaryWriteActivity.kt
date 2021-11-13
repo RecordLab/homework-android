@@ -19,6 +19,7 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.recordlab.dailyscoop.R
 import com.recordlab.dailyscoop.databinding.ActivityDiaryWriteBinding
@@ -26,12 +27,17 @@ import com.recordlab.dailyscoop.network.RetrofitClient
 import com.recordlab.dailyscoop.network.enqueue
 import com.recordlab.dailyscoop.network.request.RequestWriteDiary
 import com.recordlab.dailyscoop.ui.diary.DiaryDetailActivity
+import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import java.io.File
 import java.util.*
-import kotlin.collections.List
-import kotlin.collections.arrayListOf
-import kotlin.collections.mutableListOf
-import kotlin.collections.mutableMapOf
 import kotlin.collections.set
+import android.Manifest
+import android.content.pm.PackageManager
+import androidx.core.app.ActivityCompat
 
 
 class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
@@ -42,7 +48,19 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
     val getContent =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
 //            binding.ivWriteDiary.setImageURI(result.data?.data)
-            Glide.with(backgroundLayout).load(result.data?.data).into(binding.ivWriteDiary)
+            if (result.data == null) {
+                val message = R.string.no_selected_image
+                Toast.makeText(applicationContext, message, Toast.LENGTH_SHORT).show()
+                binding.ivWriteDiary.visibility = ImageView.GONE
+            } else {
+                Glide.with(backgroundLayout).load(result.data?.data).into(binding.ivWriteDiary)
+                val file = File(result.data?.data?.path)
+                val requestFile = file.asRequestBody("image/png".toMediaTypeOrNull())
+//            val requestBody = MultipartBody.Builder().setType(MultipartBody.FORM).addFormDataPart("file", file.name, requestFile).build()
+                val body = MultipartBody.Part.createFormData("file", file.name, requestFile)
+
+            }
+
         }
     private val DW_DEBUG_TAG = "DiaryWrite_DEBUG>>"
 //    private lateinit var upload: MenuItem
@@ -58,6 +76,8 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
     var theme: String? = "paper_white"
     var emotionCnt: Int = 0
     private lateinit var emotionType: List<RadioButton>
+
+    private val content_permission_code = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -198,158 +218,148 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
             saveButtonCheck()
         }
 
-        binding.emotionJoy.setOnClickListener(object : View.OnClickListener{
-            override fun onClick(p0: View?) {
-                if (binding.emotionJoy.isSelected) {
-                    emotionCnt--
+        binding.emotionJoy.setOnClickListener {
+            if (binding.emotionJoy.isSelected) {
+                emotionCnt--
+                (!binding.emotionJoy.isSelected).also { binding.emotionJoy.isSelected = it }
+            } else {
+                if (emotionCnt < 3) {
+                    emotionCnt++
                     (!binding.emotionJoy.isSelected).also { binding.emotionJoy.isSelected = it }
                 } else {
-                    if (emotionCnt < 3){
-                        emotionCnt++
-                        (!binding.emotionJoy.isSelected).also { binding.emotionJoy.isSelected = it }
-                    }else {
-                        emotionWarning()
-                    }
+                    emotionWarning()
                 }
-                saveButtonCheck()
             }
-        })
+            saveButtonCheck()
+        }
 
-        binding.emotionSound.setOnClickListener(object : View.OnClickListener{
-            override fun onClick(p0: View?) {
-                if (binding.emotionSound.isSelected) {
-                    emotionCnt--
+        binding.emotionSound.setOnClickListener {
+            if (binding.emotionSound.isSelected) {
+                emotionCnt--
+                (!binding.emotionSound.isSelected).also { binding.emotionSound.isSelected = it }
+            } else {
+                if (emotionCnt < 3) {
+                    emotionCnt++
                     (!binding.emotionSound.isSelected).also { binding.emotionSound.isSelected = it }
                 } else {
-                    if (emotionCnt < 3){
-                        emotionCnt++
-                        (!binding.emotionSound.isSelected).also { binding.emotionSound.isSelected = it }
-                    }else {
-                        emotionWarning()
-                    }
+                    emotionWarning()
                 }
-                saveButtonCheck()
             }
-        })
+            saveButtonCheck()
+        }
 
-        binding.emotionExcitement.setOnClickListener(object : View.OnClickListener{
-            override fun onClick(p0: View?) {
-                if (binding.emotionExcitement.isSelected) {
-                    emotionCnt--
-                    (!binding.emotionExcitement.isSelected).also { binding.emotionExcitement.isSelected = it }
+        binding.emotionExcitement.setOnClickListener {
+            if (binding.emotionExcitement.isSelected) {
+                emotionCnt--
+                (!binding.emotionExcitement.isSelected).also {
+                    binding.emotionExcitement.isSelected = it
+                }
+            } else {
+                if (emotionCnt < 3) {
+                    emotionCnt++
+                    (!binding.emotionExcitement.isSelected).also {
+                        binding.emotionExcitement.isSelected = it
+                    }
                 } else {
-                    if (emotionCnt < 3){
-                        emotionCnt++
-                        (!binding.emotionExcitement.isSelected).also { binding.emotionExcitement.isSelected = it }
-                    }else {
-                        emotionWarning()
-                    }
+                    emotionWarning()
                 }
-                saveButtonCheck()
             }
-        })
+            saveButtonCheck()
+        }
 
-        binding.emotionBored.setOnClickListener(object : View.OnClickListener{
-            override fun onClick(p0: View?) {
-                if (binding.emotionBored.isSelected) {
-                    emotionCnt--
+        binding.emotionBored.setOnClickListener {
+            if (binding.emotionBored.isSelected) {
+                emotionCnt--
+                (!binding.emotionBored.isSelected).also { binding.emotionBored.isSelected = it }
+            } else {
+                if (emotionCnt < 3) {
+                    emotionCnt++
                     (!binding.emotionBored.isSelected).also { binding.emotionBored.isSelected = it }
                 } else {
-                    if (emotionCnt < 3){
-                        emotionCnt++
-                        (!binding.emotionBored.isSelected).also { binding.emotionBored.isSelected = it }
-                    }else {
-                        emotionWarning()
-                    }
+                    emotionWarning()
                 }
-                saveButtonCheck()
             }
-        })
+            saveButtonCheck()
+        }
 
-        binding.emotionSad.setOnClickListener(object : View.OnClickListener{
-            override fun onClick(p0: View?) {
-                if (binding.emotionSad.isSelected) {
-                    emotionCnt--
+        binding.emotionSad.setOnClickListener {
+            if (binding.emotionSad.isSelected) {
+                emotionCnt--
+                (!binding.emotionSad.isSelected).also { binding.emotionSad.isSelected = it }
+            } else {
+                if (emotionCnt < 3) {
+                    emotionCnt++
                     (!binding.emotionSad.isSelected).also { binding.emotionSad.isSelected = it }
                 } else {
-                    if (emotionCnt < 3){
-                        emotionCnt++
-                        (!binding.emotionSad.isSelected).also { binding.emotionSad.isSelected = it }
-                    }else {
-                        emotionWarning()
-                    }
+                    emotionWarning()
                 }
-                saveButtonCheck()
             }
-        })
+            saveButtonCheck()
+        }
 
-        binding.emotionNervous.setOnClickListener(object : View.OnClickListener{
-            override fun onClick(p0: View?) {
-                if (binding.emotionNervous.isSelected) {
-                    emotionCnt--
-                    (!binding.emotionNervous.isSelected).also { binding.emotionNervous.isSelected = it }
+        binding.emotionNervous.setOnClickListener {
+            if (binding.emotionNervous.isSelected) {
+                emotionCnt--
+                (!binding.emotionNervous.isSelected).also { binding.emotionNervous.isSelected = it }
+            } else {
+                if (emotionCnt < 3) {
+                    emotionCnt++
+                    (!binding.emotionNervous.isSelected).also {
+                        binding.emotionNervous.isSelected = it
+                    }
                 } else {
-                    if (emotionCnt < 3){
-                        emotionCnt++
-                        (!binding.emotionNervous.isSelected).also { binding.emotionNervous.isSelected = it }
-                    }else {
-                        emotionWarning()
-                    }
+                    emotionWarning()
                 }
-                saveButtonCheck()
             }
-        })
+            saveButtonCheck()
+        }
 
-        binding.emotionTired.setOnClickListener(object : View.OnClickListener{
-            override fun onClick(p0: View?) {
-                if (binding.emotionTired.isSelected) {
-                    emotionCnt--
+        binding.emotionTired.setOnClickListener {
+            if (binding.emotionTired.isSelected) {
+                emotionCnt--
+                (!binding.emotionTired.isSelected).also { binding.emotionTired.isSelected = it }
+            } else {
+                if (emotionCnt < 3) {
+                    emotionCnt++
                     (!binding.emotionTired.isSelected).also { binding.emotionTired.isSelected = it }
                 } else {
-                    if (emotionCnt < 3){
-                        emotionCnt++
-                        (!binding.emotionTired.isSelected).also { binding.emotionTired.isSelected = it }
-                    }else {
-                        emotionWarning()
-                    }
+                    emotionWarning()
                 }
-                saveButtonCheck()
             }
-        })
+            saveButtonCheck()
+        }
 
-        binding.emotionAnxious.setOnClickListener(object : View.OnClickListener{
-            override fun onClick(p0: View?) {
-                if (binding.emotionAnxious.isSelected) {
-                    emotionCnt--
-                    (!binding.emotionAnxious.isSelected).also { binding.emotionAnxious.isSelected = it }
+        binding.emotionAnxious.setOnClickListener {
+            if (binding.emotionAnxious.isSelected) {
+                emotionCnt--
+                (!binding.emotionAnxious.isSelected).also { binding.emotionAnxious.isSelected = it }
+            } else {
+                if (emotionCnt < 3) {
+                    emotionCnt++
+                    (!binding.emotionAnxious.isSelected).also {
+                        binding.emotionAnxious.isSelected = it
+                    }
                 } else {
-                    if (emotionCnt < 3){
-                        emotionCnt++
-                        (!binding.emotionAnxious.isSelected).also { binding.emotionAnxious.isSelected = it }
-                    }else {
-                        emotionWarning()
-                    }
+                    emotionWarning()
                 }
-                saveButtonCheck()
             }
-        })
+            saveButtonCheck()
+        }
 
-        binding.emotionHappy.setOnClickListener(object : View.OnClickListener{
-            override fun onClick(p0: View?) {
-                if (binding.emotionHappy.isSelected) {
-                    emotionCnt--
+        binding.emotionHappy.setOnClickListener {
+            if (binding.emotionHappy.isSelected) {
+                emotionCnt--
+                (!binding.emotionHappy.isSelected).also { binding.emotionHappy.isSelected = it }
+            } else {
+                if (emotionCnt < 3) {
+                    emotionCnt++
                     (!binding.emotionHappy.isSelected).also { binding.emotionHappy.isSelected = it }
                 } else {
-                    if (emotionCnt < 3){
-                        emotionCnt++
-                        (!binding.emotionHappy.isSelected).also { binding.emotionHappy.isSelected = it }
-                    }else {
-                        emotionWarning()
-                    }
+                    emotionWarning()
                 }
-                saveButtonCheck()
             }
-        })
+            saveButtonCheck()
+        }
 
         setSupportActionBar(toolbar)
 
@@ -366,7 +376,9 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
         binding.tbDiaryWrite.toolbarId.text = writeDate
         binding.tbDiaryWrite.toolbarId.setTextColor(Color.argb(0xCC, 0x30, 0x30, 0x30))
 
-        Log.d(DW_DEBUG_TAG, "액티비티 생성")
+        binding.btnSave.isEnabled = false
+
+        binding.ivButtonGallery.setOnClickListener(this)
 
         postDiary()
 
@@ -382,46 +394,41 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    private fun deactivateEmotionButton() {
-        binding.emotionAngry.isActivated = false
-        binding.emotionAnxious.isActivated = false
-        binding.emotionBored.isActivated = false
-        binding.emotionFun.isActivated = false
-        binding.emotionSad.isActivated = false
-        binding.emotionHappy.isActivated = false
-        binding.emotionJoy.isActivated = false
-        binding.emotionHappy.isActivated = true
-        binding.emotionJoy.isActivated = true
-        binding.emotionTired.isActivated = true
-        binding.emotionTired.isActivated = false
-        binding.emotionSad.isActivated = false
-        binding.emotionSound.isActivated = false
-        binding.emotionRelax.isActivated = false
-        binding.emotionNervous.isActivated = false
+    private fun activateEmotionButton( status :Boolean) {
+        binding.emotionAngry.isActivated = status
+        binding.emotionAnxious.isActivated = status
+        binding.emotionBored.isActivated = status
+        binding.emotionFun.isActivated = status
+        binding.emotionHappy.isActivated = status
+        binding.emotionJoy.isActivated = status
+        binding.emotionSad.isActivated = status
+        binding.emotionSad.isActivated = status
+        binding.emotionSound.isActivated = status
+        binding.emotionTired.isActivated = status
+        binding.emotionRelax.isActivated = status
+        binding.emotionNervous.isActivated = status
     }
-
-    private fun activateEmotionButton() {
-        binding.emotionAngry.isActivated = true
-        binding.emotionAnxious.isActivated = true
-        binding.emotionBored.isActivated = true
-        binding.emotionFun.isActivated = true
-        binding.emotionSad.isActivated = true
-        binding.emotionSad.isActivated = true
-        binding.emotionSound.isActivated = true
-        binding.emotionRelax.isActivated = true
-        binding.emotionNervous.isActivated = true
-    }
-
 
     override fun onClick(v: View?) {
         when (v?.id) {
+            R.id.iv_button_gallery -> {
+                val readPermission = ContextCompat.checkSelfPermission(
+                    this@DiaryWriteActivity,
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+                )
+                if (readPermission == PackageManager.PERMISSION_GRANTED) { // 접근 권한 있는 경우,
+                   selectPhoto()
+                } else {
+                    ActivityCompat.requestPermissions(
+                        this@DiaryWriteActivity,
+                        arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                        content_permission_code
+                    )
+
+                }
+            }
             R.id.iv_write_diary -> {
-                val intent =
-                    Intent(Intent.ACTION_PICK) // Intent.ACTION_PICK 부터 CONTENT_TYPE, image/*까지 설정하면 갤러리 열림.
-                intent.type = MediaStore.Images.Media.CONTENT_TYPE
-                intent.type = "image/*"
-//                intent.action = Intent.ACTION_GET_CONTENT // 이 설정을 풀면 파일 폴더에서 사진 선택하는 방식.
-                getContent.launch(intent)
+
             }
             R.id.chip_paper_white -> {
                 Glide.with(backgroundLayout).load(R.drawable.theme_paper_white).into(backgroundImage)
@@ -456,6 +463,35 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
                 Log.d(DW_DEBUG_TAG, "sky night chosen")
             }
         }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            // 권한 허용됐을 때
+            content_permission_code -> {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    selectPhoto()
+                } else {
+                    val message = R.string.require_permission_message
+                    Toast.makeText(applicationContext, message, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    private fun selectPhoto(){
+        val intent =
+            Intent(Intent.ACTION_PICK) // Intent.ACTION_PICK 부터 CONTENT_TYPE, image/*까지 설정하면 갤러리 열림.
+        intent.type = MediaStore.Images.Media.CONTENT_TYPE
+        intent.type = "image/*"
+//                intent.action = Intent.ACTION_GET_CONTENT // 이 설정을 풀면 파일 폴더에서 사진 선택하는 방식.
+        getContent.launch(intent)
+        binding.ivWriteDiary.visibility = ImageView.VISIBLE
     }
 
     fun postDiary() {
