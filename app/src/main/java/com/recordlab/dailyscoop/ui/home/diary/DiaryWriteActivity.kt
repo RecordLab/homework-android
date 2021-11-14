@@ -1,10 +1,11 @@
 package com.recordlab.dailyscoop.ui.home.diary
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
 import android.graphics.Color
-import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.provider.MediaStore
 import android.text.Editable
@@ -19,6 +20,7 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.recordlab.dailyscoop.R
@@ -27,17 +29,12 @@ import com.recordlab.dailyscoop.network.RetrofitClient
 import com.recordlab.dailyscoop.network.enqueue
 import com.recordlab.dailyscoop.network.request.RequestWriteDiary
 import com.recordlab.dailyscoop.ui.diary.DiaryDetailActivity
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 import java.util.*
 import kotlin.collections.set
-import android.Manifest
-import android.content.pm.PackageManager
-import androidx.core.app.ActivityCompat
 
 
 class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
@@ -54,10 +51,17 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
                 binding.ivWriteDiary.visibility = ImageView.GONE
             } else {
                 Glide.with(backgroundLayout).load(result.data?.data).into(binding.ivWriteDiary)
-                val file = File(result.data?.data?.path)
+                val file = File(result.data?.data!!.path)
                 val requestFile = file.asRequestBody("image/png".toMediaTypeOrNull())
 //            val requestBody = MultipartBody.Builder().setType(MultipartBody.FORM).addFormDataPart("file", file.name, requestFile).build()
                 val body = MultipartBody.Part.createFormData("file", file.name, requestFile)
+                service.requestImageUrl(header = header, body).enqueue(
+                    onSuccess = {
+
+                    }, onError = {
+
+                    },
+                )
 
             }
 
@@ -74,10 +78,30 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
     var diaryContent: String? = null
     var emotions: List<String>? = null
     var theme: String? = "paper_white"
+    private var imageUrl: String? = null
     var emotionCnt: Int = 0
     private lateinit var emotionType: List<RadioButton>
 
     private val content_permission_code = 1
+
+    /*inner class EmotionClickListener(val itemView: View) : View.OnClickListener {
+        override fun onClick(v: View?) {
+            if (itemView.isSelected) {
+                emotionCnt--
+                (!itemView.isSelected).also { itemView.isSelected = it }
+            } else {
+                if (emotionCnt < 3) {
+                    emotionCnt++
+                    (!itemView.isSelected).also {
+                        itemView.isSelected = it
+                    }
+                } else {
+                    emotionWarning()
+                }
+            }
+            saveButtonCheck()
+        }
+    }*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -432,15 +456,16 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
             }
             R.id.chip_paper_white -> {
                 Glide.with(backgroundLayout).load(R.drawable.theme_paper_white).into(backgroundImage)
+                theme = "paper_white"
                 setTextColor(0)
             }
             R.id.chip_paper_ivory -> {
                 Glide.with(backgroundLayout).load(R.drawable.theme_paper_ivory).into(backgroundImage)
+                theme = "paper_ivory"
                 setTextColor(0)
             }
             R.id.chip_paper_black -> {
                 Glide.with(backgroundLayout).load(R.drawable.theme_paper_black).into(backgroundImage)
-                Log.d(DW_DEBUG_TAG, "paper black chosen")
                 theme = "paper_dark"
                 setTextColor(1)
             }
@@ -448,19 +473,16 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
                 Glide.with(backgroundLayout).load(R.drawable.theme_window).into(backgroundImage)
                 setTextColor(1)
                 theme = "window"
-                Log.d(DW_DEBUG_TAG, "window chosen")
             }
             R.id.chip_sky_day -> {
-                Glide.with(backgroundLayout).load(R.drawable.theme_sky_day).into(backgroundImage)
+                Glide.with(backgroundLayout).load(R.drawable.theme_sky_day_bright).into(backgroundImage)
                 setTextColor(0)
                 theme = "sky_day"
-                Log.d(DW_DEBUG_TAG, "sky day chosen")
             }
             R.id.chip_sky_night -> {
                 Glide.with(backgroundLayout).load(R.drawable.theme_sky_night).into(backgroundImage)
                 setTextColor(1)
                 theme = "sky_night"
-                Log.d(DW_DEBUG_TAG, "sky night chosen")
             }
         }
     }
@@ -500,19 +522,12 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
             }
 
             override fun afterTextChanged(s: Editable?) {
                 saveButtonCheck()
             }
-
         })
-
-
-
-
-
     }
 
     fun emotionWarning() {
@@ -537,39 +552,32 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
     fun setTextColor(mode: Int) {
         when (mode) {
             0 -> {
-                binding.tbDiaryWrite.toolbarId.setTextColor(Color.argb(0xCC, 0x30, 0x30, 0x30))
-                contentText.setTextColor(Color.argb(0xCC, 0x30, 0x30, 0x30))
-                binding.emotionAngry.setTextColor(Color.argb(0xCC, 0x30, 0x30, 0x30))
-                binding.emotionAnxious.setTextColor(Color.argb(0xCC, 0x30, 0x30, 0x30))
-                binding.emotionBored.setTextColor(Color.argb(0xCC, 0x30, 0x30, 0x30))
-                binding.emotionFun.setTextColor(Color.argb(0xCC, 0x30, 0x30, 0x30))
-                binding.emotionSad.setTextColor(Color.argb(0xCC, 0x30, 0x30, 0x30))
-                binding.emotionHappy.setTextColor(Color.argb(0xCC, 0x30, 0x30, 0x30))
-                binding.emotionJoy.setTextColor(Color.argb(0xCC, 0x30, 0x30, 0x30))
-                binding.emotionTired.setTextColor(Color.argb(0xCC, 0x30, 0x30, 0x30))
-                binding.emotionSad.setTextColor(Color.argb(0xCC, 0x30, 0x30, 0x30))
-                binding.emotionSound.setTextColor(Color.argb(0xCC, 0x30, 0x30, 0x30))
-                binding.emotionRelax.setTextColor(Color.argb(0xCC, 0x30, 0x30, 0x30))
-                binding.emotionNervous.setTextColor(Color.argb(0xCC, 0x30, 0x30, 0x30))
+                val darkColor: Int = Color.argb(0xCC, 0x30, 0x30, 0x30)
+                colorMode(darkColor)
             }
             1 -> { // 밝은 텍스트
-                binding.tbDiaryWrite.toolbarId.setTextColor(Color.argb(0xCC, 0xDB, 0xDB, 0xDB))
-//                binding.tvDiaryEmotion.setTextColor(Color.argb(0xCC, 0xDB, 0xDB, 0xDB))
-                contentText.setTextColor(Color.argb(0xCC, 0xDB, 0xDB, 0xDB))
-                binding.emotionAngry.setTextColor(Color.argb(0xCC, 0xDB, 0xDB, 0xDB))
-                binding.emotionAnxious.setTextColor(Color.argb(0xCC, 0xDB, 0xDB, 0xDB))
-                binding.emotionBored.setTextColor(Color.argb(0xCC, 0xDB, 0xDB, 0xDB))
-                binding.emotionFun.setTextColor(Color.argb(0xCC, 0xDB, 0xDB, 0xDB))
-                binding.emotionSad.setTextColor(Color.argb(0xCC, 0xDB, 0xDB, 0xDB))
-                binding.emotionHappy.setTextColor(Color.argb(0xCC, 0xDB, 0xDB, 0xDB))
-                binding.emotionJoy.setTextColor(Color.argb(0xCC, 0xDB, 0xDB, 0xDB))
-                binding.emotionTired.setTextColor(Color.argb(0xCC, 0xDB, 0xDB, 0xDB))
-                binding.emotionSad.setTextColor(Color.argb(0xCC, 0xDB, 0xDB, 0xDB))
-                binding.emotionSound.setTextColor(Color.argb(0xCC, 0xDB, 0xDB, 0xDB))
-                binding.emotionRelax.setTextColor(Color.argb(0xCC, 0xDB, 0xDB, 0xDB))
-                binding.emotionNervous.setTextColor(Color.argb(0xCC, 0xDB, 0xDB, 0xDB))
+                val brightColor = Color.argb(0xCC, 0xDB, 0xDB, 0xDB)
+                colorMode(brightColor)
             }
         }
+    }
+
+    fun colorMode(color: Int) {
+        binding.tbDiaryWrite.toolbarId.setTextColor(color)
+        contentText.setTextColor(color)
+        binding.emotionAngry.setTextColor(color)
+        binding.emotionAnxious.setTextColor(color)
+        binding.emotionBored.setTextColor(color)
+        binding.emotionExcitement.setTextColor(color)
+        binding.emotionFun.setTextColor(color)
+        binding.emotionSad.setTextColor(color)
+        binding.emotionHappy.setTextColor(color)
+        binding.emotionJoy.setTextColor(color)
+        binding.emotionTired.setTextColor(color)
+        binding.emotionSad.setTextColor(color)
+        binding.emotionSound.setTextColor(color)
+        binding.emotionRelax.setTextColor(color)
+        binding.emotionNervous.setTextColor(color)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -591,7 +599,7 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
                         header = header,
                         diary = RequestWriteDiary(
                             content = binding.etWriteDiary.text.toString(),
-                            image = (binding.ivWriteDiary.drawable as BitmapDrawable).bitmap.toString(),
+                            image = imageUrl?: "null",
                             emotions = getEmotionAsList(),
                             theme = theme!!,
                             date = writeDate

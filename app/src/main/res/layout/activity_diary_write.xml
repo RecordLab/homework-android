@@ -26,14 +26,12 @@
             android:layout_height="wrap_content"
             app:titleEnabled="false"
             app:layout_scrollFlags="scroll">
-
             <include
                 android:id="@+id/tb_diary_write"
                 layout="@layout/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_collapseMode="pin" />
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_diary_option"
                 android:layout_width="match_parent"
@@ -315,10 +313,11 @@
 
         <ImageView
             android:id="@+id/iv_write_diary"
-            android:layout_width="360dp"
+            android:layout_width="match_parent"
             android:layout_height="300dp"
             android:paddingHorizontal="@dimen/activity_horizontal_margin"
             android:layout_marginTop="8dp"
+            android:adjustViewBounds="true"
             android:contentDescription="diary image"
             android:maxHeight="300dp"
             android:visibility="gone"
@@ -337,7 +336,7 @@
             android:id="@+id/et_write_diary"
             style="@style/diary_content_black"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
             android:layout_marginTop="8dp"
             android:background="@color/transparent"
