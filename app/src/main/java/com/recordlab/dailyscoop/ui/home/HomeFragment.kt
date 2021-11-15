@@ -13,7 +13,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
@@ -79,20 +81,19 @@ class HomeFragment : Fragment(), View.OnClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        homeViewModel =
-            ViewModelProviders.of(this)
-                .get(HomeViewModel::class.java) //ViewModelProvider(activity.viewModelStore).get(HomeViewModel::class.java)//, ViewModelProvider.AndroidViewModelFactory()).get(HomeViewModel::class.java)
+        homeViewModel = ViewModelProvider(this)[HomeViewModel::class.java]
+           // ViewModelProviders.of(this)[HomeViewModel::class.java] //ViewModelProvider(activity.viewModelStore).get(HomeViewModel::class.java)//, ViewModelProvider.AndroidViewModelFactory()).get(HomeViewModel::class.java)
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val view = binding.root
         val calendarView: CalendarView = binding.cvHome
 //        val fab: View = binding.fabDiary
         sharedPref = requireActivity().getSharedPreferences("TOKEN", Context.MODE_PRIVATE)
-        val token: String? = sharedPref.getString("token", "token")
+        /*val token: String? = sharedPref.getString("token", "token")
         if (token == "token") {
             with(sharedPref.edit()) {
                 putString(
                     "token",
-                    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImhhaWxleWhpMTRAZ21haWwuY29tIiwiZXhwIjoxNjM2ODUyMDI1fQ.8LPeWC8OMM80q-lipCe0eIiMgV-8O-8qYmFAOkuvLW8"
+                    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImhhaWxleWhpMTRAZ21haWwuY29tIiwiZXhwIjoxNjM5NDc3NzQzfQ.uHJxXzmGAnlm3CgFES-Hpd2nvIkDCQ9TmhEBZXYqJa8"
                 )
                 commit()
             }
@@ -100,12 +101,12 @@ class HomeFragment : Fragment(), View.OnClickListener {
             with(sharedPref.edit()) {
                 putString(
                     "token",
-                    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImhhaWxleWhpMTRAZ21haWwuY29tIiwiZXhwIjoxNjM2ODUyMDI1fQ.8LPeWC8OMM80q-lipCe0eIiMgV-8O-8qYmFAOkuvLW8"
+                    "Bearer $token"
                 )
                 apply()
                 commit()
             }
-        }
+        }*/
 
         init(view)
 
@@ -129,9 +130,9 @@ class HomeFragment : Fragment(), View.OnClickListener {
             binding.textHome.text = it
             //textView.text = it
         })
-        homeViewModel.diaryData.observe(viewLifecycleOwner, {
+        homeViewModel.diaryData.observe(viewLifecycleOwner) {
             binding.rvHomeDiary.adapter = DiaryAdapter(it)
-        })
+        }
 
         val btnById: TextView = binding.btnMore //root.findViewById(R.id.btn_more)
         Log.d(DEBUG_TAG, ">" + btnById.text + "<<  이게 원래 텍스트")
@@ -163,6 +164,11 @@ class HomeFragment : Fragment(), View.OnClickListener {
 
                 Toast.makeText(this.context, "...", Toast.LENGTH_SHORT).show()
             }else {
+                for (item in diaryData){
+                    days.add(Date(item.date.time).time) // days 안에 들어있는 것 timestamp -> long
+                    Log.d(DEBUG_TAG, "${Date(item.date.time).time}")
+                }
+                // calendar 안에 들어있는 것 : calendar
                 if (days.contains(calendarView.selectedDays[0].calendar.timeInMillis)){ // 일기 있는 경우
                     val intent = Intent(activity, DiaryDetailActivity::class.java)
                     intent.putExtra("date", chosenDate)

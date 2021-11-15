@@ -5,6 +5,7 @@ import com.recordlab.dailyscoop.network.request.RequestSignup
 import com.recordlab.dailyscoop.network.request.RequestWriteDiary
 import com.recordlab.dailyscoop.network.response.*
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
 import java.util.*
@@ -61,7 +62,7 @@ interface RequestService {
 
     @Multipart
     @POST("/api/image")
-    fun reqeustImageUrl(
+    fun requestImageUrl(
         @HeaderMap header: Map<String, String?>,
         @Part file: MultipartBody.Part
     ): Call<ResponseImageUrl>
