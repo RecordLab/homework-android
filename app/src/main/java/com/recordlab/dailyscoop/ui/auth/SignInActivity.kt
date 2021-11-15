@@ -82,7 +82,7 @@ class SignInActivity : AppCompatActivity() {
                         edit.putString("nickname", nic)
                         edit.apply() // 저장 완료
 
-                        Log.d("token", "로그인 응답 $to")
+                        //Log.d("token", "로그인 응답 $to")
 
                         val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)

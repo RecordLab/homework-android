@@ -11,6 +11,12 @@ import com.recordlab.dailyscoop.databinding.ActivityProfileAccountNicknameBindin
 import com.recordlab.dailyscoop.network.RetrofitClient.service
 import com.recordlab.dailyscoop.network.enqueue
 import com.recordlab.dailyscoop.network.request.RequestChangeNickname
+import android.content.Intent
+
+import android.R.attr.name
+
+
+
 
 class ProfileAccountNicknameActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProfileAccountNicknameBinding
@@ -34,13 +40,12 @@ class ProfileAccountNicknameActivity : AppCompatActivity() {
                 val header = mutableMapOf<String, String?>()
                 header["Content-type"] = "application/json; charset=UTF-8"
                 header["Authorization"] = pref.getString("token", "token")
-                Log.d("token", "헤더 : ${header["Authorization"]!!}")
+                //Log.d("token", "헤더 : ${header["Authorization"]!!}")
                 val data = RequestChangeNickname(newNickname)
 
                 change(header, data)
             }
         }
-
         val backBtnClicked = binding.imageView6
         backBtnClicked.setOnClickListener{
             finish()
@@ -51,9 +56,25 @@ class ProfileAccountNicknameActivity : AppCompatActivity() {
         service.requestChangeNickname(header = header, body = data).enqueue(
             onSuccess = {
                 when (it.code()){
-                    201 ->{
+                    200 ->{
                         Toast.makeText(this, it.body()?.message, Toast.LENGTH_SHORT).show()
+                        val pref = getSharedPreferences("TOKEN", 0)
+                        val edit = pref.edit()
+                        edit.putString("nickname", binding.editTextTextEmailAddress.text.toString())
+                        edit.apply()
+
+                        val intent = Intent(this, ProfileAccountActivity::class.java).apply {
+                            putExtra("nickname", binding.editTextTextEmailAddress.text.toString())
+                        }
+                        setResult(RESULT_OK, intent)
                         finish()
+
+                        // 새로고침
+//                        overridePendingTransition(0, 0) //인텐트 효과 없애기
+//                        val intent = intent //인텐트
+//                        startActivity(intent) //액티비티 열기
+//                        overridePendingTransition(0, 0) //인텐트 효과 없애기
+
                     }
                     else ->{
                         Toast.makeText(this,it.message(), Toast.LENGTH_SHORT).show()

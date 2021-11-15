@@ -243,7 +243,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
                 onSuccess = {
                     when (it.code()) {
                         in 200..299 -> {
-                            Log.d("통신 성공", it.body()!!.data[0].content)
+                            //Log.d("통신 성공", it.body()!!.data[0].content)
                             diaryData.clear()
                             diaryData.addAll(it.body()!!.data)
                             homeViewModel.diaryData.postValue(diaryData)

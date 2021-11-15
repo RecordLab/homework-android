@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import com.recordlab.dailyscoop.MainActivity
 import com.recordlab.dailyscoop.R
 import com.recordlab.dailyscoop.databinding.ActivityProfileAccountBinding
@@ -21,44 +23,50 @@ import okhttp3.OkHttpClient
 
 
 class ProfileAccountActivity : AppCompatActivity(), ProfileWithdrawDialogInterface {
-
     private lateinit var binding: ActivityProfileAccountBinding
-//    private lateinit var sharedPref: SharedPreferences
-//    private val header = mutableMapOf<String, String?>()
-//    private val service = RetrofitClient.service
+    lateinit var activityResultLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= ActivityProfileAccountBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // 초기 데이터 가져오기(이메일, 닉네임)
         loadData()
 
-        val emailBtnClicked = binding.bg4
-        emailBtnClicked.setOnClickListener{
-            //val intent = Intent(this, ProfileAccountEmailActivity::class.java)
-            //startActivity(intent)
+        // 변경한 닉네임 가져와서 바꿔 주기
+        activityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode == RESULT_OK) {
+                val nickname = it.data?.getStringExtra("nickname") ?: "error"
+                binding.textView2.text = nickname
+
+            }
         }
 
+        // 이메일 변경 버튼 클릭(보류)
+//        val emailBtnClicked = binding.bg4
+//        emailBtnClicked.setOnClickListener{
+//            val intent = Intent(this, ProfileAccountEmailActivity::class.java)
+//            startActivity(intent)
+//        }
+
+        // 닉네임 변경 버튼 클릭
         val nickBtnClicked = binding.bg45
         nickBtnClicked.setOnClickListener{
             val intent = Intent(this, ProfileAccountNicknameActivity::class.java)
-            startActivity(intent)
+            activityResultLauncher.launch(intent)
         }
 
+        // 비밀번호 변경 버튼 클릭
         val passBtnClicked = binding.bg454
         passBtnClicked.setOnClickListener{
             val intent = Intent(this, ProfileAccountPasswordActivity::class.java)
             startActivity(intent)
-
-//            val intent = Intent(this, SignInActivity::class.java)
-//            startActivity(intent)
         }
 
+        // 회원 탈퇴 버튼 클릭
         val disconnectBtnClicked = binding.bg4544
         disconnectBtnClicked.setOnClickListener{
-            //Toast.makeText(this.getApplicationContext(),"이것은 회원 탈퇴 메시지입니다.", Toast.LENGTH_SHORT).show();
-
             // 회원탈퇴 다이얼로그
             val withdrawDialog = ProfileWithdrawDialog(this, this)
             withdrawDialog.show()
