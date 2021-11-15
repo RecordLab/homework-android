@@ -46,6 +46,8 @@ class ProfileAccountNicknameActivity : AppCompatActivity() {
                 change(header, data)
             }
         }
+
+        // 뒤로가기 버튼 클릭
         val backBtnClicked = binding.imageView6
         backBtnClicked.setOnClickListener{
             finish()

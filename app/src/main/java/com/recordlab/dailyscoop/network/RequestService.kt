@@ -30,6 +30,13 @@ interface RequestService {
         @Body body: RequestChangeNickname
     ): Call<ResponseChange>
 
+    // 비밀번호 변경하기
+    @PUT("/api/user/change_password")
+    fun requestChangePassword(
+        @HeaderMap header: Map<String, String?>,
+        @Body body: RequestChangePassword
+    ): Call<ResponseChange>
+
     // 일기 작성
     @POST("/api/diaries")
     fun requestWriteDiary(

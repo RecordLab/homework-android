@@ -8,3 +8,8 @@ data class RequestSignIn(
 data class RequestChangeNickname(
     val newNickname: String,
 )
+
+data class RequestChangePassword(
+    val password: String,
+    val newPassword: String
+)
