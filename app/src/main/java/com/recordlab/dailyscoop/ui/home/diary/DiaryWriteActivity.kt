@@ -63,48 +63,55 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
                 Log.d(DW_DEBUG_TAG, "가져온 파일 경로 $imgPath")
 
                 if (uri != null && imgPath != null) {
-                    val `in`: InputStream? = contentResolver.openInputStream(uri) //src
-                    val extension = imgPath.substring(imgPath.lastIndexOf("."))
-                    val localImgFile = File(
-                        applicationContext.filesDir,
-                        "localImgFile$extension"
-                    )
-                    if (`in` != null) {
-                        try {
-                            val out: OutputStream = FileOutputStream(localImgFile) //dst
-                            try {
-                                // Transfer bytes from in to out
-                                val buf = ByteArray(1024)
-                                var len: Int
-                                while (`in`.read(buf).also { len = it } > 0) {
-                                    out.write(buf, 0, len)
-                                }
-                            } finally {
-                                out.close()
-                            }
-                        } finally {
-                            `in`.close()
-                        }
-                    }
+//                    val `in`: InputStream? = contentResolver.openInputStream(uri) //src
+//                    val extension = imgPath.substring(imgPath.lastIndexOf("."))
+//                    val localImgFile = File(
+//                        applicationContext.filesDir,
+//                        "localImgFile$extension"
+//                    )
+//                    if (`in` != null) {
+//                        try {
+//                            val out: OutputStream = FileOutputStream(localImgFile) //dst
+//                            try {
+//                                // Transfer bytes from in to out
+//                                val buf = ByteArray(1024)
+//                                var len: Int
+//                                while (`in`.read(buf).also { len = it } > 0) {
+//                                    out.write(buf, 0, len)
+//                                }
+//                            } finally {
+//                                out.close()
+//                            }
+//                        } finally {
+//                            `in`.close()
+//                        }
+//                    }
+//
+//                    //InternalStorage로 복사된 localImgFile을 통하여 File에 접근가능
+//                    Log.d(DW_DEBUG_TAG, "local image file 절대 경로 :  ${localImgFile.absolutePath} 걍 경로 : ${localImgFile.path}")
+//                    // file 로 requestBody 만들기
+////                    val requestLocalFile = localImgFile.asRequestBody("image/*".toMediaTypeOrNull())
+//                    // requestBody로 formData 만들기
+////                    val formData = MultipartBody.Part.createFormData("file", filename = localImgFile.name, requestLocalFile)
+//                    if (localImgFile is File)
+//                        Log.d("파일 타입 확인", "localImgFile은 파일이다!")
+//                    // Uri 타입의 파일경로를 가지는 RequestBody 객체 생성
+//                    val fileBody:RequestBody =
+//                        localImgFile.asRequestBody("image/jpeg".toMediaTypeOrNull());
+//
+//                    // RequestBody로 Multipart.Part 객체 생성
+//                    // createFormData(서버에서 받는 키값 String ,파일 이름 String ,파일 경로를 가지는 RequestBody 객체)
+//                    val filePart: MultipartBody.Part = MultipartBody.Part.createFormData("file", localImgFile.name, fileBody);
+//                    Log.d(DW_DEBUG_TAG, "${localImgFile.name}")
 
-                    //InternalStorage로 복사된 localImgFile을 통하여 File에 접근가능
-                    Log.d(DW_DEBUG_TAG, "local image file 절대 경로 :  ${localImgFile.absolutePath} 걍 경로 : ${localImgFile.path}")
-                    // file 로 requestBody 만들기
-//                    val requestLocalFile = localImgFile.asRequestBody("image/*".toMediaTypeOrNull())
-                    // requestBody로 formData 만들기
-//                    val formData = MultipartBody.Part.createFormData("file", filename = localImgFile.name, requestLocalFile)
-                    if (localImgFile is File)
-                        Log.d("파일 타입 확인", "localImgFile은 파일이다!")
-                    // Uri 타입의 파일경로를 가지는 RequestBody 객체 생성
-                    val fileBody:RequestBody =
-                        localImgFile.asRequestBody("image/jpeg".toMediaTypeOrNull());
+                    val file = File(imgPath)
+                    Log.d(DW_DEBUG_TAG, "파일 : $file")
 
-                    // RequestBody로 Multipart.Part 객체 생성
-                    // createFormData(서버에서 받는 키값 String ,파일 이름 String ,파일 경로를 가지는 RequestBody 객체)
-                    val filePart: MultipartBody.Part = MultipartBody.Part.createFormData("file", localImgFile.name, fileBody);
-                    Log.d(DW_DEBUG_TAG, "${localImgFile.name}")
+                    val requestFile = file.asRequestBody("application/octet-stream".toMediaTypeOrNull())
+                    val body = MultipartBody.Part.createFormData("file", file.name, requestFile)
 
-                    service.requestImageUrl(header = header, file = filePart).enqueue(
+                    service.requestImageUrl(//header = header,
+                        file = body).enqueue(
                         onSuccess = {
                             when (it.code()) {
                                 in 200..206 ->  {
