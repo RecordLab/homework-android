@@ -201,7 +201,7 @@
                             android:includeFontPadding="false"
                             android:padding="8dp"
                             android:text="@string/emotion_expect"
-                            android:contentDescription="emotion_expect"
+                            android:contentDescription="emotion_excitement"
                             android:textAlignment="center"
                             android:textFontWeight="500"
                             android:textSize="12sp" />

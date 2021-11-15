@@ -7,8 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.recordlab.dailyscoop.R
 import com.recordlab.dailyscoop.data.DiaryData
 
-class DiaryAdapter(private val data: List<DiaryData>) :
+class DiaryAdapter(/*private val data: List<DiaryData>*/) :
     RecyclerView.Adapter<DiaryViewHolder>() {
+    private var data: List<DiaryData> = ArrayList<DiaryData>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DiaryViewHolder {
         val view =
@@ -22,6 +23,10 @@ class DiaryAdapter(private val data: List<DiaryData>) :
 
     override fun getItemCount(): Int = data.size
 
+    fun updateDiary(items: List<DiaryData>) {
+        this.data = items
+        notifyDataSetChanged()
+    }
     /*fun addDiary(item: DiaryData) {
         data.add(item)
     }*/
