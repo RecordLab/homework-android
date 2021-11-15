@@ -4,3 +4,7 @@ data class RequestSignIn(
     val id: String,
     val password: String
 )
+
+data class RequestChangeNickname(
+    val newNickname: String,
+)

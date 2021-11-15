@@ -1,18 +1,31 @@
 package com.recordlab.dailyscoop.ui.profile.account
 
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.Toast
+import com.recordlab.dailyscoop.MainActivity
 import com.recordlab.dailyscoop.R
 import com.recordlab.dailyscoop.databinding.ActivityProfileAccountBinding
+import com.recordlab.dailyscoop.network.RetrofitClient
+import com.recordlab.dailyscoop.network.enqueue
 import com.recordlab.dailyscoop.ui.profile.ProfileFontActivity
 import com.recordlab.dailyscoop.ui.profile.notice.ProfileNoticeDialog
+import okhttp3.OkHttpClient
+
+
+
 
 class ProfileAccountActivity : AppCompatActivity(), ProfileWithdrawDialogInterface {
+
     private lateinit var binding: ActivityProfileAccountBinding
+//    private lateinit var sharedPref: SharedPreferences
+//    private val header = mutableMapOf<String, String?>()
+//    private val service = RetrofitClient.service
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,8 +36,8 @@ class ProfileAccountActivity : AppCompatActivity(), ProfileWithdrawDialogInterfa
 
         val emailBtnClicked = binding.bg4
         emailBtnClicked.setOnClickListener{
-            val intent = Intent(this, ProfileAccountEmailActivity::class.java)
-            startActivity(intent)
+            //val intent = Intent(this, ProfileAccountEmailActivity::class.java)
+            //startActivity(intent)
         }
 
         val nickBtnClicked = binding.bg45
@@ -69,6 +82,24 @@ class ProfileAccountActivity : AppCompatActivity(), ProfileWithdrawDialogInterfa
         val pref = getSharedPreferences("TOKEN", 0)
         binding.textView.text = pref.getString("email", "error")
         binding.textView2.text = pref.getString("nickname", "error")
+//        sharedPref = getSharedPreferences("TOKEN", Context.MODE_PRIVATE)
+//        header["Content-type"] = "application/json; charset=UTF-8"
+//        header["Authorization"] = sharedPref.getString("token", "token")
+//        val email = sharedPref.getString("email", "error")
+//
+//        service.requestUserInfo(header = header, userID = email!!).enqueue(
+//            onSuccess = {
+//                when (it.code()){
+//                    in 200..209 -> {
+//                        binding.textView.text = it.body()?.id
+//                        binding.textView2.text = it.body()?.nickname
+//                    }
+//                    401 -> {
+//                        Toast.makeText(this.applicationContext,it.message(), Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+//            }
+//        )
     }
 
     override fun dialogOkBtnClicked() {

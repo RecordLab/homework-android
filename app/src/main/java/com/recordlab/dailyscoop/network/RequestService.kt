@@ -1,13 +1,9 @@
 package com.recordlab.dailyscoop.network
 
-import com.recordlab.dailyscoop.network.request.RequestSignIn
-import com.recordlab.dailyscoop.network.request.RequestSignup
-import com.recordlab.dailyscoop.network.request.RequestWriteDiary
+import com.recordlab.dailyscoop.network.request.*
 import com.recordlab.dailyscoop.network.response.*
 import retrofit2.Call
 import retrofit2.http.*
-import java.util.*
-import kotlin.collections.ArrayList
 
 interface RequestService {
     // 회원가입
@@ -17,6 +13,20 @@ interface RequestService {
     // 로그인
     @POST("/api/login")
     fun requestSignIn(@Body body: RequestSignIn): Call<UserInfoData> //Call<ResponseSignin>
+
+    // 유저 정보 가져오기
+    @GET("/api/user/{userID}")
+    fun requestUserInfo(
+        @HeaderMap header: Map<String, String?>,
+        @Path("userID") userID: String
+    ): Call<ResponseUserInfo>
+
+    // 닉네임 변경하기
+    @PUT("/api/user/change_nickname")
+    fun requestChangeNickname(
+        @HeaderMap header: Map<String, String?>,
+        @Body body: RequestChangeNickname
+    ): Call<ResponseChange>
 
     // 일기 작성
     @POST("/diaries")
