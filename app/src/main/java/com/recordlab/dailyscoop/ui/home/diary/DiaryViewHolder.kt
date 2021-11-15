@@ -19,14 +19,48 @@ class DiaryViewHolder(val itemView: View) :
 
     /* bind diary image, preview and date*/
     fun bind(item: DiaryData) {
-        if (item.image != null) {
-            Glide.with(itemView)
-                .load(item.image)
-                .error(R.drawable.img_error)
-                .into(diaryImage)
+        if (item.image == "null") {
+            when (item.theme) {
+                "paper_white" -> {
+                    Glide.with(itemView)
+                        .load(R.drawable.theme_paper_white)
+                        .error(R.drawable.img_error)
+                        .into(diaryImage)
+                }
+                "paper_ivory" -> {
+                    Glide.with(itemView)
+                        .load(R.drawable.theme_paper_ivory)
+                        .error(R.drawable.img_error)
+                        .into(diaryImage)
+                }
+                "paper_dark" -> {
+                    Glide.with(itemView)
+                        .load(R.drawable.theme_paper_dark)
+                        .error(R.drawable.img_error)
+                        .into(diaryImage)
+                }
+                "window" -> {
+                    Glide.with(itemView)
+                        .load(R.drawable.theme_window)
+                        .error(R.drawable.img_error)
+                        .into(diaryImage)
+                }
+                "sky_day" -> {
+                    Glide.with(itemView)
+                        .load(R.drawable.theme_sky_day_bright)
+                        .error(R.drawable.img_error)
+                        .into(diaryImage)
+                }
+                "sky_night" -> {
+                    Glide.with(itemView)
+                        .load(R.drawable.theme_sky_night)
+                        .error(R.drawable.img_error)
+                        .into(diaryImage)
+                }
+            }
         } else {
             Glide.with(itemView)
-                .load(R.drawable.flower_unsplash)
+                .load(item.image)
                 .error(R.drawable.img_error)
                 .into(diaryImage)
         }

@@ -63,7 +63,7 @@ interface RequestService {
     @Multipart
     @POST("/api/image")
     fun requestImageUrl(
-        @HeaderMap header: Map<String, String?>,
+        /*@HeaderMap header: Map<String, String?>?,*/
         @Part file: MultipartBody.Part
     ): Call<ResponseImageUrl>
 }
