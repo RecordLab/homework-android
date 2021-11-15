@@ -174,11 +174,9 @@ class DashboardFragment : Fragment() {
 
     private fun loadData(view: View, date: String) {
         val header = mutableMapOf<String, String?>()
-        val token: String? = sharedPref.getString("token", "token")
 
         header["Content-type"] = "application/json; charset=UTF-8"
-        header["Authorization"] = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImhhaWxleWhpMTRAZ21haWwuY29tIiwiZXhwIjoxNjM5NTM0OTk0fQ.b5IRhfBIYSUmc7LfAUgGmrQiy_mFa2o9aEn9H2_DBxI"
-        //"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImhhaWxleWhpMTRAZ21haWwuY29tIiwiZXhwIjoxNjM5NTM0OTk0fQ.b5IRhfBIYSUmc7LfAUgGmrQiy_mFa2o9aEn9H2_DBxI"
+        header["Authorization"] = sharedPref.getString("token", "token")
 
         if (header["Authorization"] == "token") {
 

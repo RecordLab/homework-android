@@ -1,5 +1,7 @@
 package com.recordlab.dailyscoop.ui.search
 
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -24,9 +26,13 @@ class SearchResultActivity : AppCompatActivity() {
     private lateinit var binding : ActivitySearchResultBinding
     private lateinit var searchAdapter: SearchAdapter
     val searchData = mutableListOf<DiaryData>()
+    private lateinit var sharedPref: SharedPreferences
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search_result)
+
+        sharedPref = getSharedPreferences("TOKEN", Context.MODE_PRIVATE)
 
         searchViewModel = ViewModelProvider(this).get(SearchViewModel::class.java)
 
@@ -75,8 +81,9 @@ class SearchResultActivity : AppCompatActivity() {
 
     private fun loadData(search: String) {
         val header = mutableMapOf<String, String?>()
+
         header["Content-type"] = "application/json; charset=UTF-8"
-        header["Authorization"] = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImhhaWxleWhpMTRAZ21haWwuY29tIiwiZXhwIjoxNjM5NTM0OTk0fQ.b5IRhfBIYSUmc7LfAUgGmrQiy_mFa2o9aEn9H2_DBxI"
+        header["Authorization"] = sharedPref.getString("token", "token")
 
         if (header["Authorization"] == "token") {
 
