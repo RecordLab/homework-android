@@ -10,7 +10,7 @@ class TimeToString {
         return simpleDateFormat.format(timestamp)
     }
     fun convert(date: Date, mode: Int): String {
-        val format1= SimpleDateFormat("yy-MM-dd")
+        val format1= SimpleDateFormat("yyyy-MM-dd")
         val format2= SimpleDateFormat("yy.MM.dd")
         val format3= SimpleDateFormat("yyyy-MM-dd")
         when(mode){

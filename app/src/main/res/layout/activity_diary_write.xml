@@ -10,6 +10,7 @@
         android:id="@+id/iv_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:contentDescription="background_theme"
         android:scaleType="centerCrop" />
 
     <com.google.android.material.appbar.AppBarLayout
@@ -25,14 +26,12 @@
             android:layout_height="wrap_content"
             app:titleEnabled="false"
             app:layout_scrollFlags="scroll">
-
             <include
                 android:id="@+id/tb_diary_write"
                 layout="@layout/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_collapseMode="pin" />
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_diary_option"
                 android:layout_width="match_parent"
@@ -41,15 +40,6 @@
                 app:layout_collapseMode="parallax"
                 android:paddingHorizontal="@dimen/activity_horizontal_margin">
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/iv_button_gallery"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:background="@drawable/gallery"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:text="AddPhoto"/>
-
                 <HorizontalScrollView
                     android:id="@+id/hsv_diary_theme"
                     android:layout_width="0dp"
@@ -57,10 +47,8 @@
                     android:overScrollMode="never"
                     android:scrollbars="none"
                     app:layout_collapseMode="parallax"
-                    app:layout_constraintStart_toEndOf="@id/iv_button_gallery"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="@id/iv_button_gallery">
-
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <com.google.android.material.chip.ChipGroup
                         android:id="@+id/chip_group_theme"
@@ -71,7 +59,6 @@
 
                         <com.google.android.material.chip.Chip
                             android:id="@+id/chip_paper_white"
-                            style="@style/chip_background_style"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/theme_paper_white" />
@@ -132,6 +119,7 @@
                             android:drawablePadding="8dp"
                             android:fontFamily="@font/fontfamily"
                             android:includeFontPadding="false"
+                            android:contentDescription="emotion_angry"
                             android:padding="8dp"
                             android:text="@string/emotion_angry"
                             android:textAlignment="center"
@@ -147,6 +135,7 @@
                             android:drawablePadding="8dp"
                             android:fontFamily="@font/fontfamily"
                             android:includeFontPadding="false"
+                            android:contentDescription="emotion_relax"
                             android:padding="8dp"
                             android:text="@string/emotion_relax"
                             android:textAlignment="center"
@@ -164,6 +153,7 @@
                             android:includeFontPadding="false"
                             android:padding="8dp"
                             android:text="@string/emotion_fun"
+                            android:contentDescription="emotion_fun"
                             android:textAlignment="center"
                             android:textFontWeight="500"
                             android:textSize="12sp" />
@@ -179,6 +169,7 @@
                             android:includeFontPadding="false"
                             android:padding="8dp"
                             android:text="@string/emotion_joy"
+                            android:contentDescription="emotion_joy"
                             android:textAlignment="center"
                             android:textFontWeight="500"
                             android:textSize="12sp" />
@@ -194,6 +185,7 @@
                             android:includeFontPadding="false"
                             android:padding="8dp"
                             android:text="@string/emotion_sound"
+                            android:contentDescription="emotion_sound"
                             android:textAlignment="center"
                             android:textFontWeight="500"
                             android:textSize="12sp" />
@@ -209,6 +201,7 @@
                             android:includeFontPadding="false"
                             android:padding="8dp"
                             android:text="@string/emotion_expect"
+                            android:contentDescription="emotion_expect"
                             android:textAlignment="center"
                             android:textFontWeight="500"
                             android:textSize="12sp" />
@@ -224,6 +217,7 @@
                             android:includeFontPadding="false"
                             android:padding="8dp"
                             android:text="@string/emotion_bored"
+                            android:contentDescription="emotion_bored"
                             android:textAlignment="center"
                             android:textFontWeight="500"
                             android:textSize="12sp" />
@@ -239,6 +233,7 @@
                             android:includeFontPadding="false"
                             android:padding="8dp"
                             android:text="@string/emotion_sad"
+                            android:contentDescription="emotion_sad"
                             android:textAlignment="center"
                             android:textFontWeight="500"
                             android:textSize="12sp" />
@@ -254,6 +249,7 @@
                             android:includeFontPadding="false"
                             android:padding="8dp"
                             android:text="@string/emotion_tired"
+                            android:contentDescription="emotion_tired"
                             android:textAlignment="center"
                             android:textFontWeight="500"
                             android:textSize="12sp" />
@@ -269,6 +265,7 @@
                             android:includeFontPadding="false"
                             android:padding="8dp"
                             android:text="@string/emotion_nervous"
+                            android:contentDescription="emotion_nervous"
                             android:textAlignment="center"
                             android:textFontWeight="500"
                             android:textSize="12sp" />
@@ -284,6 +281,7 @@
                             android:includeFontPadding="false"
                             android:padding="8dp"
                             android:text="@string/emotion_anxious"
+                            android:contentDescription="emotion_anxious"
                             android:textAlignment="center"
                             android:textFontWeight="500"
                             android:textSize="12sp" />
@@ -299,6 +297,7 @@
                             android:includeFontPadding="false"
                             android:padding="8dp"
                             android:text="@string/emotion_happy"
+                            android:contentDescription="emotion_happy"
                             android:textAlignment="center"
                             android:textFontWeight="500"
                             android:textSize="12sp" />
@@ -309,26 +308,20 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/btn_save"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:src="@drawable/selector_save_diary"
-                android:layout_gravity="end"/>
-
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
         <ImageView
             android:id="@+id/iv_write_diary"
-            android:layout_width="360dp"
+            android:layout_width="match_parent"
             android:layout_height="300dp"
             android:paddingHorizontal="@dimen/activity_horizontal_margin"
             android:layout_marginTop="8dp"
+            android:adjustViewBounds="true"
             android:contentDescription="diary image"
             android:maxHeight="300dp"
+            android:visibility="gone"
             android:scaleType="centerCrop"
-            android:src="@drawable/flower_unsplash"
             app:layout_collapseMode="pin"
             android:layout_gravity="center_horizontal"
             app:srcCompat="@android:drawable/ic_menu_gallery" />
@@ -343,16 +336,16 @@
             android:id="@+id/et_write_diary"
             style="@style/diary_content_black"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="200dp"
+            android:layout_height="0dp"
             android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
             android:layout_marginTop="8dp"
             android:background="@color/transparent"
             android:ems="10"
             android:gravity="top"
             android:hint="@string/et_input_hint"
-
             android:inputType="textMultiLine"
+
+            android:minHeight="200dp"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/iv_write_diary"
@@ -361,5 +354,36 @@
             app:layout_constraintTop_toBottomOf="@+id/iv_write_diary" />
     </androidx.core.widget.NestedScrollView>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/write_comment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_transparency_50"
+        android:elevation="10dp"
+        android:paddingVertical="12dp"
+        android:outlineSpotShadowColor="@color/shadow_transparency_20"
+        android:layout_gravity="bottom"
+        android:paddingHorizontal="@dimen/activity_horizontal_margin"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_button_gallery"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="@drawable/gallery"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/btn_save"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:src="@drawable/selector_save_diary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -4,6 +4,8 @@ import com.recordlab.dailyscoop.network.request.RequestSignIn
 import com.recordlab.dailyscoop.network.request.RequestSignup
 import com.recordlab.dailyscoop.network.request.RequestWriteDiary
 import com.recordlab.dailyscoop.network.response.*
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
 import java.util.*
@@ -19,7 +21,7 @@ interface RequestService {
     fun requestSignIn(@Body body: RequestSignIn): Call<UserInfoData> //Call<ResponseSignin>
 
     // 일기 작성
-    @POST("/diaries")
+    @POST("/api/diaries")
     fun requestWriteDiary(
         @HeaderMap header: Map<String, String?>,
         @Body diary: RequestWriteDiary
@@ -57,4 +59,11 @@ interface RequestService {
     fun requestQuotation(
         @Query("apikey") apikey: String
     ): Call<List<ResponseQuotation>>
+
+    @Multipart
+    @POST("/api/image")
+    fun requestImageUrl(
+        //@HeaderMap header: Map<String, String?>,
+        @Part file: MultipartBody.Part
+    ): Call<ResponseImageUrl>
 }
