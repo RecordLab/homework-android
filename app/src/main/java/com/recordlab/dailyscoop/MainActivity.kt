@@ -3,7 +3,6 @@ package com.recordlab.dailyscoop
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -11,10 +10,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.recordlab.dailyscoop.databinding.ActivityMainBinding
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.recordlab.dailyscoop.ui.SettingActivity
 import com.recordlab.dailyscoop.ui.auth.SignInActivity
-import com.recordlab.dailyscoop.ui.profile.ProfileFriendActivity
 import com.recordlab.dailyscoop.ui.profile.SignOutDialogInterface
 import com.recordlab.dailyscoop.ui.profile.lock.AppLock
 import com.recordlab.dailyscoop.ui.profile.lock.AppLockConst
@@ -22,6 +18,8 @@ import com.recordlab.dailyscoop.ui.profile.lock.AppPasswordActivity
 
 class MainActivity : AppCompatActivity(), SignOutDialogInterface {
     var lock = true
+    private val finishIntervalTime : Long = 3000
+    private var backPressedTime : Long = 0
 
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -110,4 +108,17 @@ class MainActivity : AppCompatActivity(), SignOutDialogInterface {
         finish()
     }
 
+    override fun onBackPressed() {
+        val tempTime = System.currentTimeMillis()
+        val intervalTime = tempTime - backPressedTime
+
+        if (0 <= intervalTime && finishIntervalTime >= intervalTime) {
+            super.onBackPressed();
+        }
+        else {
+            backPressedTime = tempTime;
+            val message = R.string.app_backbutton_finish
+            Toast.makeText(getApplicationContext(), "'뒤로'버튼을 한번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT).show();
+        }
+    }
 }
