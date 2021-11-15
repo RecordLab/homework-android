@@ -63,6 +63,7 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
                 val body = MultipartBody.Part.createFormData("file", file.name, requestFile)
 
                 service.requestImageUrl( file = body).enqueue(
+
                     onSuccess = {
                         when (it.code()) {
                             in 200..206 ->  {
