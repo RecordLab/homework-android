@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
@@ -14,12 +15,13 @@ import com.recordlab.dailyscoop.MainActivity
 import com.recordlab.dailyscoop.R
 import com.recordlab.dailyscoop.databinding.ActivityProfileAccountBinding
 import com.recordlab.dailyscoop.network.RetrofitClient
+import com.recordlab.dailyscoop.network.RetrofitClient.service
 import com.recordlab.dailyscoop.network.enqueue
+import com.recordlab.dailyscoop.ui.home.SplashActivity
 import com.recordlab.dailyscoop.ui.profile.ProfileFontActivity
 import com.recordlab.dailyscoop.ui.profile.notice.ProfileNoticeDialog
 import okhttp3.OkHttpClient
-
-
+import kotlin.system.exitProcess
 
 
 class ProfileAccountActivity : AppCompatActivity(), ProfileWithdrawDialogInterface {
@@ -111,6 +113,36 @@ class ProfileAccountActivity : AppCompatActivity(), ProfileWithdrawDialogInterfa
     }
 
     override fun dialogOkBtnClicked() {
-        Toast.makeText(this,"사실 탈퇴는 할 수 없습니다 \uD83D\uDE1C", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this,"사실 탈퇴는 할 수 없습니다 \uD83D\uDE1C", Toast.LENGTH_SHORT).show();
+        val pref = getSharedPreferences("TOKEN", 0)
+        val header = mutableMapOf<String, String?>()
+        header["Content-type"] = "application/json; charset=UTF-8"
+        header["Authorization"] = pref.getString("token", "token")
+        val userID = pref.getString("email", "token")
+        service.requestDeleteAccount(header = header, userID = userID!!).enqueue(
+            onSuccess = {
+                when (it.code()){
+                    200 ->{
+                        Toast.makeText(this, it.body()?.message, Toast.LENGTH_SHORT).show()
+
+                        // 토큰 지우기
+                        val edit = pref.edit()
+                        edit.remove("token")
+                        edit.apply()
+
+                        Handler().postDelayed({
+                            finishAffinity() //해당 앱의 루트 액티비티를 종료시킨다. (API  16미만은 ActivityCompat.finishAffinity())
+                            System.runFinalization() //현재 작업중인 쓰레드가 다 종료되면, 종료 시키라는 명령어이다.
+                            val intent = Intent(this, SplashActivity::class.java)
+                            startActivity(intent) // 액티비티 재시작
+                            exitProcess(0) // 현재 액티비티를 종료시킨다.
+                        },1000L)
+                    }
+                    else ->{
+                        Toast.makeText(this,it.message(), Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        )
     }
 }

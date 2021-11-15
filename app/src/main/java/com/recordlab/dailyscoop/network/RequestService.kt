@@ -37,6 +37,13 @@ interface RequestService {
         @Body body: RequestChangePassword
     ): Call<ResponseChange>
 
+    // 회원 탈퇴하기
+    @DELETE("/api/user/{userID}")
+    fun requestDeleteAccount(
+        @HeaderMap header: Map<String, String?>,
+        @Path("userID") userID: String
+    ): Call<ResponseChange>
+
     // 일기 작성
     @POST("/api/diaries")
     fun requestWriteDiary(
