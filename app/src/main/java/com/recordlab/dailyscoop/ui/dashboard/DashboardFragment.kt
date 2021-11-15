@@ -4,6 +4,7 @@ import android.content.Intent
 import android.view.*
 import android.app.AlertDialog
 import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -41,6 +42,7 @@ class DashboardFragment : Fragment() {
     private var _binding: FragmentDashboardBinding? = null
     private val binding get() = _binding!!
     val diaryData = mutableListOf<DiaryData>()
+    private lateinit var sharedPref: SharedPreferences
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -57,6 +59,8 @@ class DashboardFragment : Fragment() {
 //        })
 
         setHasOptionsMenu(true) // 앱 바 작업 버튼 추가하기.
+
+        sharedPref = requireActivity().getSharedPreferences("TOKEN", Context.MODE_PRIVATE)
 
         // RecyclerView
         val listRecyclerView = root.findViewById<RecyclerView>(R.id.rv_dashboard_list)
@@ -170,9 +174,11 @@ class DashboardFragment : Fragment() {
 
     private fun loadData(view: View, date: String) {
         val header = mutableMapOf<String, String?>()
+        val token: String? = sharedPref.getString("token", "token")
+
         header["Content-type"] = "application/json; charset=UTF-8"
-        header["Authorization"] = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImhhaWxleWhpMTRAZ21haWwuY29tIiwiZXhwIjoxNjM2ODUyMDI1fQ.8LPeWC8OMM80q-lipCe0eIiMgV-8O-8qYmFAOkuvLW8"
-        //"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImlkIiwiZXhwIjoxNjM2NTk2NzE4fQ.JOb447DOeSlRpa-NNF_KRg5NylfuKorzni8evoQimvo"//sharedPref.getString("token", "token")
+        header["Authorization"] = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImhhaWxleWhpMTRAZ21haWwuY29tIiwiZXhwIjoxNjM5NTM0OTk0fQ.b5IRhfBIYSUmc7LfAUgGmrQiy_mFa2o9aEn9H2_DBxI"
+        //"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImhhaWxleWhpMTRAZ21haWwuY29tIiwiZXhwIjoxNjM5NTM0OTk0fQ.b5IRhfBIYSUmc7LfAUgGmrQiy_mFa2o9aEn9H2_DBxI"
 
         if (header["Authorization"] == "token") {
 
