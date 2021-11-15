@@ -30,16 +30,10 @@ import com.recordlab.dailyscoop.network.RetrofitClient
 import com.recordlab.dailyscoop.network.enqueue
 import com.recordlab.dailyscoop.network.request.RequestWriteDiary
 import com.recordlab.dailyscoop.ui.diary.DiaryDetailActivity
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
-import retrofit2.http.Multipart
-import java.io.File
-import java.io.FileOutputStream
-import java.io.InputStream
-import java.io.OutputStream
+import java.io.*
 import java.util.*
 import kotlin.collections.set
 
@@ -62,102 +56,36 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
                 val imgPath = uri?.let { ImagePath().getPath(applicationContext, it) }
                 Log.d(DW_DEBUG_TAG, "가져온 파일 경로 $imgPath")
 
-                if (uri != null && imgPath != null) {
-//                    val `in`: InputStream? = contentResolver.openInputStream(uri) //src
-//                    val extension = imgPath.substring(imgPath.lastIndexOf("."))
-//                    val localImgFile = File(
-//                        applicationContext.filesDir,
-//                        "localImgFile$extension"
-//                    )
-//                    if (`in` != null) {
-//                        try {
-//                            val out: OutputStream = FileOutputStream(localImgFile) //dst
-//                            try {
-//                                // Transfer bytes from in to out
-//                                val buf = ByteArray(1024)
-//                                var len: Int
-//                                while (`in`.read(buf).also { len = it } > 0) {
-//                                    out.write(buf, 0, len)
-//                                }
-//                            } finally {
-//                                out.close()
-//                            }
-//                        } finally {
-//                            `in`.close()
-//                        }
-//                    }
-//
-//                    //InternalStorage로 복사된 localImgFile을 통하여 File에 접근가능
-//                    Log.d(DW_DEBUG_TAG, "local image file 절대 경로 :  ${localImgFile.absolutePath} 걍 경로 : ${localImgFile.path}")
-//                    // file 로 requestBody 만들기
-////                    val requestLocalFile = localImgFile.asRequestBody("image/*".toMediaTypeOrNull())
-//                    // requestBody로 formData 만들기
-////                    val formData = MultipartBody.Part.createFormData("file", filename = localImgFile.name, requestLocalFile)
-//                    if (localImgFile is File)
-//                        Log.d("파일 타입 확인", "localImgFile은 파일이다!")
-//                    // Uri 타입의 파일경로를 가지는 RequestBody 객체 생성
-//                    val fileBody:RequestBody =
-//                        localImgFile.asRequestBody("image/jpeg".toMediaTypeOrNull());
-//
-//                    // RequestBody로 Multipart.Part 객체 생성
-//                    // createFormData(서버에서 받는 키값 String ,파일 이름 String ,파일 경로를 가지는 RequestBody 객체)
-//                    val filePart: MultipartBody.Part = MultipartBody.Part.createFormData("file", localImgFile.name, fileBody);
-//                    Log.d(DW_DEBUG_TAG, "${localImgFile.name}")
+                val file = File(imgPath)
+                Log.d(DW_DEBUG_TAG, "파일 : $file")
 
-                    val file = File(imgPath)
-                    Log.d(DW_DEBUG_TAG, "파일 : $file")
+                val requestFile = file.asRequestBody("application/octet-stream".toMediaTypeOrNull())
+                val body = MultipartBody.Part.createFormData("file", file.name, requestFile)
 
-                    val requestFile = file.asRequestBody("application/octet-stream".toMediaTypeOrNull())
-                    val body = MultipartBody.Part.createFormData("file", file.name, requestFile)
+                service.requestImageUrl( file = body).enqueue(
 
-                    service.requestImageUrl(//header = header,
-                        file = body).enqueue(
-                        onSuccess = {
-                            when (it.code()) {
-                                in 200..206 ->  {
-                                    imageUrl = it.body()?.data
-                                    Log.d(DW_DEBUG_TAG, "return image url -> ${imageUrl.toString()}")
-                                }
-                                in 400..499 -> {
-                                    Log.d(DW_DEBUG_TAG, "${it.code()} : ${it.message()}" )
-                                }
-                            }
-                        }, onError = {
-                            Log.d(DW_DEBUG_TAG, "통신 에러 발생~ ")
-                        }, onFail = {
-                            Log.d(DW_DEBUG_TAG, "에궁, 실패!")
-                        }
-                    )
-                }
-//                val file = File(result.data?.data!!.path)
-//
-//                Log.d(DW_DEBUG_TAG, "원래 방식 file uri : ${result.data?.data}")
-//
-//                Log.d(DW_DEBUG_TAG, "원래 방식 file path : ${ file.absolutePath}")
-//                val requestFile = file.asRequestBody("image/png".toMediaTypeOrNull())
-//
-//                Log.d(DW_DEBUG_TAG, "원래 방식 requestFile : ${requestFile.contentType()}")
-//            val requestBody = MultipartBody.Builder().setType(MultipartBody.FORM).addFormDataPart("file", file.name, requestFile).build()
-//                val body = MultipartBody.Part.createFormData("file", file.name, requestFile)
-                /*service.requestImageUrl(header = header, body).enqueue(
                     onSuccess = {
                         when (it.code()) {
                             in 200..206 ->  {
                                 imageUrl = it.body()?.data
+                                Log.d(DW_DEBUG_TAG, "return image url -> ${imageUrl.toString()}")
+                            }
+                            in 400..499 -> {
+                                Log.d(DW_DEBUG_TAG, "${it.code()} : ${it.message()}" )
                             }
                         }
                     }, onError = {
-
+                        Log.d(DW_DEBUG_TAG, "통신 에러 발생~ ")
                     }, onFail = {
-
+                        Log.d(DW_DEBUG_TAG, "에궁, 실패!")
                     }
-                )*/
+                )
+
 
             }
 
         }
     private val DW_DEBUG_TAG = "DiaryWrite_DEBUG>>"
-//    private lateinit var upload: MenuItem
 
     private val service = RetrofitClient.service
     private val header = mutableMapOf<String, String?>()
@@ -174,24 +102,6 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
 
     private val content_permission_code = 1
 
-    /*inner class EmotionClickListener(val itemView: View) : View.OnClickListener {
-        override fun onClick(v: View?) {
-            if (itemView.isSelected) {
-                emotionCnt--
-                (!itemView.isSelected).also { itemView.isSelected = it }
-            } else {
-                if (emotionCnt < 3) {
-                    emotionCnt++
-                    (!itemView.isSelected).also {
-                        itemView.isSelected = it
-                    }
-                } else {
-                    emotionWarning()
-                }
-            }
-            saveButtonCheck()
-        }
-    }*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -204,6 +114,7 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
         } else {
             writeDate = intent.getStringExtra("date")
         }
+        Log.d("넘어온 작성 날짜", "$writeDate")
         sharedPref = getSharedPreferences("TOKEN", Context.MODE_PRIVATE)
         header["Content-type"] = "application/json"
         header["Authorization"] = sharedPref.getString("token", "token")
@@ -225,6 +136,7 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
         binding.chipWindow.setOnClickListener(this)
         binding.chipSkyDay.setOnClickListener(this)
         binding.chipSkyNight.setOnClickListener(this)
+        binding.btnSave.setOnClickListener(this)
 
         emotionType = mutableListOf(
             binding.emotionAngry,
@@ -240,47 +152,6 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
             binding.emotionNervous,
             binding.emotionHappy
         )
-
-        /*binding.emotionAngry.setOnCheckedChangeListener { buttonView, isChecked ->
-            if(isChecked){
-                binding.emotionAngry.isChecked = false
-            } else {
-                if (buttonView != null) {
-                    if (buttonView.isChecked == true) {
-                        Log.d(DW_DEBUG_TAG, "$emotionCnt")
-                        emotionCnt++
-                    } else {
-                        emotionCnt--
-                    }
-                }
-                if (emotionCnt == 3) {
-                    deactivateEmotionButton()
-                    emotionWarning()
-                } else {
-                    activateEmotionButton()
-                }
-            }
-        }
-
-        binding.emotionRelax.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (isChecked) {
-                Log.d(DW_DEBUG_TAG, "$emotionCnt")
-                emotionCnt++
-            } else {
-                emotionCnt--
-                binding.emotionRelax.isChecked = false
-            }
-
-                if (buttonView != null) {
-
-                }
-                if (emotionCnt == 3) {
-                    deactivateEmotionButton()
-                    emotionWarning()
-                } else {
-                    activateEmotionButton()
-                }
-        }*/
 
         binding.emotionAngry.setOnClickListener {
             if( binding.emotionAngry.isSelected){
@@ -499,9 +370,11 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun saveButtonCheck() {
+        binding.btnSave.isClickable = true
         if (emotionCnt > 0 && binding.etWriteDiary.length() > 0){
             // 작성 버튼 활성화하기.
             binding.btnSave.isEnabled = true
+
         } else {
             // 작성 버튼 비활성화
             binding.btnSave.isEnabled = false
@@ -555,7 +428,7 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
                 setTextColor(0)
             }
             R.id.chip_paper_black -> {
-                Glide.with(backgroundLayout).load(R.drawable.theme_paper_black).into(backgroundImage)
+                Glide.with(backgroundLayout).load(R.drawable.theme_paper_dark).into(backgroundImage)
                 theme = "paper_dark"
                 setTextColor(1)
             }
@@ -573,6 +446,59 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
                 Glide.with(backgroundLayout).load(R.drawable.theme_sky_night).into(backgroundImage)
                 setTextColor(1)
                 theme = "sky_night"
+            }
+            R.id.btn_save -> {
+                // 여기에서 통신 붙이기
+                if (binding.btnSave.isEnabled) { // 이미지?, 텍스트 최소 한 글자, 감정 최소 한개, 테마 (기본 paper_white)
+                    service.requestWriteDiary(
+                        header = header,
+                        diary = RequestWriteDiary(
+                            content = binding.etWriteDiary.text.toString(),
+                            image = imageUrl?: "null",
+                            emotions = getEmotionAsList(),
+                            theme = theme!!,
+                            date = writeDate
+                        )
+                    ).enqueue(
+                        onSuccess = {
+                            when (it.code()) {
+                                in 200..206 -> {
+                                    Log.d(DW_DEBUG_TAG, "작성완료 ${it.code()}")
+                                    // 작성 완료 되면 완료 액티비티로 보내기.
+                                    val intent = Intent(this, DiaryDetailActivity::class.java)
+                                    intent.putExtra("diaryDate", writeDate)
+//                                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                                    startActivity(intent)
+                                    finish()
+                                }
+                                401 -> {
+                                    Log.d(DW_DEBUG_TAG, "권한 없음.")
+                                }
+                                in 400..499 -> {
+                                    Log.d(DW_DEBUG_TAG, "요청 오류 : 코드 ${it.code()} 메시지 : ${it.message()}")
+                                }
+                                in 500.. 599 -> {
+                                    Log.d(DW_DEBUG_TAG, "서버 오류")
+                                }
+                            }
+
+                        }, onFail = {
+
+                        }, onError = {
+
+                        }
+                    )
+
+                } else {
+                    if (emotionCnt > 0){
+                        Toast.makeText(applicationContext, "내용을 작성해주세요.", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(applicationContext, "감정을 선택해주세요.", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+
             }
         }
     }
@@ -670,68 +596,17 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
         binding.emotionNervous.setTextColor(color)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+    /*override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.menu_save, menu)
         return true
-    }
+    }*/
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
                 finish()
                 return true
-            }
-            R.id.action_save -> {
-                // 여기에서 통신 붙이기
-                if (binding.btnSave.isEnabled) { // 이미지?, 텍스트 최소 한 글자, 감정 최소 한개, 테마 (기본 paper_white)
-                    service.requestWriteDiary(
-                        header = header,
-                        diary = RequestWriteDiary(
-                            content = binding.etWriteDiary.text.toString(),
-                            image = imageUrl?: "null",
-                            emotions = getEmotionAsList(),
-                            theme = theme!!,
-                            date = writeDate
-                        )
-                    ).enqueue(
-                        onSuccess = {
-                            when (it.code()) {
-                                in 200..206 -> {
-                                    Log.d(DW_DEBUG_TAG, "작성완료 ${it.code()}")
-                                    // 작성 완료 되면 완료 액티비티로 보내기.
-                                    val intent = Intent(this, DiaryDetailActivity::class.java)
-                                    intent.putExtra("date", writeDate)
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                                    startActivity(intent)
-                                }
-                                401 -> {
-                                    Log.d(DW_DEBUG_TAG, "권한 없음.")
-                                }
-                                in 400..499 -> {
-                                    Log.d(DW_DEBUG_TAG, "요청 오류 : 코드 ${it.code()} 메시지 : ${it.message()}")
-                                }
-                                in 500.. 599 -> {
-                                    Log.d(DW_DEBUG_TAG, "서버 오류")
-                                }
-                            }
-
-                        }, onFail = {
-
-                        }, onError = {
-
-                        }
-                    )
-
-                } else {
-                    if (emotionCnt > 0){
-                        Toast.makeText(applicationContext, "내용을 작성해주세요.", Toast.LENGTH_SHORT).show()
-                    } else {
-                        Toast.makeText(applicationContext, "감정을 선택해주세요.", Toast.LENGTH_SHORT).show()
-                    }
-                }
-
-
             }
         }
         return super.onOptionsItemSelected(item)

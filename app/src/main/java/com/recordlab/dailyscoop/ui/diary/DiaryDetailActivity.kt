@@ -1,10 +1,8 @@
 package com.recordlab.dailyscoop.ui.diary
 
 import android.content.Context
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.addCallback
@@ -140,12 +138,12 @@ class DiaryDetailActivity : AppCompatActivity() {
                 binding.diaryBg.setBackgroundResource(R.drawable.theme_paper_ivory)
                 supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_black_24)
             }
-            "paper_black" -> {
-                binding.diaryBg.setBackgroundResource(R.drawable.theme_paper_black)
+            "paper_dark" -> {
+                binding.diaryBg.setBackgroundResource(R.drawable.theme_paper_dark)
                 supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_24)
             }
             "sky_day" -> {
-                binding.diaryBg.setBackgroundResource(R.drawable.theme_sky_day)
+                binding.diaryBg.setBackgroundResource(R.drawable.theme_sky_day_bright)
                 supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_24)
             }
             "sky_night" -> {
