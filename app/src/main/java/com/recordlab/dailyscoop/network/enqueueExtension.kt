@@ -24,6 +24,7 @@ fun<ResponseType> Call<ResponseType>.enqueue(
                     // 권한 없음.
                 }
                 in 400..499 -> {
+//                    Log.d("네트워크 확인 ", "${call.request().body}")
 
                 }
                 in 500..599 -> {

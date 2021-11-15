@@ -2,6 +2,8 @@ package com.recordlab.dailyscoop.network
 
 import com.recordlab.dailyscoop.network.request.*
 import com.recordlab.dailyscoop.network.response.*
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -29,7 +31,7 @@ interface RequestService {
     ): Call<ResponseChange>
 
     // 일기 작성
-    @POST("/diaries")
+    @POST("/api/diaries")
     fun requestWriteDiary(
         @HeaderMap header: Map<String, String?>,
         @Body diary: RequestWriteDiary
@@ -67,4 +69,11 @@ interface RequestService {
     fun requestQuotation(
         @Query("apikey") apikey: String
     ): Call<List<ResponseQuotation>>
+
+    @Multipart
+    @POST("/api/image")
+    fun requestImageUrl(
+        //@HeaderMap header: Map<String, String?>,
+        @Part file: MultipartBody.Part
+    ): Call<ResponseImageUrl>
 }

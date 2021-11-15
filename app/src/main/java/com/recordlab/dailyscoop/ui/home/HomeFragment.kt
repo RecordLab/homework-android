@@ -13,35 +13,31 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.RecyclerView
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.applikeysolutions.cosmocalendar.listeners.OnMonthChangeListener
 import com.applikeysolutions.cosmocalendar.model.Month
 import com.applikeysolutions.cosmocalendar.selection.SingleSelectionManager
+import com.applikeysolutions.cosmocalendar.settings.appearance.ConnectedDayIconPosition
+import com.applikeysolutions.cosmocalendar.settings.lists.connected_days.ConnectedDays
 import com.applikeysolutions.cosmocalendar.utils.SelectionType
 import com.applikeysolutions.cosmocalendar.view.CalendarView
-import com.recordlab.dailyscoop.MainActivity
 import com.recordlab.dailyscoop.R
 import com.recordlab.dailyscoop.data.DiaryData
 import com.recordlab.dailyscoop.data.TimeToString
 import com.recordlab.dailyscoop.databinding.FragmentHomeBinding
 import com.recordlab.dailyscoop.network.RetrofitClient
 import com.recordlab.dailyscoop.network.enqueue
+import com.recordlab.dailyscoop.ui.diary.DiaryDetailActivity
 import com.recordlab.dailyscoop.ui.home.diary.DiaryAdapter
 import com.recordlab.dailyscoop.ui.home.diary.DiaryWriteActivity
 import com.recordlab.dailyscoop.ui.home.widget.QuickDiaryFragment
 import com.recordlab.dailyscoop.ui.home.widget.QuotationFragment
 import com.recordlab.dailyscoop.ui.search.SearchResultActivity
 import java.sql.Timestamp
-import java.util.*
-
-import com.applikeysolutions.cosmocalendar.settings.appearance.ConnectedDayIconPosition
-
-import com.applikeysolutions.cosmocalendar.settings.lists.connected_days.ConnectedDays
-import com.recordlab.dailyscoop.ui.diary.DiaryDetailActivity
 import java.text.SimpleDateFormat
+import java.util.*
 
 
 private const val NUM_WIDGET = 2
@@ -72,6 +68,8 @@ class HomeFragment : Fragment(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         widget1 = QuotationFragment()
         widget2 = QuickDiaryFragment()
+
+
     }
 
     override fun onCreateView(
@@ -79,20 +77,19 @@ class HomeFragment : Fragment(), View.OnClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        homeViewModel =
-            ViewModelProviders.of(this)
-                .get(HomeViewModel::class.java) //ViewModelProvider(activity.viewModelStore).get(HomeViewModel::class.java)//, ViewModelProvider.AndroidViewModelFactory()).get(HomeViewModel::class.java)
+        homeViewModel = ViewModelProvider(this)[HomeViewModel::class.java]
+           // ViewModelProviders.of(this)[HomeViewModel::class.java] //ViewModelProvider(activity.viewModelStore).get(HomeViewModel::class.java)//, ViewModelProvider.AndroidViewModelFactory()).get(HomeViewModel::class.java)
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val view = binding.root
         val calendarView: CalendarView = binding.cvHome
 //        val fab: View = binding.fabDiary
         sharedPref = requireActivity().getSharedPreferences("TOKEN", Context.MODE_PRIVATE)
-        val token: String? = sharedPref.getString("token", "token")
+        /*val token: String? = sharedPref.getString("token", "token")
         if (token == "token") {
             with(sharedPref.edit()) {
                 putString(
                     "token",
-                    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImhhaWxleWhpMTRAZ21haWwuY29tIiwiZXhwIjoxNjM2ODUyMDI1fQ.8LPeWC8OMM80q-lipCe0eIiMgV-8O-8qYmFAOkuvLW8"
+                    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImhhaWxleWhpMTRAZ21haWwuY29tIiwiZXhwIjoxNjM5NDc3NzQzfQ.uHJxXzmGAnlm3CgFES-Hpd2nvIkDCQ9TmhEBZXYqJa8"
                 )
                 commit()
             }
@@ -100,12 +97,12 @@ class HomeFragment : Fragment(), View.OnClickListener {
             with(sharedPref.edit()) {
                 putString(
                     "token",
-                    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImhhaWxleWhpMTRAZ21haWwuY29tIiwiZXhwIjoxNjM2ODUyMDI1fQ.8LPeWC8OMM80q-lipCe0eIiMgV-8O-8qYmFAOkuvLW8"
+                    "Bearer $token"
                 )
                 apply()
                 commit()
             }
-        }
+        }*/
 
         init(view)
 
@@ -124,14 +121,18 @@ class HomeFragment : Fragment(), View.OnClickListener {
 
         val btnMore = binding.btnMore
 
+        // diaryAdapter 지정하기
+        /*diaryAdapter = DiaryAdapter()
+        binding.rvHomeDiary.adapter = diaryAdapter
         // observer
         homeViewModel.text.observe(viewLifecycleOwner, Observer {
             binding.textHome.text = it
             //textView.text = it
         })
-        homeViewModel.diaryData.observe(viewLifecycleOwner, {
-            binding.rvHomeDiary.adapter = DiaryAdapter(it)
-        })
+        homeViewModel.diaryData.observe(viewLifecycleOwner) {
+            diaryAdapter.updateDiary(it)
+//            binding.rvHomeDiary.adapter. = DiaryAdapter(it)
+        }*/
 
         val btnById: TextView = binding.btnMore //root.findViewById(R.id.btn_more)
         Log.d(DEBUG_TAG, ">" + btnById.text + "<<  이게 원래 텍스트")
@@ -156,6 +157,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
             )
 //            Log.d(DEBUG_TAG, ">> 시간은 이렇게 표시된다. ${TimeToString().convert(calendarView.selectedDays[0].calendar.time, 2)}")
             val chosenDate = TimeToString().convert(calendarView.selectedDays[0].calendar.time, 3)
+            Log.d("날짜 클릭 ", "$chosenDate ")
             //set에 있는지 확인하고 꺼내 쓰기.
             Log.d(DEBUG_TAG, "선택한 날짜 as 시간 :${calendarView.selectedDays[0].calendar.timeInMillis} 현재 날짜 AS Long ${System.currentTimeMillis()}")
             // 미래 시점이면 아직 날짜가 되지 않았다고 띄워주기.
@@ -163,9 +165,16 @@ class HomeFragment : Fragment(), View.OnClickListener {
 
                 Toast.makeText(this.context, "...", Toast.LENGTH_SHORT).show()
             }else {
-                if (days.contains(calendarView.selectedDays[0].calendar.timeInMillis)){ // 일기 있는 경우
+                /*for (item in diaryData){
+                    days.add(Date(item.date.time).time) // days 안에 들어있는 것 timestamp -> long
+                    Log.d(DEBUG_TAG, "${Date(item.date.time).time}")
+                }*/
+                // calendar 안에 들어있는 것 : calendar
+                Log.d("시간 비교" , "${calendarView.selectedDays[0].calendar.time.time} " +
+                        "캘린더 클릭으로 가져오는 timeinMillis ${calendarView.selectedDays[0].calendar.timeInMillis}")
+                if (days.contains(calendarView.selectedDays[0].calendar.time.time)){ // 일기 있는 경우
                     val intent = Intent(activity, DiaryDetailActivity::class.java)
-                    intent.putExtra("date", chosenDate)
+                    intent.putExtra("diaryDate", chosenDate)
                     startActivity(intent)
                 } else { // 없는 경우
                     // 다이얼로그로 먼저 물어보기.
@@ -193,31 +202,29 @@ class HomeFragment : Fragment(), View.OnClickListener {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
+        diaryAdapter = DiaryAdapter()
+        binding.rvHomeDiary.adapter = diaryAdapter
+        // observer
+        homeViewModel.text.observe(viewLifecycleOwner, Observer {
+            binding.textHome.text = it
+            //textView.text = it
+        })
+        homeViewModel.diaryData.observe(viewLifecycleOwner) {
+            diaryAdapter.updateDiary(it)
+        }
         super.onViewCreated(view, savedInstanceState)
     }
 
     private fun init(view: View) {
-        /*diaryAdapter = DiaryAdapter() { DiaryData, View ->
-            val intent = Intent(activity as MainActivity, DiaryDetailActivity::class.java)
-            intent.putExtra("diaryDate", TimeToString().convert(DiaryData.date))
-            startActivity(intent)
-        }
-        binding.rvHomeDiary.adapter = diaryAdapter*/
         loadData(view)
     }
 
 
     private fun loadData(view: View) {
         val header = mutableMapOf<String, String?>()
+        // 헤더설정하기
         header["Content-type"] = "application/json; charset=UTF-8"
         header["Authorization"] = sharedPref.getString("token", "token")
-
-//        homeViewModel.setHeader(header)
-
-        //    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImhhaWxleWhpMTRAZ21haWwuY29tIiwiZXhwIjoxNjM2NTkwNjg5fQ.jCFGuLtsOwKNNJ601IeO8ueXke5GMOmpF5TfUkztjvU"
-        //"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImlkIiwiZXhwIjoxNjM2NTk2NzE4fQ.JOb447DOeSlRpa-NNF_KRg5NylfuKorzni8evoQimvo"//sharedPref.getString("token", "token")
-
 
         if (header["Authorization"] == "token") { // 로그인 안 한 상태..?
             diaryData.apply {
@@ -240,8 +247,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
                             diaryData.clear()
                             diaryData.addAll(it.body()!!.data)
                             homeViewModel.diaryData.postValue(diaryData)
-//                        diaryAdapter.data = diaryData
-//                        diaryAdapter.notifyDataSetChanged()
+                            diaryAdapter.notifyDataSetChanged()
 
                             // 달력에 일기 작성날짜 mark하기.
                             days.clear()

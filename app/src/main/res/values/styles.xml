@@ -120,6 +120,7 @@
 
     <style name="diary_content_black" parent="Widget.MaterialComponents.TextView">
         <item name="android:textColor">@color/textBlack</item>
+        <item name="android:textSize">12dp</item>
         <item name="alpha">80</item>
     </style>
 
