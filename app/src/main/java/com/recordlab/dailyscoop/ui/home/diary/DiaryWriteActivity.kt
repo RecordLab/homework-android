@@ -24,15 +24,22 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.recordlab.dailyscoop.R
+import com.recordlab.dailyscoop.data.ImagePath
 import com.recordlab.dailyscoop.databinding.ActivityDiaryWriteBinding
 import com.recordlab.dailyscoop.network.RetrofitClient
 import com.recordlab.dailyscoop.network.enqueue
 import com.recordlab.dailyscoop.network.request.RequestWriteDiary
 import com.recordlab.dailyscoop.ui.diary.DiaryDetailActivity
+import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
+import retrofit2.http.Multipart
 import java.io.File
+import java.io.FileOutputStream
+import java.io.InputStream
+import java.io.OutputStream
 import java.util.*
 import kotlin.collections.set
 
@@ -51,17 +58,93 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
                 binding.ivWriteDiary.visibility = ImageView.GONE
             } else {
                 Glide.with(backgroundLayout).load(result.data?.data).into(binding.ivWriteDiary)
-                val file = File(result.data?.data!!.path)
-                val requestFile = file.asRequestBody("image/png".toMediaTypeOrNull())
-//            val requestBody = MultipartBody.Builder().setType(MultipartBody.FORM).addFormDataPart("file", file.name, requestFile).build()
-                val body = MultipartBody.Part.createFormData("file", file.name, requestFile)
-                service.requestImageUrl(header = header, body).enqueue(
-                    onSuccess = {
+                val uri = result.data?.data
+                val imgPath = uri?.let { ImagePath().getPath(applicationContext, it) }
+                Log.d(DW_DEBUG_TAG, "가져온 파일 경로 $imgPath")
 
+                if (uri != null && imgPath != null) {
+                    val `in`: InputStream? = contentResolver.openInputStream(uri) //src
+                    val extension = imgPath.substring(imgPath.lastIndexOf("."))
+                    val localImgFile = File(
+                        applicationContext.filesDir,
+                        "localImgFile$extension"
+                    )
+                    if (`in` != null) {
+                        try {
+                            val out: OutputStream = FileOutputStream(localImgFile) //dst
+                            try {
+                                // Transfer bytes from in to out
+                                val buf = ByteArray(1024)
+                                var len: Int
+                                while (`in`.read(buf).also { len = it } > 0) {
+                                    out.write(buf, 0, len)
+                                }
+                            } finally {
+                                out.close()
+                            }
+                        } finally {
+                            `in`.close()
+                        }
+                    }
+
+                    //InternalStorage로 복사된 localImgFile을 통하여 File에 접근가능
+                    Log.d(DW_DEBUG_TAG, "local image file 절대 경로 :  ${localImgFile.absolutePath} 걍 경로 : ${localImgFile.path}")
+                    // file 로 requestBody 만들기
+//                    val requestLocalFile = localImgFile.asRequestBody("image/*".toMediaTypeOrNull())
+                    // requestBody로 formData 만들기
+//                    val formData = MultipartBody.Part.createFormData("file", filename = localImgFile.name, requestLocalFile)
+                    if (localImgFile is File)
+                        Log.d("파일 타입 확인", "localImgFile은 파일이다!")
+                    // Uri 타입의 파일경로를 가지는 RequestBody 객체 생성
+                    val fileBody:RequestBody =
+                        localImgFile.asRequestBody("image/jpeg".toMediaTypeOrNull());
+
+                    // RequestBody로 Multipart.Part 객체 생성
+                    // createFormData(서버에서 받는 키값 String ,파일 이름 String ,파일 경로를 가지는 RequestBody 객체)
+                    val filePart: MultipartBody.Part = MultipartBody.Part.createFormData("file", localImgFile.name, fileBody);
+                    Log.d(DW_DEBUG_TAG, "${localImgFile.name}")
+
+                    service.requestImageUrl(header = header, file = filePart).enqueue(
+                        onSuccess = {
+                            when (it.code()) {
+                                in 200..206 ->  {
+                                    imageUrl = it.body()?.data
+                                    Log.d(DW_DEBUG_TAG, "return image url -> ${imageUrl.toString()}")
+                                }
+                                in 400..499 -> {
+                                    Log.d(DW_DEBUG_TAG, "${it.code()} : ${it.message()}" )
+                                }
+                            }
+                        }, onError = {
+                            Log.d(DW_DEBUG_TAG, "통신 에러 발생~ ")
+                        }, onFail = {
+                            Log.d(DW_DEBUG_TAG, "에궁, 실패!")
+                        }
+                    )
+                }
+//                val file = File(result.data?.data!!.path)
+//
+//                Log.d(DW_DEBUG_TAG, "원래 방식 file uri : ${result.data?.data}")
+//
+//                Log.d(DW_DEBUG_TAG, "원래 방식 file path : ${ file.absolutePath}")
+//                val requestFile = file.asRequestBody("image/png".toMediaTypeOrNull())
+//
+//                Log.d(DW_DEBUG_TAG, "원래 방식 requestFile : ${requestFile.contentType()}")
+//            val requestBody = MultipartBody.Builder().setType(MultipartBody.FORM).addFormDataPart("file", file.name, requestFile).build()
+//                val body = MultipartBody.Part.createFormData("file", file.name, requestFile)
+                /*service.requestImageUrl(header = header, body).enqueue(
+                    onSuccess = {
+                        when (it.code()) {
+                            in 200..206 ->  {
+                                imageUrl = it.body()?.data
+                            }
+                        }
                     }, onError = {
 
-                    },
-                )
+                    }, onFail = {
+
+                    }
+                )*/
 
             }
 
