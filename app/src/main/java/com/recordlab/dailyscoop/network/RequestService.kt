@@ -33,6 +33,13 @@ interface RequestService {
         @HeaderMap header: Map<String, String?>
     ): Call<ResponseDiaryList>
 
+    // 사용자가 작성한 일기 검색
+    @GET("/api/diaries")
+    fun requestSearchDiaries(
+        @HeaderMap header: Map<String, String?>,
+        @Query("search") search: String
+    ): Call<ResponseDiaryList>
+
     // 특정 날짜 일기 가져오기.
     @GET("/api/diaries/{diaryDate}")
     fun requestGetDiaryDetail(
