@@ -3,34 +3,76 @@ package com.recordlab.dailyscoop.ui.history
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.recordlab.dailyscoop.R
+import com.recordlab.dailyscoop.databinding.FragmentHistoryBinding
 import com.recordlab.dailyscoop.ui.search.SearchResultActivity
+import net.alhazmy13.wordcloud.WordCloud
+import net.alhazmy13.wordcloud.WordCloudView
 
 class HistoryFragment : Fragment() {
 
     private lateinit var historyViewModel: HistoryViewModel
+
+    val emotions = mutableListOf<MutableList<String>>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        historyViewModel =
-            ViewModelProviders.of(this).get(HistoryViewModel::class.java)
-        print("히스토리 프래그먼트 설정 접속")
-        val root = inflater.inflate(R.layout.fragment_history, container, false)
-        val textView: TextView = root.findViewById(R.id.text_history)
-        historyViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
+        var binding = FragmentHistoryBinding.inflate(inflater, container, false)
+
+//        historyViewModel =
+//            ViewModelProviders.of(this).get(HistoryViewModel::class.java)
+//        val root = inflater.inflate(R.layout.fragment_history, container, false)
+//        val textView: TextView = root.findViewById(R.id.text_history)
+//        historyViewModel.text.observe(viewLifecycleOwner, Observer {
+//            textView.text = it
+//        })
 
         setHasOptionsMenu(true) // 앱 바 작업 버튼 추가하기
 
-        return root
+        // temporary hard coding
+        emotions.add(mutableListOf("angry", "1", "53"))
+        emotions.add(mutableListOf("fun", "2", "13"))
+        emotions.add(mutableListOf("relax", "3", "12"))
+        emotions.add(mutableListOf("angry", "4"))
+        emotions.add(mutableListOf("fun", "5"))
+        emotions.add(mutableListOf("relax", "6"))
+        emotions.add(mutableListOf("angry", "7"))
+        emotions.add(mutableListOf("fun", "8"))
+
+        val emotionsBigRV = binding.root.findViewById<RecyclerView>(R.id.rv_emotions_big)
+        emotionsBigRV.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        emotionsBigRV.adapter = HistoryEmotionBigRVAdapter(emotions.slice(0..2))
+
+        val emotionsSmallRV = binding.root.findViewById<RecyclerView>(R.id.rv_emotions_small)
+        emotionsSmallRV.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        emotionsSmallRV.adapter = HistoryEmotionSmallRVAdapter(emotions.slice(3..7))
+
+        val wordCloudView = binding.root.findViewById<WordCloudView>(R.id.wordCloud)
+        // temporary hard coding
+        val wordCloudList = listOf<WordCloud>(
+            WordCloud("test", 1),
+            WordCloud("test", 2),
+            WordCloud("test", 3),
+            WordCloud("test", 4),
+            WordCloud("test", 5),
+            WordCloud("test", 6),
+            WordCloud("test", 1),
+            WordCloud("test", 2),
+            WordCloud("test", 3),
+            WordCloud("test", 4),
+            WordCloud("test", 5),
+            WordCloud("test", 6)
+        )
+        wordCloudView.setDataSet(wordCloudList)
+        wordCloudView.notifyDataSetChanged()
+
+        return binding.root
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
