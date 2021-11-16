@@ -3,6 +3,7 @@ package com.recordlab.dailyscoop.ui.diary
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.addCallback
@@ -66,6 +67,40 @@ class DiaryDetailActivity : AppCompatActivity() {
                 imgFull = false
             } else {
                 finish()
+            }
+        }
+
+        loadFontData()
+    }
+
+    // 저장한 폰트값 가져오기
+    private fun loadFontData() {
+        // 저장된 폰트값 가져오기
+        val pref = getSharedPreferences("com.example.DailyScoop.PREFERENCE_FILE_KEY", 0)
+        val savedFont = pref.getInt("diaryFont", 2)
+
+        // 디폴트 설정
+        val setFont = binding.diaryContent
+        when (savedFont){
+            1 -> {
+                setFont.typeface = resources.getFont(R.font.spoqa_han_sans_neo_bold)
+                setFont.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14F)
+            }
+            2 -> {
+                setFont.typeface = resources.getFont(R.font.spoqa_han_sans_neo_medium)
+                setFont.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14F)
+            }
+            3 -> {
+                setFont.typeface = resources.getFont(R.font.spoqa_han_sans_neo_thin)
+                setFont.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14F)
+            }
+            4 -> {
+                setFont.typeface = resources.getFont(R.font.nanum_hand_goding)
+                setFont.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 18F)
+            }
+            5 -> {
+                setFont.typeface = resources.getFont(R.font.nanum_hand_mago)
+                setFont.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 22F)
             }
         }
     }

@@ -86,6 +86,24 @@
             android:text="thin"
             android:fontFamily="@font/spoqa_han_sans_neo_thin"
             tools:ignore="TouchTargetSizeCheck" />
+
+        <RadioButton
+            android:id="@+id/radio_4"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:onClick="onRadioButtonClicked"
+            android:text="goding"
+            android:fontFamily="@font/nanum_hand_goding"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <RadioButton
+            android:id="@+id/radio_5"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:onClick="onRadioButtonClicked"
+            android:text="mago"
+            android:fontFamily="@font/nanum_hand_mago"
+            tools:ignore="TouchTargetSizeCheck" />
     </RadioGroup>
 
   </androidx.constraintlayout.widget.ConstraintLayout>
