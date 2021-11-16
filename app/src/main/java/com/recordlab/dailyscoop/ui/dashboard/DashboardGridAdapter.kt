@@ -43,7 +43,15 @@ class DashboardGridAdapter(private val items: List<DiaryData>) :
                 val img = view.findViewById<ImageView>(R.id.iv_grid_diary)
 
                 if (item.image == "default") {
-                    Glide.with(itemView).load(R.drawable.flower_unsplash).into(img)
+                    when (item.theme) {
+                        "paper_dark" -> Glide.with(itemView).load(R.drawable.theme_paper_dark).into(img)
+                        "paper_ivory" -> Glide.with(itemView).load(R.drawable.theme_paper_ivory).into(img)
+                        "paper_white" -> Glide.with(itemView).load(R.drawable.theme_paper_white).into(img)
+                        "sky_day" -> Glide.with(itemView).load(R.drawable.theme_sky_day).into(img)
+                        "sky_day_bright" -> Glide.with(itemView).load(R.drawable.theme_sky_day_bright).into(img)
+                        "sky_night" -> Glide.with(itemView).load(R.drawable.theme_sky_night).into(img)
+                        "window" -> Glide.with(itemView).load(R.drawable.theme_window).into(img)
+                    }
                 } else {
                     Glide.with(itemView).load(item.image).into(img)
                 }

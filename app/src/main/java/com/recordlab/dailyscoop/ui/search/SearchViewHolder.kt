@@ -25,8 +25,16 @@ class SearchViewHolder(private val itemView: View) : RecyclerView.ViewHolder(ite
         }else {
             diaryContent.text = item.content
         }
-        if(item.image == null || ("").equals(item.image)){
-            Glide.with(itemView).load("@drawable/white_rectangle.xml").into(diaryImage)
+        if(item.image == "default" || ("").equals(item.image)){
+            when (item.theme) {
+                "paper_dark" -> Glide.with(itemView).load(R.drawable.theme_paper_dark).into(diaryImage)
+                "paper_ivory" -> Glide.with(itemView).load(R.drawable.theme_paper_ivory).into(diaryImage)
+                "paper_white" -> Glide.with(itemView).load(R.drawable.theme_paper_white).into(diaryImage)
+                "sky_day" -> Glide.with(itemView).load(R.drawable.theme_sky_day).into(diaryImage)
+                "sky_day_bright" -> Glide.with(itemView).load(R.drawable.theme_sky_day_bright).into(diaryImage)
+                "sky_night" -> Glide.with(itemView).load(R.drawable.theme_sky_night).into(diaryImage)
+                "window" -> Glide.with(itemView).load(R.drawable.theme_window).into(diaryImage)
+            }
         }else {
             Glide.with(itemView).load(item.image).into(diaryImage)
         }

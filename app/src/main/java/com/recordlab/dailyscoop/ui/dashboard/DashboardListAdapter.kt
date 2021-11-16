@@ -50,7 +50,15 @@ class DashboardListAdapter(private val items: List<DiaryData>) :
                 }
 
                 if (item.image == "default") {
-                    Glide.with(itemView).load(R.drawable.flower_unsplash).transform(CenterCrop(), RoundedCorners(16)).into(img)
+                    when (item.theme) {
+                        "paper_dark" -> Glide.with(itemView).load(R.drawable.theme_paper_dark).transform(CenterCrop(), RoundedCorners(16)).into(img)
+                        "paper_ivory" -> Glide.with(itemView).load(R.drawable.theme_paper_ivory).transform(CenterCrop(), RoundedCorners(16)).into(img)
+                        "paper_white" -> Glide.with(itemView).load(R.drawable.theme_paper_white).transform(CenterCrop(), RoundedCorners(16)).into(img)
+                        "sky_day" -> Glide.with(itemView).load(R.drawable.theme_sky_day).transform(CenterCrop(), RoundedCorners(16)).into(img)
+                        "sky_day_bright" -> Glide.with(itemView).load(R.drawable.theme_sky_day_bright).transform(CenterCrop(), RoundedCorners(16)).into(img)
+                        "sky_night" -> Glide.with(itemView).load(R.drawable.theme_sky_night).transform(CenterCrop(), RoundedCorners(16)).into(img)
+                        "window" -> Glide.with(itemView).load(R.drawable.theme_window).transform(CenterCrop(), RoundedCorners(16)).into(img)
+                    }
                 } else {
                     Glide.with(itemView).load(item.image).transform(CenterCrop(), RoundedCorners(16)).into(img)
                 }
