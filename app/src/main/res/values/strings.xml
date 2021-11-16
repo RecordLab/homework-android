@@ -26,7 +26,7 @@
     <string name="emotion_fun">재미</string>
     <string name="emotion_joy">즐거움</string>
     <string name="emotion_sound">평온</string>
-    <string name="emotion_hopeful">기대</string>
+    <string name="emotion_expect">기대</string>
     <string name="emotion_bored">심심</string>
     <string name="emotion_sad">슬픔</string>
     <string name="emotion_nervous">긴장</string>
@@ -46,14 +46,12 @@
     <string name="certification">인증번호</string>
     <string name="cert">인증</string>
     <string name="signup_val1">닉네임은 2자~8자 이내여야 합니다</string>
-    <string name="signup_val2">비밀번호는 최소 1개 이상의 숫자와 특수문자를 포함해야 합니다</string>
     <string name="signup_val3">비밀번호는 8자~16자 이내여야 합니다</string>
     <string name="signin">로그인</string>
     <string name="find_password">비밀번호를 잊어버렸어요</string>
     <string name="sign_yet1">아직 회원이 아니신가요?</string>
     <string name="sign_yet2">가입하기</string>
     <string name="forgot_password">비밀번호 찾기</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="find_password_email">회원가입 시 사용한 이메일을 입력해주세요</string>
     <string name="new_password">새 비밀번호 설정하기</string>
     <string name="new_pass1">비밀번호 재설정</string>
@@ -63,6 +61,15 @@
     <string name="splash">하루 한 장\n하루 한 스쿱</string>
     <string name="splash_content_description">아이스크림 트럭</string>
     <string name="et_input_hint">내용을 입력해주세요</string>
+    <string name="checkout_these_diaries">최근 작성한 일기 보러가기</string>
+    <string name="toast_emotion_limit_3">감정은 최대 세 개까지 선택할 수 있어요.</string>
     <string name="dialog_sign_out_message">로그아웃 하시겠습니까?</string>
+    <string name="signup_val2">비밀번호와 비밀번호 확인이 같아야 합니다</string>
+    <string name="dialog_time_pick_title">알림 시간 설정</string>
+    <string name="dialog_dday_title">날짜를 선택하세요</string>
+    <string name="lorem">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</string>
+    <string name="require_permission_message">요청을 수행하기 위해 접근 권한이 필요합니다.</string>
+    <string name="no_selected_image">선택된 이미지가 없습니다</string>
+    <string name="app_backbutton_finish">\'뒤로\'버튼 한 번 더 누르시면 종료됩니다.</string>
 
 </resources>

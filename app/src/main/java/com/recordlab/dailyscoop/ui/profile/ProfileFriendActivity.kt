@@ -3,6 +3,7 @@ package com.recordlab.dailyscoop.ui.profile
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
 import com.recordlab.dailyscoop.R
@@ -33,5 +34,16 @@ class ProfileFriendActivity : AppCompatActivity() {
             finish()
         }
 
+        val test_BtnClicke = findViewById<Button>(R.id.test_Btn)
+        test_BtnClicke.setOnClickListener{
+            uploadImage()
+        }
+    }
+
+    // 테스트
+    private fun uploadImage() {
+        val pref = getSharedPreferences("com.example.DailyScoop.PREFERENCE_FILE_KEY", 0)
+        val path = pref.getString("profileImage", "null")
+        Toast.makeText(applicationContext,path, Toast.LENGTH_SHORT).show()
     }
 }

@@ -1,5 +1,6 @@
 package com.recordlab.dailyscoop.ui.home
 
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -12,28 +13,30 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.applikeysolutions.cosmocalendar.listeners.OnMonthChangeListener
 import com.applikeysolutions.cosmocalendar.model.Month
 import com.applikeysolutions.cosmocalendar.selection.SingleSelectionManager
+import com.applikeysolutions.cosmocalendar.settings.appearance.ConnectedDayIconPosition
+import com.applikeysolutions.cosmocalendar.settings.lists.connected_days.ConnectedDays
 import com.applikeysolutions.cosmocalendar.utils.SelectionType
 import com.applikeysolutions.cosmocalendar.view.CalendarView
-import com.recordlab.dailyscoop.MainActivity
 import com.recordlab.dailyscoop.R
 import com.recordlab.dailyscoop.data.DiaryData
 import com.recordlab.dailyscoop.data.TimeToString
 import com.recordlab.dailyscoop.databinding.FragmentHomeBinding
 import com.recordlab.dailyscoop.network.RetrofitClient
 import com.recordlab.dailyscoop.network.enqueue
-import com.recordlab.dailyscoop.ui.home.diary.DiaryActivity
+import com.recordlab.dailyscoop.ui.diary.DiaryDetailActivity
 import com.recordlab.dailyscoop.ui.home.diary.DiaryAdapter
 import com.recordlab.dailyscoop.ui.home.diary.DiaryWriteActivity
 import com.recordlab.dailyscoop.ui.home.widget.QuickDiaryFragment
 import com.recordlab.dailyscoop.ui.home.widget.QuotationFragment
 import com.recordlab.dailyscoop.ui.search.SearchResultActivity
 import java.sql.Timestamp
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -49,15 +52,14 @@ class HomeFragment : Fragment(), View.OnClickListener {
     private var _binding: FragmentHomeBinding? = null
     private lateinit var selectedDate: Calendar
     private val service = RetrofitClient.service
-//    private lateinit var service: RequestService //=
     private lateinit var sharedPref: SharedPreferences
 
     private val binding get() = _binding!!
 
     private lateinit var diaryAdapter: DiaryAdapter
 
-    //    private lateinit var dialog: DialogYearMonth
     val diaryData = mutableListOf<DiaryData>()
+    private var days = mutableSetOf<Long>()
 
     //    private val diaryListViewModel by viewModels<DiaryListViewModel> {
 //        DiaryListViewModelFactory(this)
@@ -66,6 +68,8 @@ class HomeFragment : Fragment(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         widget1 = QuotationFragment()
         widget2 = QuickDiaryFragment()
+
+
     }
 
     override fun onCreateView(
@@ -73,16 +77,32 @@ class HomeFragment : Fragment(), View.OnClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        homeViewModel =
-            ViewModelProviders.of(this)
-                .get(HomeViewModel::class.java) //ViewModelProvider(activity.viewModelStore).get(HomeViewModel::class.java)//, ViewModelProvider.AndroidViewModelFactory()).get(HomeViewModel::class.java)
+        homeViewModel = ViewModelProvider(this)[HomeViewModel::class.java]
+           // ViewModelProviders.of(this)[HomeViewModel::class.java] //ViewModelProvider(activity.viewModelStore).get(HomeViewModel::class.java)//, ViewModelProvider.AndroidViewModelFactory()).get(HomeViewModel::class.java)
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val view = binding.root
         val calendarView: CalendarView = binding.cvHome
 //        val fab: View = binding.fabDiary
-//        sharedPref = requireActivity().getSharedPreferences("token", Context.MODE_PRIVATE)
-//        val token: String? = sharedPref.getString("token", "token")
-
+        sharedPref = requireActivity().getSharedPreferences("TOKEN", Context.MODE_PRIVATE)
+        /*val token: String? = sharedPref.getString("token", "token")
+        if (token == "token") {
+            with(sharedPref.edit()) {
+                putString(
+                    "token",
+                    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImhhaWxleWhpMTRAZ21haWwuY29tIiwiZXhwIjoxNjM5NDc3NzQzfQ.uHJxXzmGAnlm3CgFES-Hpd2nvIkDCQ9TmhEBZXYqJa8"
+                )
+                commit()
+            }
+        }else { // 로그인 붙이고 이 부분 지우기.
+            with(sharedPref.edit()) {
+                putString(
+                    "token",
+                    "Bearer $token"
+                )
+                apply()
+                commit()
+            }
+        }*/
 
         init(view)
 
@@ -94,16 +114,26 @@ class HomeFragment : Fragment(), View.OnClickListener {
             "view Id : " + view.id + "... " + viewPager.get(0) + "<<<<< 뷰 페이저 id"
         )
 
+        // 뷰 페이저 어댑터
         var adapter = PagerAdpater(this.requireActivity())
         viewPager!!.adapter = adapter
         viewPager.setCurrentItem(0)
 
         val btnMore = binding.btnMore
 
+        // diaryAdapter 지정하기
+        /*diaryAdapter = DiaryAdapter()
+        binding.rvHomeDiary.adapter = diaryAdapter
+        // observer
         homeViewModel.text.observe(viewLifecycleOwner, Observer {
             binding.textHome.text = it
             //textView.text = it
         })
+        homeViewModel.diaryData.observe(viewLifecycleOwner) {
+            diaryAdapter.updateDiary(it)
+//            binding.rvHomeDiary.adapter. = DiaryAdapter(it)
+        }*/
+
         val btnById: TextView = binding.btnMore //root.findViewById(R.id.btn_more)
         Log.d(DEBUG_TAG, ">" + btnById.text + "<<  이게 원래 텍스트")
         btnMore.text = "더보기"
@@ -115,50 +145,47 @@ class HomeFragment : Fragment(), View.OnClickListener {
 
             override fun onMonthChanged(month: Month?) {
                 Log.d(DEBUG_TAG, "Month: ${month.toString()}")
+                // connected 일기 날짜
             }
         })
 
-        calendarView.selectedDays
-        /*calendarView.selectionManager(SingleSelectionManager {
-            var result =
-                SimpleDateFormat("yyyy - MM - dd").format(calendarView.selectedDays.get(0).calendar.time) + "\n"
-        }*/
-        /*fab.setOnClickListener {
-            if (calendarView.selectionManager is RangeSelectionManager) {
-                val selectionManager: RangeSelectionManager =
-                    calendarView.selectionManager as RangeSelectionManager
-                if (selectionManager.days != null) {
-                    var day = selectionManager.days.first
-                    selectedDate = day.calendar
-                    Log.d(
-                        DEBUG_TAG,
-                        "day 타입 스트링 ${day.toString()} calendar 타입으로 : ${selectedDate.time}"
-                    )
+        calendarView.selectionManager = SingleSelectionManager {
+            // if selected day has its own diary record -> send to diary detail activity
+            Log.d(DEBUG_TAG, "${calendarView.selectedDays[0].calendar.get(Calendar.YEAR)}-" +
+                    "${calendarView.selectedDays[0].calendar.get(Calendar.MONTH) + 1}-" +
+                    "${calendarView.selectedDays[0].calendar.get(Calendar.DAY_OF_MONTH)}"
+            )
+//            Log.d(DEBUG_TAG, ">> 시간은 이렇게 표시된다. ${TimeToString().convert(calendarView.selectedDays[0].calendar.time, 2)}")
+            val chosenDate = TimeToString().convert(calendarView.selectedDays[0].calendar.time, 3)
+            Log.d("날짜 클릭 ", "$chosenDate ")
+            //set에 있는지 확인하고 꺼내 쓰기.
+            Log.d(DEBUG_TAG, "선택한 날짜 as 시간 :${calendarView.selectedDays[0].calendar.timeInMillis} 현재 날짜 AS Long ${System.currentTimeMillis()}")
+            // 미래 시점이면 아직 날짜가 되지 않았다고 띄워주기.
+            if (calendarView.selectedDays[0].calendar.timeInMillis > System.currentTimeMillis()){
+
+                Toast.makeText(this.context, "...", Toast.LENGTH_SHORT).show()
+            }else {
+                /*for (item in diaryData){
+                    days.add(Date(item.date.time).time) // days 안에 들어있는 것 timestamp -> long
+                    Log.d(DEBUG_TAG, "${Date(item.date.time).time}")
+                }*/
+                // calendar 안에 들어있는 것 : calendar
+                Log.d("시간 비교" , "${calendarView.selectedDays[0].calendar.time.time} " +
+                        "캘린더 클릭으로 가져오는 timeinMillis ${calendarView.selectedDays[0].calendar.timeInMillis}")
+                if (days.contains(calendarView.selectedDays[0].calendar.time.time)){ // 일기 있는 경우
+                    val intent = Intent(activity, DiaryDetailActivity::class.java)
+                    intent.putExtra("diaryDate", chosenDate)
+                    startActivity(intent)
+                } else { // 없는 경우
+                    // 다이얼로그로 먼저 물어보기.
+                    val intent = Intent(activity, DiaryWriteActivity::class.java)
+                    intent.putExtra("date", chosenDate)
+                    startActivity(intent)
 
                 }
             }
-        }*/
 
-
-        /*calendarView.selectionManager(SingleSelectionManager {
-            var result = SimpleDateFormat("yyyy - MM - dd").format(calendarView.selectedDays.get(0).calendar.time) + "\n"
-            Toast.makeText(requireContext(), result, Toast.LENGTH_SHORT).show()
-            Log.d(DEBUG_TAG, "호이!!!!! $result")
-        })
-
-
-
-        monthTextView.setOnClickListener {
-            val customDialog =
-                DialogYearMonth(requireContext())
-            customDialog.init()
-            customDialog.setOnClickListener(object : DialogYearMonth.DialogOKClickedListener{
-                override fun onOKClicked(content: Boolean, year: Int, month: Int) {
-                    yearTextView.text = "$year"
-                    monthTextView.text = "${month}"
-                }
-            })
-        }*/
+        }
 
         btnMore.setOnClickListener {
             Log.d(DEBUG_TAG, "더보기 클릭")
@@ -169,31 +196,35 @@ class HomeFragment : Fragment(), View.OnClickListener {
                 Log.d(DEBUG_TAG, "activity is not null")
             }
         }
+
+
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
+        diaryAdapter = DiaryAdapter()
+        binding.rvHomeDiary.adapter = diaryAdapter
+        // observer
+        homeViewModel.text.observe(viewLifecycleOwner, Observer {
+            binding.textHome.text = it
+            //textView.text = it
+        })
+        homeViewModel.diaryData.observe(viewLifecycleOwner) {
+            diaryAdapter.updateDiary(it)
+        }
         super.onViewCreated(view, savedInstanceState)
     }
 
     private fun init(view: View) {
-        diaryAdapter = DiaryAdapter(view.context) { DiaryData, View ->
-            val intent = Intent(activity as MainActivity, DiaryActivity::class.java)
-            intent.putExtra("diaryDate", TimeToString().convert(DiaryData.date))
-            startActivity(intent)
-        }
-        binding.rvHomeDiary.adapter = diaryAdapter
         loadData(view)
     }
 
 
     private fun loadData(view: View) {
         val header = mutableMapOf<String, String?>()
+        // 헤더설정하기
         header["Content-type"] = "application/json; charset=UTF-8"
-        header["Authorization"] = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImhhaWxleWhpMTRAZ21haWwuY29tIiwiZXhwIjoxNjM2NTkwNjg5fQ.jCFGuLtsOwKNNJ601IeO8ueXke5GMOmpF5TfUkztjvU"
-            //"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImlkIiwiZXhwIjoxNjM2NTk2NzE4fQ.JOb447DOeSlRpa-NNF_KRg5NylfuKorzni8evoQimvo"//sharedPref.getString("token", "token")
-
+        header["Authorization"] = sharedPref.getString("token", "token")
 
         if (header["Authorization"] == "token") { // 로그인 안 한 상태..?
             diaryData.apply {
@@ -208,18 +239,47 @@ class HomeFragment : Fragment(), View.OnClickListener {
                 )
             }
         } else { // 로그인 한 상태.
-           service.requestGetDiaries(header = header).enqueue(
+            service.requestGetDiaries(header = header).enqueue(
                 onSuccess = {
-                    if (it.code() == 200){
-                        Log.d("통신 성공", it.body()!!.data[0].content)
-                        diaryData.clear()
-                        diaryData.addAll(it.body()!!.data)
-                        diaryAdapter.data = diaryData
-                        diaryAdapter.notifyDataSetChanged()
+                    when (it.code()) {
+                        in 200..299 -> {
+                            //Log.d("통신 성공", it.body()!!.data[0].content)
+                            diaryData.clear()
+                            diaryData.addAll(it.body()!!.data)
+                            homeViewModel.diaryData.postValue(diaryData)
+                            diaryAdapter.notifyDataSetChanged()
+
+                            // 달력에 일기 작성날짜 mark하기.
+                            days.clear()
+                            val sdf = SimpleDateFormat("MM-dd-yyyy")
+                            for (item in diaryData){
+                                days.add(Date(item.date.time).time)
+                                Log.d(DEBUG_TAG, "${Date(item.date.time).time}")
+                            }
+
+                            val textColor: Int = R.color.veryBerry
+                            val selectedTextColor: Int = R.color.baraRed
+                            val disabledTextColor: Int = R.color.twinkleBlue
+                            val connectedDays = ConnectedDays(days, textColor, selectedTextColor, disabledTextColor)
+
+                            //Add Connect days to calendar
+                            binding.cvHome.addConnectedDays(connectedDays)
+
+                            binding.cvHome.connectedDayIconRes = R.drawable.ic_baseline_flag_coral_12
+                            binding.cvHome.connectedDayIconPosition = ConnectedDayIconPosition.TOP // TOP & BOTTOM
+
+                            binding.cvHome.update()
+                        }
+                        400 -> {
+
+                        }
+                        in 500..599 -> {
+                            // 서버 에러.
+                        }
                     }
                 },
                 onError = {
-                    Toast.makeText(requireContext(),"다시 시도해주세요.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "다시 시도해주세요.", Toast.LENGTH_SHORT).show()
                 },
                 onFail = {
 
@@ -242,9 +302,11 @@ class HomeFragment : Fragment(), View.OnClickListener {
                     )
                 )
             }
-        }*/
+        }
         diaryAdapter.data = diaryData
-        diaryAdapter.notifyDataSetChanged()
+        diaryAdapter.notifyDataSetChanged()*/
+
+
     }
 
     private inner class PagerAdpater(fa: FragmentActivity) : FragmentStateAdapter(fa) {
@@ -316,6 +378,3 @@ class HomeFragment : Fragment(), View.OnClickListener {
     }
 }
 
-private fun CalendarView.selectionManager(singleSelectionManager: SingleSelectionManager) {
-
-}

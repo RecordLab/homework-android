@@ -7,20 +7,26 @@ import androidx.recyclerview.widget.RecyclerView
 import com.recordlab.dailyscoop.R
 import com.recordlab.dailyscoop.data.DiaryData
 
-class SearchAdapter(private val itemClick: (DiaryData, View) -> Unit): RecyclerView.Adapter<SearchViewHolder>() {
-    var data = mutableListOf<DiaryData>()
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_search_diary, parent, false)
-        return SearchViewHolder(view, itemClick)
+class SearchAdapter(private val items: List<DiaryData>): RecyclerView.Adapter<SearchViewHolder>() {
+//    var data = mutableListOf<DiaryData>()
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): SearchViewHolder {
+        val inflatedView = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_search_diary, parent, false)
+//        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_search_diary, parent, false)
+        return SearchViewHolder(inflatedView)
     }
+
 
     override fun onBindViewHolder(holder: SearchViewHolder, position: Int) {
-        holder.bind(data[position])
+        holder.bind(items[position])
     }
 
-    override fun getItemCount(): Int = data.size
+    override fun getItemCount(): Int = items.size
 
-    fun addDiary(item: DiaryData) {
-        data.add(item)
-    }
+//    fun addDiary(item: DiaryData) {
+//        items.add(item)
+//    }
 }

@@ -8,3 +8,12 @@ data class UserInfoData(
     val nickname: String,
     val token: String
 )
+
+data class ResponseUserInfo(
+    val id: String,
+    val nickname: String
+)
+
+data class ResponseChange(
+    val message: String,
+)

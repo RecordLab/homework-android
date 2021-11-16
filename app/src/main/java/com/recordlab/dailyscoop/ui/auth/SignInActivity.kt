@@ -3,6 +3,7 @@ package com.recordlab.dailyscoop.ui.auth
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import com.recordlab.dailyscoop.MainActivity
 import com.recordlab.dailyscoop.databinding.ActivitySignInBinding
@@ -36,6 +37,11 @@ class SignInActivity : AppCompatActivity() {
 
             val data = RequestSignIn(email, password)
             signIn(data)
+
+            val pref = getSharedPreferences("TOKEN", 0)
+            val edit = pref.edit() // 수정모드(추가, 수정)
+            edit.putString("email", email) // key, value
+            edit.apply() // 저장 완료
         }
 
         // 비밀번호 찾기 버튼 클릭
@@ -62,18 +68,21 @@ class SignInActivity : AppCompatActivity() {
     }
 
     private fun signIn(data: RequestSignIn) {
-        service.requestSingIn(body = data).enqueue(
+        service.requestSignIn(body = data).enqueue(
             onSuccess = {
                 when (it.code()){
                     in 200..209 -> {
                         val nic = it.body()?.nickname
                         val to = it.body()?.token
-                        Toast.makeText(this.applicationContext,"$nic 님 반갑습니다", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this.applicationContext,"반갑습니다", Toast.LENGTH_SHORT).show();
 
                         val pref = getSharedPreferences("TOKEN", 0)
                         val edit = pref.edit() // 수정모드(추가, 수정)
                         edit.putString("token", "Bearer ".plus(to)) // key, value
+                        edit.putString("nickname", nic)
                         edit.apply() // 저장 완료
+
+                        //Log.d("token", "로그인 응답 $to")
 
                         val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)

@@ -42,4 +42,8 @@
     <color name="toolbarBackground">#FFFFFF</color>
     <color name="greyPorcelain_66">#6684817a</color>
     <color name="black_66">#66000000</color>
+    <color name="default_textview">#808080</color>
+    
+    <color name="shadow_transparency_20">#33BDBDBD</color>
+    <color name="white_transparency_50">#80FFFFFF</color>
 </resources>

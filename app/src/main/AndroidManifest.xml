@@ -3,6 +3,8 @@
     package="com.recordlab.dailyscoop" >
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
@@ -14,7 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:networkSecurityConfig="@xml/network_security_config">
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:requestLegacyExternalStorage="true">
         <activity
             android:name=".ui.profile.ProfileFontActivity"
             android:exported="false" />
@@ -33,25 +36,25 @@
             android:name=".ui.diary.DiaryDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.profile.ProfileAccountPasswordActivity"
+            android:name=".ui.profile.account.ProfileAccountPasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.profile.ProfileAccountNicknameActivity"
+            android:name=".ui.profile.account.ProfileAccountNicknameActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.profile.ProfileAccountEmailActivity"
+            android:name=".ui.profile.account.ProfileAccountEmailActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.profile.ProfileDdayActivity"
+            android:name=".ui.profile.day.ProfileDdayActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.profile.ProfileLockActivity"
+            android:name=".ui.profile.lock.ProfileLockActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.profile.ProfileNoticeActivity"
+            android:name=".ui.profile.notice.ProfileNoticeActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.profile.ProfileAccountActivity"
+            android:name=".ui.profile.account.ProfileAccountActivity"
             android:exported="false" />
         <activity
             android:name=".ui.profile.ProfileFriendActivity"

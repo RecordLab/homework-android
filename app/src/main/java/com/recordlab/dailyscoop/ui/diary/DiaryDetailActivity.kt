@@ -1,12 +1,12 @@
 package com.recordlab.dailyscoop.ui.diary
 
 import android.content.Context
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import androidx.activity.addCallback
+import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -38,9 +38,16 @@ class DiaryDetailActivity : AppCompatActivity() {
         rv.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         rv.adapter = rvAdapter
 
-        binding.backBtn.setOnClickListener {
+        /*binding.backBtn.setOnClickListener {
             finish()
-        }
+        }*/
+        val tbDiaryDetail : Toolbar = findViewById(R.id.tb_diary_detail)
+        setSupportActionBar(tbDiaryDetail)
+        supportActionBar!!.setDisplayShowCustomEnabled(true)  // custom하기 위해
+        supportActionBar!!.setDisplayShowTitleEnabled(false)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setDisplayShowHomeEnabled(true)
+
 
         // 사진 클릭 시 전체화면 기능
        var imgFull = false
@@ -125,22 +132,38 @@ class DiaryDetailActivity : AppCompatActivity() {
         when (theme) {
             "paper_white" -> {
                 binding.diaryBg.setBackgroundResource(R.drawable.theme_paper_white)
+                supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_black_24)
             }
             "paper_ivory" -> {
                 binding.diaryBg.setBackgroundResource(R.drawable.theme_paper_ivory)
+                supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_black_24)
             }
-            "paper_black" -> {
-                binding.diaryBg.setBackgroundResource(R.drawable.theme_paper_black)
+            "paper_dark" -> {
+                binding.diaryBg.setBackgroundResource(R.drawable.theme_paper_dark)
+                supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_24)
             }
             "sky_day" -> {
-                binding.diaryBg.setBackgroundResource(R.drawable.theme_sky_day)
+                binding.diaryBg.setBackgroundResource(R.drawable.theme_sky_day_bright)
+                supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_24)
             }
             "sky_night" -> {
                 binding.diaryBg.setBackgroundResource(R.drawable.theme_sky_night)
+                supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_24)
             }
             "window" -> {
                 binding.diaryBg.setBackgroundResource(R.drawable.theme_window)
+                supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_black_24)
             }
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
