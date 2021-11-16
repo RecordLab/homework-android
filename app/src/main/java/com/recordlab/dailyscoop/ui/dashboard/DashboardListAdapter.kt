@@ -49,7 +49,11 @@ class DashboardListAdapter(private val items: List<DiaryData>) :
                     content.text = "${item.content.substring(0, 30)}..."
                 }
 
-                Glide.with(itemView).load(item.image).transform(CenterCrop(), RoundedCorners(16)).into(img)
+                if (item.image == "default") {
+                    Glide.with(itemView).load(R.drawable.flower_unsplash).transform(CenterCrop(), RoundedCorners(16)).into(img)
+                } else {
+                    Glide.with(itemView).load(item.image).transform(CenterCrop(), RoundedCorners(16)).into(img)
+                }
 
                 itemView.setOnClickListener {
                     val intent = Intent(itemView.context, DiaryDetailActivity::class.java)
