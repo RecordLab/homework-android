@@ -1,11 +1,13 @@
 package com.recordlab.dailyscoop.ui.diary
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.MenuItem
 import android.view.View
+import android.widget.PopupMenu
 import androidx.activity.addCallback
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,6 +18,10 @@ import com.recordlab.dailyscoop.databinding.ActivityDiaryDetailBinding
 import com.recordlab.dailyscoop.network.RetrofitClient.service
 import com.recordlab.dailyscoop.network.enqueue
 import java.util.*
+import android.widget.Toast
+import com.recordlab.dailyscoop.MainActivity
+import com.recordlab.dailyscoop.ui.home.diary.DiaryWriteActivity
+
 
 class DiaryDetailActivity : AppCompatActivity() {
 
@@ -71,6 +77,27 @@ class DiaryDetailActivity : AppCompatActivity() {
         }
 
         loadFontData()
+
+        binding.diaryDetailMenu.setOnClickListener { view ->
+            val popupMenu = PopupMenu(applicationContext, view)
+            menuInflater.inflate(com.recordlab.dailyscoop.R.menu.diary_detail_menu, popupMenu.menu)
+            popupMenu.setOnMenuItemClickListener { menuItem ->
+                if (menuItem.itemId == com.recordlab.dailyscoop.R.id.action_menu1) {
+                    //Toast.makeText(this@DiaryDetailActivity, "메뉴 1 클릭", Toast.LENGTH_SHORT).show()
+                        finish()
+                    val intent = Intent(this@DiaryDetailActivity, DiaryWriteActivity::class.java)
+                    intent.putExtra("date", diaryDate)
+                    //Log.d("수정 날짜 클릭 ", "$diaryDate ")
+                    startActivity(intent)
+                } else if (menuItem.itemId == com.recordlab.dailyscoop.R.id.action_menu2) {
+                    //Toast.makeText(this@DiaryDetailActivity, "메뉴 2 클릭", Toast.LENGTH_SHORT).show()
+                    deleteDiary()
+                }
+                false
+            }
+            popupMenu.show()
+        }
+
     }
 
     // 저장한 폰트값 가져오기
@@ -201,4 +228,23 @@ class DiaryDetailActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+
+    // 다이어리 삭제하기
+    private fun deleteDiary() {
+        val pref = getSharedPreferences("TOKEN", Context.MODE_PRIVATE)
+        val token =  pref?.getString("token", null)
+        val header = mutableMapOf<String, String?>()
+        header["Authorization"] = token
+        service.requestDeleteDiary(header = header, date = diaryDate).enqueue(
+            onSuccess = {
+                when(it.code()) {
+                    200 -> {
+                        Toast.makeText(this@DiaryDetailActivity, "일기를 삭제했습니다.", Toast.LENGTH_SHORT).show()
+                        finish()
+                    }
+                }
+            }
+        )
+    }
+
 }

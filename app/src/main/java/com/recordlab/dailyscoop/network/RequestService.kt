@@ -85,7 +85,14 @@ interface RequestService {
         @Body diary: RequestWriteDiary
     ): Call<ResponseWriteDiary>
 
-    // 명언 api
+    // 일기 삭제
+    @DELETE("/api/diaries/{date}")
+    fun requestDeleteDiary(
+        @HeaderMap header: Map<String, String?>,
+        @Path("date") date: String
+    ): Call<ResponseChange>
+
+   // 명언 api
     @GET("https://api.qwer.pw/request/helpful_text")
     fun requestQuotation(
         @Query("apikey") apikey: String
