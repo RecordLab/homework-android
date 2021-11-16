@@ -1,13 +1,17 @@
 package com.recordlab.dailyscoop.ui.history
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.recordlab.dailyscoop.R
 import com.recordlab.dailyscoop.databinding.FragmentHistoryBinding
+import com.recordlab.dailyscoop.network.RetrofitClient.service
+import com.recordlab.dailyscoop.network.enqueue
 import com.recordlab.dailyscoop.ui.search.SearchResultActivity
 import net.alhazmy13.wordcloud.WordCloud
 import net.alhazmy13.wordcloud.WordCloudView
@@ -34,6 +38,8 @@ class HistoryFragment : Fragment() {
 //        })
 
         setHasOptionsMenu(true) // 앱 바 작업 버튼 추가하기
+
+        getEmotionsCount(binding)
 
         // temporary hard coding
         emotions.add(mutableListOf("angry", "1", "53"))
@@ -88,5 +94,18 @@ class HistoryFragment : Fragment() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun getEmotionsCount(binding: FragmentHistoryBinding) {
+        val pref = context?.getSharedPreferences("TOKEN", Context.MODE_PRIVATE)
+        val token =  pref?.getString("token", null)
+        val header = mutableMapOf<String, String?>()
+        header["Authorization"] = token
+
+        service.requestGetEmotionsCount(header = header, type = "yearly", date = "2021-11-15").enqueue(
+            onSuccess = {
+                Log.d("HistoryFragment", it.toString())
+            }
+        )
     }
 }

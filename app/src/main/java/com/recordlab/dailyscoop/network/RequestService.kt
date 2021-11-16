@@ -38,4 +38,11 @@ public interface RequestService {
         @Query("date") date: String,
         @Query("type") type: String
     ) : Call<ResponseDiaryList>
+
+    @GET("/api/diaries/emotions")
+    fun requestGetEmotionsCount(
+        @HeaderMap header: Map<String, String?>,
+        @Query("type") type: String,
+        @Query("date") date: String
+    ) : Call<ResponseEmotionsCount>
 }
