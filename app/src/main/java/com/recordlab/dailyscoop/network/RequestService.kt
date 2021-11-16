@@ -103,5 +103,12 @@ interface RequestService {
         @HeaderMap header: Map<String, String?>,
         @Query("type") type: String,
         @Query("date") date: String
-    ) : Call<ResponseEmotionsCount>
+    ): Call<ResponseEmotionsCount>
+
+    @GET("/api/diaries/count")
+    fun requestGetDiariesCount(
+        @HeaderMap header: Map<String, String?>,
+        @Query("type") type: String,
+        @Query("date") date: String
+    ): Call<ResponseDiariesCount>
 }

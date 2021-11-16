@@ -123,4 +123,6 @@ dependencies {
     // Tag cloud
     implementation 'net.alhazmy13.wordcloud:library:0.2.0-beta'
 
+    // Blur 효과 주기
+    implementation 'com.github.mmin18:realtimeblurview:1.2.1'
 }
