@@ -104,4 +104,18 @@ interface RequestService {
         //@HeaderMap header: Map<String, String?>,
         @Part file: MultipartBody.Part
     ): Call<ResponseImageUrl>
+
+    @GET("/api/diaries/emotions")
+    fun requestGetEmotionsCount(
+        @HeaderMap header: Map<String, String?>,
+        @Query("type") type: String,
+        @Query("date") date: String
+    ): Call<ResponseEmotionsCount>
+
+    @GET("/api/diaries/count")
+    fun requestGetDiariesCount(
+        @HeaderMap header: Map<String, String?>,
+        @Query("type") type: String,
+        @Query("date") date: String
+    ): Call<ResponseDiariesCount>
 }
