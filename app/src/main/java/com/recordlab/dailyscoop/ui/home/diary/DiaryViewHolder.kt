@@ -1,9 +1,11 @@
 package com.recordlab.dailyscoop.ui.home.diary
 
+import android.app.Activity
 import android.content.Intent
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.recordlab.dailyscoop.R
@@ -19,7 +21,7 @@ class DiaryViewHolder(val itemView: View) :
 
     /* bind diary image, preview and date*/
     fun bind(item: DiaryData) {
-        if (item.image == "null") {
+        if (item.image == "default") {
             when (item.theme) {
                 "paper_white" -> {
                     Glide.with(itemView)
@@ -73,6 +75,7 @@ class DiaryViewHolder(val itemView: View) :
         itemView.setOnClickListener {
             val intent = Intent(itemView.context, DiaryDetailActivity::class.java)
             intent.putExtra("diaryDate", item.date.toString().substring(0, 10))
+            (itemView.context as Activity).overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
             itemView.context.startActivity(intent)
         }
     }

@@ -54,10 +54,10 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
                 Glide.with(backgroundLayout).load(result.data?.data).into(binding.ivWriteDiary)
                 val uri = result.data?.data
                 val imgPath = uri?.let { ImagePath().getPath(applicationContext, it) }
-                Log.d(DW_DEBUG_TAG, "가져온 파일 경로 $imgPath")
+//                Log.d(DW_DEBUG_TAG, "가져온 파일 경로 $imgPath")
 
                 val file = File(imgPath)
-                Log.d(DW_DEBUG_TAG, "파일 : $file")
+//                Log.d(DW_DEBUG_TAG, "파일 : $file")
 
                 val requestFile = file.asRequestBody("application/octet-stream".toMediaTypeOrNull())
                 val body = MultipartBody.Part.createFormData("file", file.name, requestFile)
@@ -454,7 +454,7 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
                         header = header,
                         diary = RequestWriteDiary(
                             content = binding.etWriteDiary.text.toString(),
-                            image = imageUrl?: "null",
+                            image = imageUrl?: "default",
                             emotions = getEmotionAsList(),
                             theme = theme!!,
                             date = writeDate

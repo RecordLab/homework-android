@@ -20,6 +20,12 @@ interface RequestService {
     @POST("/api/login")
     fun requestSignIn(@Body body: RequestSignIn): Call<UserInfoData> //Call<ResponseSignin>
 
+    // 유저 정보 불러오기
+    @GET("/api/user")
+    fun requestUserInfo(
+        @HeaderMap header: Map<String, String?>
+    ) : Call<ResponseUserProfile>
+
     // 일기 작성
     @POST("/api/diaries")
     fun requestWriteDiary(
@@ -67,6 +73,7 @@ interface RequestService {
         @Query("apikey") apikey: String
     ): Call<List<ResponseQuotation>>
 
+    // 이미지 업로드
     @Multipart
     @POST("/api/image")
     fun requestImageUrl(

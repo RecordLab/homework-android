@@ -60,6 +60,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
 
     val diaryData = mutableListOf<DiaryData>()
     private var days = mutableSetOf<Long>()
+    private var dayAsString = mutableSetOf<String>()
 
     //    private val diaryListViewModel by viewModels<DiaryListViewModel> {
 //        DiaryListViewModelFactory(this)
@@ -84,25 +85,6 @@ class HomeFragment : Fragment(), View.OnClickListener {
         val calendarView: CalendarView = binding.cvHome
 //        val fab: View = binding.fabDiary
         sharedPref = requireActivity().getSharedPreferences("TOKEN", Context.MODE_PRIVATE)
-        /*val token: String? = sharedPref.getString("token", "token")
-        if (token == "token") {
-            with(sharedPref.edit()) {
-                putString(
-                    "token",
-                    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImhhaWxleWhpMTRAZ21haWwuY29tIiwiZXhwIjoxNjM5NDc3NzQzfQ.uHJxXzmGAnlm3CgFES-Hpd2nvIkDCQ9TmhEBZXYqJa8"
-                )
-                commit()
-            }
-        }else { // 로그인 붙이고 이 부분 지우기.
-            with(sharedPref.edit()) {
-                putString(
-                    "token",
-                    "Bearer $token"
-                )
-                apply()
-                commit()
-            }
-        }*/
 
         init(view)
 
@@ -135,7 +117,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
         }*/
 
         val btnById: TextView = binding.btnMore //root.findViewById(R.id.btn_more)
-        Log.d(DEBUG_TAG, ">" + btnById.text + "<<  이게 원래 텍스트")
+//        Log.d(DEBUG_TAG, ">" + btnById.text + "<<  이게 원래 텍스트")
         btnMore.text = "더보기"
         Log.d(DEBUG_TAG, "> btnMore.text" + btnMore.text + " 변경 확인하기 " + btnById.text)
 
@@ -155,24 +137,20 @@ class HomeFragment : Fragment(), View.OnClickListener {
                     "${calendarView.selectedDays[0].calendar.get(Calendar.MONTH) + 1}-" +
                     "${calendarView.selectedDays[0].calendar.get(Calendar.DAY_OF_MONTH)}"
             )
+            val chosenDate = TimeToString().convert(calendarView.selectedDays[0].calendar.time, 2)
+            // 캘린더 뷰 시간 사용법.
 //            Log.d(DEBUG_TAG, ">> 시간은 이렇게 표시된다. ${TimeToString().convert(calendarView.selectedDays[0].calendar.time, 2)}")
-            val chosenDate = TimeToString().convert(calendarView.selectedDays[0].calendar.time, 3)
-            Log.d("날짜 클릭 ", "$chosenDate ")
-            //set에 있는지 확인하고 꺼내 쓰기.
-            Log.d(DEBUG_TAG, "선택한 날짜 as 시간 :${calendarView.selectedDays[0].calendar.timeInMillis} 현재 날짜 AS Long ${System.currentTimeMillis()}")
+//            Log.d("날짜 클릭 ", "$chosenDate ")
+
+//            Log.d(DEBUG_TAG, "선택한 날짜 as 시간 :${calendarView.selectedDays[0].calendar.timeInMillis} 현재 날짜 AS Long ${System.currentTimeMillis()}")
             // 미래 시점이면 아직 날짜가 되지 않았다고 띄워주기.
             if (calendarView.selectedDays[0].calendar.timeInMillis > System.currentTimeMillis()){
 
                 Toast.makeText(this.context, "...", Toast.LENGTH_SHORT).show()
             }else {
-                /*for (item in diaryData){
-                    days.add(Date(item.date.time).time) // days 안에 들어있는 것 timestamp -> long
-                    Log.d(DEBUG_TAG, "${Date(item.date.time).time}")
-                }*/
-                // calendar 안에 들어있는 것 : calendar
-                Log.d("시간 비교" , "${calendarView.selectedDays[0].calendar.time.time} " +
-                        "캘린더 클릭으로 가져오는 timeinMillis ${calendarView.selectedDays[0].calendar.timeInMillis}")
-                if (days.contains(calendarView.selectedDays[0].calendar.time.time)){ // 일기 있는 경우
+//                Log.d("시간 비교" , "${calendarView.selectedDays[0].calendar.time.time} " +
+//                        "캘린더 클릭으로 가져오는 timeinMillis ${calendarView.selectedDays[0].calendar.timeInMillis}")
+                if (dayAsString.contains(chosenDate)){ // 일기 있는 경우
                     val intent = Intent(activity, DiaryDetailActivity::class.java)
                     intent.putExtra("diaryDate", chosenDate)
                     startActivity(intent)
@@ -188,7 +166,6 @@ class HomeFragment : Fragment(), View.OnClickListener {
         }
 
         btnMore.setOnClickListener {
-            Log.d(DEBUG_TAG, "더보기 클릭")
             val intent = Intent(activity, DiaryWriteActivity::class.java)
             startActivity(intent)
 
@@ -243,7 +220,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
                 onSuccess = {
                     when (it.code()) {
                         in 200..299 -> {
-                            Log.d("통신 성공", it.body()!!.data[0].content)
+//                            Log.d("통신 성공", it.body()!!.data[0].content)
                             diaryData.clear()
                             diaryData.addAll(it.body()!!.data)
                             homeViewModel.diaryData.postValue(diaryData)
@@ -254,6 +231,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
                             val sdf = SimpleDateFormat("MM-dd-yyyy")
                             for (item in diaryData){
                                 days.add(Date(item.date.time).time)
+                                dayAsString.add(TimeToString().convert(item.date))
                                 Log.d(DEBUG_TAG, "${Date(item.date.time).time}")
                             }
 
@@ -334,9 +312,6 @@ class HomeFragment : Fragment(), View.OnClickListener {
                 }
                 return widget2
             }
-//            else {
-//                return widget1
-//            }
         }
 
 
@@ -361,17 +336,13 @@ class HomeFragment : Fragment(), View.OnClickListener {
         when (item.itemId) {
             R.id.action_search -> {
                 val intent = Intent(context, SearchResultActivity::class.java)
-//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 startActivity(intent)
                 activity?.overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
 
                 if (activity != null) {
-                    Log.d(DEBUG_TAG, "activity is not null")
+//                    Log.d(DEBUG_TAG, "activity is not null")
                 }
-
-                Log.d(DEBUG_TAG, "search button clicked!!")
-
-                Log.d(DEBUG_TAG, "SearchActivity 전송,,,")
             }
         }
         return super.onOptionsItemSelected(item)
