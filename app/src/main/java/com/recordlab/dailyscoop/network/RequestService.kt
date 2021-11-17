@@ -85,7 +85,14 @@ interface RequestService {
         @Body diary: RequestWriteDiary
     ): Call<ResponseWriteDiary>
 
-    // 명언 api
+    // 일기 삭제
+    @DELETE("/api/diaries/{date}")
+    fun requestDeleteDiary(
+        @HeaderMap header: Map<String, String?>,
+        @Path("date") date: String
+    ): Call<ResponseChange>
+
+   // 명언 api
     @GET("https://api.qwer.pw/request/helpful_text")
     fun requestQuotation(
         @Query("apikey") apikey: String
@@ -97,4 +104,18 @@ interface RequestService {
         //@HeaderMap header: Map<String, String?>,
         @Part file: MultipartBody.Part
     ): Call<ResponseImageUrl>
+
+    @GET("/api/diaries/emotions")
+    fun requestGetEmotionsCount(
+        @HeaderMap header: Map<String, String?>,
+        @Query("type") type: String,
+        @Query("date") date: String
+    ): Call<ResponseEmotionsCount>
+
+    @GET("/api/diaries/count")
+    fun requestGetDiariesCount(
+        @HeaderMap header: Map<String, String?>,
+        @Query("type") type: String,
+        @Query("date") date: String
+    ): Call<ResponseDiariesCount>
 }

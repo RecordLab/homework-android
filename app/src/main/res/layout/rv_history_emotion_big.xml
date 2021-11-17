@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="80dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textRank"
+        android:text="0위"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:fontFamily="@font/spoqa_han_sans_neo_regular"
+        android:textSize="18sp"/>
+
+    <ImageView
+        android:id="@+id/emotionImg"
+        android:src="@drawable/angry"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginBottom="3dp"/>
+
+    <TextView
+        android:id="@+id/textProportion"
+        android:text="0%"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:fontFamily="@font/spoqa_han_sans_neo_regular"
+        android:textSize="15sp"/>
+
+</LinearLayout>

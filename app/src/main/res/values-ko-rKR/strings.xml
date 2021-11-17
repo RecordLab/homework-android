@@ -69,4 +69,6 @@
     <string name="require_permission_message">요청을 수행하기 위해 접근 권한이 필요합니다.</string>
     <string name="no_selected_image">선택된 이미지가 없습니다</string>
     <string name="app_backbutton_finish">\'뒤로\'버튼 한 번 더 누르시면 종료됩니다.</string>
+    <string name="edit">수정</string>
+    <string name="delete">삭제</string>
 </resources>
