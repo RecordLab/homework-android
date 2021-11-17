@@ -12,6 +12,7 @@ import com.recordlab.dailyscoop.R
 import com.recordlab.dailyscoop.data.DiaryData
 import com.recordlab.dailyscoop.data.TimeToString
 import com.recordlab.dailyscoop.ui.diary.DiaryDetailActivity
+import okhttp3.internal.notify
 
 class DiaryViewHolder(val itemView: View) :
     RecyclerView.ViewHolder(itemView) {

@@ -20,7 +20,7 @@
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/tb_diary_detail"
                 android:layout_width="match_parent"
-                android:layout_height="46dp"
+                android:layout_height="56dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
             <!--<ImageButton
@@ -39,16 +39,27 @@
 -->
             <TextView
                 android:id="@+id/dateHeader"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/spoqa_han_sans_neo_regular"
+                android:fontFamily="@font/nanum_hand_goding"
+                android:textFontWeight="500"
                 android:gravity="center"
                 android:textColor="@color/white"
-                android:textSize="16sp"
+                android:textSize="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:elevation="2dp"/>
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/highlight_puffinsbill"
+                app:layout_constraintStart_toStartOf="@id/dateHeader"
+                app:layout_constraintEnd_toEndOf="@id/dateHeader"
+                app:layout_constraintTop_toTopOf="@id/dateHeader"
+                app:layout_constraintBottom_toBottomOf="@id/dateHeader"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -81,15 +92,14 @@
             <ScrollView
                 android:id="@+id/scrollView2"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#59000000">
+                android:layout_height="match_parent">
 
                 <TextView
                     android:id="@+id/diaryContent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
+                    android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+                    android:textSize="12dp"
                     android:textColor="@color/white" />
 
             </ScrollView>

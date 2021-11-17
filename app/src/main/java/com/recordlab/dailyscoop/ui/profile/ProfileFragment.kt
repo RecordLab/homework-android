@@ -4,9 +4,11 @@ import android.Manifest
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,15 +17,21 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.recordlab.dailyscoop.MainActivity
 import com.recordlab.dailyscoop.R
+import com.recordlab.dailyscoop.data.ImagePath
 import com.recordlab.dailyscoop.databinding.FragmentProfileBinding
 import com.recordlab.dailyscoop.ui.SettingActivity
 import com.recordlab.dailyscoop.ui.profile.account.ProfileAccountActivity
 import com.recordlab.dailyscoop.ui.profile.day.ProfileDdayActivity
 import com.recordlab.dailyscoop.ui.profile.lock.ProfileLockActivity
 import com.recordlab.dailyscoop.ui.profile.notice.ProfileNoticeActivity
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import java.io.File
 
 class ProfileFragment : Fragment() {
     private val reqStoragePermission = 9
@@ -32,6 +40,8 @@ class ProfileFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var mainActivity: MainActivity
+    private lateinit var sharedPref: SharedPreferences
+    private lateinit var profileViewModel: ProfileViewModel
 
     // 프래그먼트에서 컨텍스트를 사용하기 위해 콜백메서드의 매개변수를 형변환해서 사용
     override fun onAttach(context: Context) {
@@ -43,11 +53,24 @@ class ProfileFragment : Fragment() {
         if(it.resultCode == Activity.RESULT_OK){
             Glide.with(this).load(it.data?.data).into(binding.profile)
 
+            val uri = it.data?.data
+            val imgPath = uri?.let { ImagePath().getPath(requireContext(), it) }
+
+            // 해당 경로로 파일 생성
+            val file = File(imgPath)
+            // requestBody로 만들기
+            val requestFile = file.asRequestBody("application/octet-stream".toMediaTypeOrNull())
+            // multipartBody.Part로 만들기
+            val body = MultipartBody.Part.createFormData("file", file.name, requestFile)
+
+
+
+
             // 프로필 이미지 앱에 저장(서버에 저장하는 게 더 맞는듯)
-            val pref = mainActivity.getSharedPreferences("com.example.DailyScoop.PREFERENCE_FILE_KEY", 0)
-            val edit = pref.edit() // 수정모드(추가, 수정)
-            edit.putString("profileImage", it.data?.data.toString()) // key, value
-            edit.apply() // 저장 완료
+//            val pref = mainActivity.getSharedPreferences("com.example.DailyScoop.PREFERENCE_FILE_KEY", 0)
+//            val edit = pref.edit() // 수정모드(추가, 수정)
+//            edit.putString("profileImage", it.data?.data.toString()) // key, value
+//            edit.apply() // 저장 완료
         }
     }
 
@@ -61,8 +84,10 @@ class ProfileFragment : Fragment() {
 
         setHasOptionsMenu(true)
 
+        sharedPref = requireActivity().getSharedPreferences("TOKEN", Context.MODE_PRIVATE)
+
         // 저장된 프로필 이미지 불러오기
-        loadProfileImage()
+        loadProfileInfo()
 
         // 프로필 변경(카메라 아이콘) 버튼 클릭
         val profileImageBtnClicked = root.findViewById<View>(R.id.profile2)
@@ -129,12 +154,31 @@ class ProfileFragment : Fragment() {
     }
 
     // 저장된 프로필 이미지 불러오기
-    private fun loadProfileImage() {
-        val pref = mainActivity.getSharedPreferences("com.example.DailyScoop.PREFERENCE_FILE_KEY", 0)
-        val savedImage = pref.getString("profileImage", "false")
-        if(savedImage != "false"){
-            Glide.with(this).load(savedImage).into(binding.profile)
+    private fun loadProfileInfo() {
+//        val pref = mainActivity.getSharedPreferences("com.example.DailyScoop.PREFERENCE_FILE_KEY", 0)
+//        val savedImage = pref.getString("profileImage", "false")
+
+        // 헤더설정하기
+        val header = mutableMapOf<String, String?>()
+        header["Content-type"] = "application/json; charset=UTF-8"
+        header["Authorization"] = sharedPref.getString("token", "token")
+
+        if (header["Authorization"] != "token") {
+            Log.d("author", "${header["Authorization"]}")
+            profileViewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
+            profileViewModel.setHeader(header)
+            // 닉네임 적용
+            binding.tvMypageNickname.text = profileViewModel.nickname
+            // 프사 적용
+            Glide.with(this)
+                .load(profileViewModel.profileImage)
+                .error(R.drawable.icon_dailyscoop)
+                .into(binding.profile)
         }
+//        binding.tvMypageNickname.text = sharedPref.getString("nickname", "사용자")
+//        if(savedImage != "false"){
+//            Glide.with(this).load(savedImage).into(binding.profile)
+//        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
