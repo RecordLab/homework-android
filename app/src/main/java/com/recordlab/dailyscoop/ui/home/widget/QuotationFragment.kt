@@ -39,22 +39,14 @@ class QuotationFragment : Fragment(), View.OnClickListener {
             }
         )
 
-
-        val btnView = binding.ivWidgetQuotationBookmark
-        btnView.setOnClickListener(this)
-//        val view = inflater.inflate(R.layout.item_main_widget_quotation, container, false)
         val bookmarkBtn = binding.ivWidgetQuotationBookmark
         bookmarkBtn.setOnClickListener {
-            if (!bookmarkBtn.isSelected) {
-                with(Toast(context)) {
-
-                }
-            } else {
-                val customDialog =
-                    DialogYearMonth(requireContext())//context?.let { it1 -> DialogYearMonth(it1) }
-
-                customDialog.init()
-            }
+            bookmarkBtn.isSelected = !bookmarkBtn.isSelected
+//            if (!bookmarkBtn.isSelected) {
+//
+//            } else {
+//
+//            }
         }
 
         return view

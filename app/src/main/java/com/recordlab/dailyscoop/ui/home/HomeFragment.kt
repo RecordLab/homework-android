@@ -8,10 +8,14 @@ import android.util.Log
 import android.view.*
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -159,9 +163,9 @@ class HomeFragment : Fragment(), View.OnClickListener {
                     val intent = Intent(activity, DiaryWriteActivity::class.java)
                     intent.putExtra("date", chosenDate)
                     startActivity(intent)
-
                 }
             }
+
 
         }
 
@@ -216,7 +220,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
                 )
             }
         } else { // 로그인 한 상태.
-            service.requestGetDiaries(header = header).enqueue(
+            service.requestGetDiaries(header = header, sort = -1).enqueue(
                 onSuccess = {
                     when (it.code()) {
                         in 200..299 -> {

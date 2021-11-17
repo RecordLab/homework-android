@@ -1,6 +1,7 @@
 package com.recordlab.dailyscoop
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -121,4 +122,5 @@ class MainActivity : AppCompatActivity(), SignOutDialogInterface {
             Toast.makeText(getApplicationContext(), "'뒤로'버튼을 한번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT).show();
         }
     }
+
 }

@@ -7,3 +7,7 @@ data class ResponseUserProfile(
     @SerializedName("nickname") val nickname: String,
     @SerializedName("profile_image") val image: String,
 )
+
+data class ResponseUserProfileImage(
+    @SerializedName("message") val message: String
+)

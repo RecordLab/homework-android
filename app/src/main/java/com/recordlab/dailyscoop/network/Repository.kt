@@ -14,7 +14,7 @@ class Repository(val application: Application, val headerMap: Map<String, String
     fun getDiaryData() : MutableLiveData<List<DiaryData>> {
         val data = MutableLiveData<List<DiaryData>>()
 
-        service.requestGetDiaries(header = headerMap).enqueue(
+        service.requestGetDiaries(header = headerMap, sort = -1).enqueue(
             onSuccess = {
                 it.message()
                 if (it.code() == 200) {

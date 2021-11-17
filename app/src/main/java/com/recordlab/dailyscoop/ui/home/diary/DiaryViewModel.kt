@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import com.recordlab.dailyscoop.data.DiaryData
 
 class DiaryViewModel(application: Application) : AndroidViewModel(application) {
-    var data = MutableLiveData<MutableList<DiaryData>>()
+    lateinit var diaryData: MutableLiveData<MutableList<DiaryData>>
 
     /*private val db: AppDatabase = Room.databaseBuilder(
         application,

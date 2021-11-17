@@ -69,4 +69,6 @@
     <string name="require_permission_message">To request this feature, you need to grant permission.</string>
     <string name="no_selected_image">None selected image.</string>
     <string name="app_backbutton_finish">Press back again to exit</string>
+    <string name="edit">edit</string>
+    <string name="delete">delete</string>
 </resources>

@@ -53,6 +53,18 @@ class ProfileFontActivity : AppCompatActivity() {
                         setFont.typeface = resources.getFont(R.font.spoqa_han_sans_neo_thin)
                         saveFontData(3)
                     }
+                R.id.radio_4 ->
+                    if (checked) {
+                        // Ninjas rule
+                        setFont.typeface = resources.getFont(R.font.nanum_hand_goding)
+                        saveFontData(4)
+                    }
+                R.id.radio_5 ->
+                    if (checked) {
+                        // Ninjas rule
+                        setFont.typeface = resources.getFont(R.font.nanum_hand_mago)
+                        saveFontData(5)
+                    }
             }
         }
     }
@@ -77,6 +89,14 @@ class ProfileFontActivity : AppCompatActivity() {
             3 -> {
                 radioGroup.check(binding.radio3.id)
                 setFont.typeface = resources.getFont(R.font.spoqa_han_sans_neo_thin)
+            }
+            4 -> {
+                radioGroup.check(binding.radio4.id)
+                setFont.typeface = resources.getFont(R.font.nanum_hand_goding)
+            }
+            5 -> {
+                radioGroup.check(binding.radio5.id)
+                setFont.typeface = resources.getFont(R.font.nanum_hand_mago)
             }
         }
 

@@ -18,9 +18,9 @@ interface RequestService {
 
     // 유저 정보 불러오기
     @GET("/api/user")
-    fun requestUserInfo(
+    suspend fun requestUserInfo(
         @HeaderMap header: Map<String, String?>
-    ) : Call<ResponseUserProfile>
+    ) : ResponseUserProfile
 
     // 닉네임 변경하기
     @PUT("/api/user/change_nickname")
@@ -35,6 +35,12 @@ interface RequestService {
         @HeaderMap header: Map<String, String?>,
         @Body body: RequestChangePassword
     ): Call<ResponseChange>
+
+    @PUT("/api/user/set_image")
+    fun requestUserImageChange(
+        @HeaderMap header: Map<String, String?>,
+        @Body image: RequestProfileImage
+    ): Call<ResponseUserProfileImage>
 
     // 회원 탈퇴하기
     @DELETE("/api/user/{userID}")
@@ -53,14 +59,16 @@ interface RequestService {
     // 사용자가 작성한 전체 일기 보기.
     @GET("/api/diaries")
     fun requestGetDiaries(
-        @HeaderMap header: Map<String, String?>
+        @HeaderMap header: Map<String, String?>,
+        @Query("sort") sort: Int
     ): Call<ResponseDiaryList>
 
     // 사용자가 작성한 일기 검색
     @GET("/api/diaries")
     fun requestSearchDiaries(
         @HeaderMap header: Map<String, String?>,
-        @Query("search") search: String
+        @Query("search") search: String,
+        @Query("sort") sort: Int = -1
     ): Call<ResponseDiaryList>
 
     // 특정 날짜 일기 가져오기.
@@ -74,7 +82,8 @@ interface RequestService {
     fun requestGetCalendar(
         @HeaderMap header: Map<String, String?>,
         @Query("date") date: String,
-        @Query("type") type: String
+        @Query("type") type: String,
+        @Query("sort") sort: Int
     ) : Call<ResponseDiaryList>
 
     // 일기 수정
@@ -84,7 +93,14 @@ interface RequestService {
         @Body diary: RequestWriteDiary
     ): Call<ResponseWriteDiary>
 
-    // 명언 api
+    // 일기 삭제
+    @DELETE("/api/diaries/{date}")
+    fun requestDeleteDiary(
+        @HeaderMap header: Map<String, String?>,
+        @Path("date") date: String
+    ): Call<ResponseChange>
+
+   // 명언 api
     @GET("https://api.qwer.pw/request/helpful_text")
     fun requestQuotation(
         @Query("apikey") apikey: String
@@ -97,4 +113,18 @@ interface RequestService {
         //@HeaderMap header: Map<String, String?>,
         @Part file: MultipartBody.Part
     ): Call<ResponseImageUrl>
+
+    @GET("/api/diaries/emotions")
+    fun requestGetEmotionsCount(
+        @HeaderMap header: Map<String, String?>,
+        @Query("type") type: String,
+        @Query("date") date: String
+    ): Call<ResponseEmotionsCount>
+
+    @GET("/api/diaries/count")
+    fun requestGetDiariesCount(
+        @HeaderMap header: Map<String, String?>,
+        @Query("type") type: String,
+        @Query("date") date: String
+    ): Call<ResponseDiariesCount>
 }

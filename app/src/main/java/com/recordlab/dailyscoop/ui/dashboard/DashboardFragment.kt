@@ -181,7 +181,7 @@ class DashboardFragment : Fragment() {
         if (header["Authorization"] == "token") {
 
         } else {
-            service.requestGetCalendar(header = header, date = date, type = "monthly").enqueue(
+            service.requestGetCalendar(header = header, date = date, type = "monthly", sort = -1).enqueue(
                 onSuccess = {
                     when (it.code()) {
                         in 200..299 -> {

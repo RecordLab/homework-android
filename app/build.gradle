@@ -121,6 +121,13 @@ dependencies {
     // optional - Kotlin Extensions and Coroutines support for Room
     implementation("androidx.room:room-ktx:2.3.0")
 
+    // Tag cloud
+    implementation 'net.alhazmy13.wordcloud:library:0.2.0-beta'
+
+    // Blur 효과 주기
+    implementation 'com.github.mmin18:realtimeblurview:1.2.1'
+
+    // firebase
     implementation('com.google.firebase:firebase-core:20.0.0')
 
     // Import the BoM for the Firebase platform

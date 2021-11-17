@@ -80,6 +80,8 @@
             android:exported="false"/>
         <activity android:name=".ui.profile.lock.AppPasswordActivity"
             android:exported="false"/>
+        <activity android:name=".ui.profile.ProfileBookmarkActivity"
+            android:exported="false"/>
     </application>
 
 </manifest>
