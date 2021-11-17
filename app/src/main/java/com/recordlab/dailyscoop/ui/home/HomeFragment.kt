@@ -243,7 +243,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
                 )
             }
         } else { // 로그인 한 상태.
-            service.requestGetDiaries(header = header).enqueue(
+            service.requestGetDiaries(header = header, sort = -1).enqueue(
                 onSuccess = {
                     when (it.code()) {
                         in 200..299 -> {

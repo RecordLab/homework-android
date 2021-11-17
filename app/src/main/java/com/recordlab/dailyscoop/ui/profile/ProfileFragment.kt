@@ -117,6 +117,13 @@ class ProfileFragment : Fragment() {
             startActivity(intent)
         }
 
+        // 북마크 버튼 클릭
+        val bookmarkClicked = binding.bg7
+        bookmarkClicked.setOnClickListener {
+            val intent = Intent(activity, ProfileBookmarkActivity::class.java)
+            startActivity(intent)
+        }
+
         // 로그아웃 버튼 클릭
         val logoutBtnClicked = binding.bg6
         logoutBtnClicked.setOnClickListener{

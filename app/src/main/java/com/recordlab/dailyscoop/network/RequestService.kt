@@ -54,14 +54,16 @@ interface RequestService {
     // 사용자가 작성한 전체 일기 보기.
     @GET("/api/diaries")
     fun requestGetDiaries(
-        @HeaderMap header: Map<String, String?>
+        @HeaderMap header: Map<String, String?>,
+        @Query("sort") sort: Int
     ): Call<ResponseDiaryList>
 
     // 사용자가 작성한 일기 검색
     @GET("/api/diaries")
     fun requestSearchDiaries(
         @HeaderMap header: Map<String, String?>,
-        @Query("search") search: String
+        @Query("search") search: String,
+        @Query("sort") sort: Int
     ): Call<ResponseDiaryList>
 
     // 특정 날짜 일기 가져오기.
@@ -75,7 +77,8 @@ interface RequestService {
     fun requestGetCalendar(
         @HeaderMap header: Map<String, String?>,
         @Query("date") date: String,
-        @Query("type") type: String
+        @Query("type") type: String,
+        @Query("sort") sort: Int
     ) : Call<ResponseDiaryList>
 
     // 일기 수정

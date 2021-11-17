@@ -11,8 +11,10 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -38,12 +40,12 @@
                 android:layout_width="144dp"
                 android:layout_height="144dp"
                 android:layout_marginTop="16dp"
-                app:riv_corner_radius="72dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/logo_profile_default"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView3"
+                app:riv_corner_radius="72dp"
 
                 />
 
@@ -289,6 +291,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/bg5"
                 app:layout_constraintTop_toTopOf="@+id/bg5" />
 
+
             <View
                 android:id="@+id/bg6"
                 android:layout_width="0dp"
@@ -300,8 +303,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/bg5"></View>
-
+                app:layout_constraintTop_toBottomOf="@+id/bg7"></View>
 
             <ImageView
                 android:id="@+id/imageView5"
@@ -345,16 +347,43 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/bg6"></View>
+                app:layout_constraintTop_toBottomOf="@+id/bg5"></View>
+
+            <ImageView
+                android:id="@+id/imageView14"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:src="@drawable/ic_baseline_bookmarks_24"
+                app:layout_constraintBottom_toBottomOf="@+id/bg7"
+                app:layout_constraintStart_toStartOf="@+id/bg7"
+                app:layout_constraintTop_toTopOf="@+id/bg7"
+                app:srcCompat="@drawable/ic_baseline_bookmarks_24" />
+
+            <TextView
+                android:id="@+id/textView21"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="북마크"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/bg7"
+                app:layout_constraintStart_toEndOf="@+id/imageView14"
+                app:layout_constraintTop_toTopOf="@+id/bg7" />
+
+            <TextView
+                android:id="@+id/textView25"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="19dp"
+                android:text=">"
+                app:layout_constraintBottom_toBottomOf="@+id/bg7"
+                app:layout_constraintEnd_toEndOf="@+id/bg7"
+                app:layout_constraintTop_toTopOf="@+id/bg7" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-
-
-
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

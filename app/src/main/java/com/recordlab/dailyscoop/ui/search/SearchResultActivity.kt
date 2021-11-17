@@ -88,7 +88,7 @@ class SearchResultActivity : AppCompatActivity() {
         if (header["Authorization"] == "token") {
 
         } else {
-            service.requestSearchDiaries(header = header, search = search).enqueue(
+            service.requestSearchDiaries(header = header, search = search, sort = -1).enqueue(
                 onSuccess = {
                     when (it.code()) {
                         in 200..299 -> {
