@@ -28,6 +28,38 @@
         app:layout_constraintStart_toEndOf="@+id/btn_nav_back"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <LinearLayout
+        android:id="@+id/button_nav_sort"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/iv_nav_gallery_grid"
+        app:layout_constraintTop_toTopOf="parent"
+        android:gravity="center">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/grid"
+            android:padding="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/icon_sort"
+            app:tint="@color/darkGrey"
+            android:scaleType="fitCenter"/>
+
+        <TextView
+            android:id="@+id/nav_sort_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="최신순"
+            android:layout_marginLeft="-12dp"
+            android:layout_marginRight="5dp"/>
+
+    </LinearLayout>
+
     <ImageButton
         android:id="@+id/iv_nav_gallery_grid"
         android:layout_width="wrap_content"
