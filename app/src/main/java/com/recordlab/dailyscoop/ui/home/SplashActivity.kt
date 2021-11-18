@@ -32,7 +32,7 @@ class SplashActivity : AppCompatActivity() {
             header["Content-type"] = "application/json; charset=UTF-8"
             header["Authorization"] = token
 
-            service.requestUserInfo(header = header).enqueue(
+            service.requestUserInfo2(header = header).enqueue(
                 onSuccess = {
                     when(it.code()){
                         in 200..209 -> { // 정상 토큰

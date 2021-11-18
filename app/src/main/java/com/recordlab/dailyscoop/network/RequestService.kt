@@ -16,11 +16,23 @@ interface RequestService {
     @POST("/api/login")
     fun requestSignIn(@Body body: RequestSignIn): Call<UserInfoData> //Call<ResponseSignin>
 
+    // 소셜 로그인
+    @GET("/api/login")
+    fun requestSocial(
+        @HeaderMap header: Map<String, String?>,
+        @Query("type") type: String
+    ): Call<UserInfoData>
+
     // 유저 정보 불러오기
     @GET("/api/user")
     suspend fun requestUserInfo(
         @HeaderMap header: Map<String, String?>
     ) : ResponseUserProfile
+
+    @GET("/api/user")
+    fun requestUserInfo2(
+        @HeaderMap header: Map<String, String?>
+    ) : Call<ResponseUserInfo>
 
     // 닉네임 변경하기
     @PUT("/api/user/change_nickname")
@@ -147,4 +159,5 @@ interface RequestService {
         @HeaderMap header: Map<String, String?>,
         @Body quote: RequestQuotation
     ): Call<ResponseChange>
+
 }

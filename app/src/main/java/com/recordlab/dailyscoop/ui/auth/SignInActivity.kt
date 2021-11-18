@@ -63,17 +63,43 @@ class SignInActivity : AppCompatActivity() {
         }
 
         // 카카오로그인 버튼 클릭
-//        val socialKBtnClicked = binding.kakaoBtn
-//        socialKBtnClicked.setOnClickListener{
-//            UserApiClient.instance.loginWithKakaoAccount(this, prompts = listOf(Prompt.LOGIN)) { token, error ->
-//                if (error != null) {
-//                    Toast.makeText(this.applicationContext,"다시 시도해 주세요", Toast.LENGTH_SHORT).show();
-//                }
-//                else if (token != null) {
-//                    Log.i("kakao", "로그인 성공 ${token.accessToken}")
-//
-//                    // 카카오 토큰 서버로 전송
-//
+        val socialKBtnClicked = binding.kakaoBtn
+        socialKBtnClicked.setOnClickListener{
+            UserApiClient.instance.loginWithKakaoAccount(this, prompts = listOf(Prompt.LOGIN)) { token, error ->
+                if (error != null) {
+                    Toast.makeText(this.applicationContext,"다시 시도해 주세요", Toast.LENGTH_SHORT).show();
+                }
+                else if (token != null) {
+                    Log.i("kakao", "로그인 성공 ${token.accessToken}")
+
+                    // 카카오 토큰 서버로 전송
+                    val header = mutableMapOf<String, String?>()
+                    header["Authorization"] = token.accessToken
+                    service.requestSocial(header = header, type = "kakao").enqueue(
+                        onSuccess = {
+                            when(it.code()){
+                                in 200..209 -> {
+                                    val nic = it.body()?.nickname
+                                    val to = it.body()?.token
+                                    Toast.makeText(this.applicationContext,"반갑습니다", Toast.LENGTH_SHORT).show();
+
+                                    val pref = getSharedPreferences("TOKEN", 0)
+                                    val edit = pref.edit() // 수정모드(추가, 수정)
+                                    edit.putString("token", "Bearer ".plus(to)) // key, value
+                                    edit.putString("nickname", nic)
+                                    edit.apply() // 저장 완료
+
+                                    val intent = Intent(this, MainActivity::class.java)
+                                    startActivity(intent)
+                                    finish()
+                                }
+                                else -> {
+                                    Toast.makeText(this.applicationContext,"다시 시도해 주세요", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }
+                    )
+
 //                    // 사용자 정보 요청 (기본)
 //                    UserApiClient.instance.me { user, errorr ->
 //                        if (errorr != null) {
@@ -87,25 +113,16 @@ class SignInActivity : AppCompatActivity() {
 //                                    "\n프로필사진: ${user.kakaoAccount?.profile?.thumbnailImageUrl}")
 //                        }
 //                    }
-//                }
-//            }
-//        }
+                }
+            }
+        }
 
         // 구글 로그인 버튼 클릭
-<<<<<<< app/src/main/java/com/recordlab/dailyscoop/ui/auth/SignInActivity.kt
 //        val googleBtnClicked = binding.googleBtn
 //        googleBtnClicked.setOnClickListener{
 //            Toast.makeText(this.getApplicationContext(),"google", Toast.LENGTH_SHORT).show();
 //
 //        }
-=======
-        val googleBtnClicked = binding.googleBtn
-        googleBtnClicked.setOnClickListener{
-
-            Toast.makeText(this.getApplicationContext(),"google", Toast.LENGTH_SHORT).show();
-
-        }
->>>>>>> app/src/main/java/com/recordlab/dailyscoop/ui/auth/SignInActivity.kt
     }
 
     private fun signIn(data: RequestSignIn) {
