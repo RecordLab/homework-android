@@ -16,6 +16,12 @@ interface RequestService {
     @POST("/api/login")
     fun requestSignIn(@Body body: RequestSignIn): Call<UserInfoData> //Call<ResponseSignin>
 
+    @GET("/api/kakao_login/{type}")
+    suspend fun requestSocialSignIn(
+        @HeaderMap header: Map<String, String?>,
+        @Path("type") type: String
+    ): ResponseSocialSignIn
+
     // 유저 정보 불러오기
     @GET("/api/user")
     suspend fun requestUserInfo(
