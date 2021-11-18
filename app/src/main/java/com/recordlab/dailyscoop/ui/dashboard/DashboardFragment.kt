@@ -12,10 +12,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.NumberPicker
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -43,6 +40,9 @@ class DashboardFragment : Fragment() {
     private val binding get() = _binding!!
     val diaryData = mutableListOf<DiaryData>()
     private lateinit var sharedPref: SharedPreferences
+
+    lateinit var dashboardListAdapter: DashboardListAdapter
+    lateinit var dashboardGridAdapter: DashboardGridAdapter
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -72,8 +72,10 @@ class DashboardFragment : Fragment() {
         
         // observer
         dashboardViewModel.items.observe(viewLifecycleOwner, Observer {
-            listRecyclerView.adapter = DashboardListAdapter(it)
-            gridRecyclerView.adapter = DashboardGridAdapter(it)
+            dashboardListAdapter = DashboardListAdapter(it)
+            dashboardGridAdapter = DashboardGridAdapter(it)
+            listRecyclerView.adapter = dashboardListAdapter
+            gridRecyclerView.adapter = dashboardGridAdapter
         })
         
         // 레이아웃 변경
@@ -152,6 +154,20 @@ class DashboardFragment : Fragment() {
             dialog.setView(mView)
             dialog.create()
             dialog.show()
+        }
+
+        val button_sort = root.findViewById<LinearLayout>(R.id.button_nav_sort)
+        button_sort.setOnClickListener {
+            diaryData.reverse()
+            dashboardListAdapter.notifyDataSetChanged()
+            dashboardGridAdapter.notifyDataSetChanged()
+
+            val nav_sort_text = root.findViewById<TextView>(R.id.nav_sort_text)
+            if (nav_sort_text.text == "최신순") {
+                nav_sort_text.text = "오래된 순"
+            } else {
+                nav_sort_text.text = "최신순"
+            }
         }
 
         return root

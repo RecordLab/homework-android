@@ -5,28 +5,49 @@
     android:layout_width="match_parent"
     android:layout_height="56dp">
 
-    <ImageButton
-        android:id="@+id/btn_nav_back"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:background="@android:color/transparent"
-        android:contentDescription="@string/back"
-        android:padding="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_arrow_back_ios_black_24" />
-
     <TextView
         android:id="@+id/tv_nav_gallery_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:fontFamily="@font/spoqa_han_sans_neo_regular"
         android:textColor="#000000"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btn_nav_back"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/button_nav_sort"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/iv_nav_gallery_grid"
+        app:layout_constraintTop_toTopOf="parent"
+        android:gravity="center">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/grid"
+            android:padding="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/icon_sort"
+            app:tint="@color/darkGrey"
+            android:scaleType="fitCenter"/>
+
+        <TextView
+            android:id="@+id/nav_sort_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="최신순"
+            android:layout_marginLeft="-12dp"
+            android:layout_marginRight="5dp"/>
+
+    </LinearLayout>
 
     <ImageButton
         android:id="@+id/iv_nav_gallery_grid"
