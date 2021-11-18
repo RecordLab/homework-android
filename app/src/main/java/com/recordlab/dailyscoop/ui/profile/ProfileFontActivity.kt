@@ -116,7 +116,7 @@ class ProfileFontActivity : AppCompatActivity() {
         when (savedFont){
             1 -> {
                 radioGroup.check(binding.radio1.id)
-                setFont.typeface = resources.getFont(R.font.spoqa_han_sans_neo_bold)
+                setFont.typeface = resources.getFont(R.font.binggraesamanco)
             }
             2 -> {
                 radioGroup.check(binding.radio2.id)
@@ -124,7 +124,7 @@ class ProfileFontActivity : AppCompatActivity() {
             }
             3 -> {
                 radioGroup.check(binding.radio3.id)
-                setFont.typeface = resources.getFont(R.font.spoqa_han_sans_neo_thin)
+                setFont.typeface = resources.getFont(R.font.hsyuji)
             }
             4 -> {
                 radioGroup.check(binding.radio4.id)
@@ -133,6 +133,30 @@ class ProfileFontActivity : AppCompatActivity() {
             5 -> {
                 radioGroup.check(binding.radio5.id)
                 setFont.typeface = resources.getFont(R.font.nanum_hand_mago)
+            }
+            6 -> {
+                radioGroup.check(binding.radio6.id)
+                setFont.typeface = resources.getFont(R.font.cafe24dongdong)
+            }
+            7 -> {
+                radioGroup.check(binding.radio7.id)
+                setFont.typeface = resources.getFont(R.font.cafe24ohsquareair)
+            }
+            8 -> {
+                radioGroup.check(binding.radio8.id)
+                setFont.typeface = resources.getFont(R.font.cafe24shiningstar)
+            }
+            9 -> {
+                radioGroup.check(binding.radio9.id)
+                setFont.typeface = resources.getFont(R.font.cafe24ssukssuk)
+            }
+            10 -> {
+                radioGroup.check(binding.radio10.id)
+                setFont.typeface = resources.getFont(R.font.cafe24syongsyong)
+            }
+            11 -> {
+                radioGroup.check(binding.radio11.id)
+                setFont.typeface = resources.getFont(R.font.cookierun_regular)
             }
         }
 
