@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.util.TypedValue
 import android.view.MenuItem
 import android.view.View
@@ -21,6 +22,7 @@ import com.recordlab.dailyscoop.network.enqueue
 import java.util.*
 import android.widget.Toast
 import com.recordlab.dailyscoop.MainActivity
+import com.recordlab.dailyscoop.network.response.ResponseDiaryDetail
 import com.recordlab.dailyscoop.ui.home.diary.DiaryWriteActivity
 
 
@@ -28,6 +30,7 @@ class DiaryDetailActivity : AppCompatActivity() {
 
     lateinit var diaryDate : String
     val emotions = mutableListOf<String>()
+    lateinit var response: ResponseDiaryDetail
 
     lateinit var rvAdapter: DiaryDetailEmotionRVAdapter
 
@@ -88,6 +91,7 @@ class DiaryDetailActivity : AppCompatActivity() {
                         finish()
                     val intent = Intent(this@DiaryDetailActivity, DiaryWriteActivity::class.java)
                     intent.putExtra("date", diaryDate)
+                    intent.putExtra("response", response)
                     //Log.d("수정 날짜 클릭 ", "$diaryDate ")
                     startActivity(intent)
                 } else if (menuItem.itemId == com.recordlab.dailyscoop.R.id.action_menu2) {
@@ -184,6 +188,8 @@ class DiaryDetailActivity : AppCompatActivity() {
                             }
                         }
                         binding.dateHeader.text = "${month.toString()}월 ${day.toString()}일 ${dayOfWeek}요일"
+
+                        response = res!!
 
                         emotions.addAll(res?.emotions!!)
                         setTheme(binding, res?.theme)

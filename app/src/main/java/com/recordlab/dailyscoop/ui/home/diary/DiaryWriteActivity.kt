@@ -29,6 +29,7 @@ import com.recordlab.dailyscoop.databinding.ActivityDiaryWriteBinding
 import com.recordlab.dailyscoop.network.RetrofitClient
 import com.recordlab.dailyscoop.network.enqueue
 import com.recordlab.dailyscoop.network.request.RequestWriteDiary
+import com.recordlab.dailyscoop.network.response.ResponseDiaryDetail
 import com.recordlab.dailyscoop.ui.diary.DiaryDetailActivity
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -99,6 +100,7 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
     private var imageUrl: String? = null
     var emotionCnt: Int = 0
     private lateinit var emotionType: List<RadioButton>
+    private lateinit var response: ResponseDiaryDetail
 
     private val content_permission_code = 1
 
@@ -114,6 +116,8 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
         } else {
             writeDate = intent.getStringExtra("date")
         }
+
+
         Log.d("넘어온 작성 날짜", "$writeDate")
         sharedPref = getSharedPreferences("TOKEN", Context.MODE_PRIVATE)
         header["Content-type"] = "application/json"
@@ -128,6 +132,45 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
         backgroundLayout = binding.clDiaryWrite
         backgroundImage = binding.ivBackground
         contentText = binding.etWriteDiary
+
+        if (intent.hasExtra("response")) {
+            response = intent.getSerializableExtra("response") as ResponseDiaryDetail
+
+            emotionCnt = response.emotions?.size!!
+            for (emotion in response.emotions!!) {
+                if (emotion == "angry") {
+                    binding.emotionAngry.isSelected = true
+                } else if (emotion == "anxious") {
+                    binding.emotionAnxious.isSelected = true
+                } else if (emotion == "relax") {
+                    binding.emotionRelax.isSelected = true
+                } else if (emotion == "fun") {
+                    binding.emotionFun.isSelected = true
+                } else if (emotion == "joy") {
+                    binding.emotionJoy.isSelected = true
+                } else if (emotion == "sound") {
+                    binding.emotionSound.isSelected = true
+                } else if (emotion == "excitement") {
+                    binding.emotionExcitement.isSelected = true
+                } else if (emotion == "bored") {
+                    binding.emotionBored.isSelected = true
+                } else if (emotion == "sad") {
+                    binding.emotionSad.isSelected = true
+                } else if (emotion == "tired") {
+                    binding.emotionTired.isSelected = true
+                } else if (emotion == "nervous") {
+                    binding.emotionNervous.isSelected = true
+                } else if (emotion == "happy") {
+                    binding.emotionHappy.isSelected = true
+                }
+            }
+
+            contentText.setText(response.content)
+
+            Glide.with(backgroundLayout).load(response.image).into(binding.ivWriteDiary)
+            imageUrl = response.image
+            binding.ivWriteDiary.visibility = ImageView.VISIBLE
+        }
 
         image.setOnClickListener(this)
         binding.chipPaperWhite.setOnClickListener(this)
@@ -360,7 +403,42 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
 
         binding.tbDiaryWrite.toolbarId.text = writeDate
         binding.tbDiaryWrite.toolbarId.setTextColor(Color.argb(0xCC, 0x30, 0x30, 0x30))
-        Glide.with(backgroundLayout).load(R.drawable.theme_paper_white).into(backgroundImage)
+        if (intent.hasExtra("response")) {
+            when (response.theme) {
+                "paper_white" -> {
+                    Glide.with(backgroundLayout).load(R.drawable.theme_paper_white).into(backgroundImage)
+                    theme = "paper_white"
+                    setTextColor(0)
+                }
+                "paper_ivory" -> {
+                    Glide.with(backgroundLayout).load(R.drawable.theme_paper_ivory).into(backgroundImage)
+                    theme = "paper_ivory"
+                    setTextColor(0)
+                }
+                "paper_dark" -> {
+                    Glide.with(backgroundLayout).load(R.drawable.theme_paper_dark).into(backgroundImage)
+                    theme = "paper_dark"
+                    setTextColor(1)
+                }
+                "sky_day" -> {
+                    Glide.with(backgroundLayout).load(R.drawable.theme_sky_day_bright).into(backgroundImage)
+                    setTextColor(0)
+                    theme = "sky_day"
+                }
+                "sky_night" -> {
+                    Glide.with(backgroundLayout).load(R.drawable.theme_sky_night).into(backgroundImage)
+                    setTextColor(1)
+                    theme = "sky_night"
+                }
+                "window" -> {
+                    Glide.with(backgroundLayout).load(R.drawable.theme_window).into(backgroundImage)
+                    setTextColor(1)
+                    theme = "window"
+                }
+            }
+        } else {
+            Glide.with(backgroundLayout).load(R.drawable.theme_paper_white).into(backgroundImage)
+        }
 
         binding.btnSave.isEnabled = false
 

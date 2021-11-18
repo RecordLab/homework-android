@@ -1,5 +1,6 @@
 package com.recordlab.dailyscoop.network.response
 
+import java.io.Serializable
 import java.sql.Timestamp
 
 data class ResponseDiaryDetail(
@@ -8,4 +9,4 @@ data class ResponseDiaryDetail(
     val date: Timestamp,
     val emotions: List<String>?,
     val theme: String
-)
+) : Serializable
