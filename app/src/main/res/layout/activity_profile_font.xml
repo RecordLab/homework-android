@@ -65,8 +65,8 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:onClick="onRadioButtonClicked"
-            android:text="bold"
-            android:fontFamily="@font/spoqa_han_sans_neo_bold"
+            android:text="빙그레싸만코"
+            android:fontFamily="@font/binggraesamanco"
             tools:ignore="TouchTargetSizeCheck" />
 
         <RadioButton
@@ -74,7 +74,7 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:onClick="onRadioButtonClicked"
-            android:text="medium"
+            android:text="spoq han sans neo "
             android:fontFamily="@font/spoqa_han_sans_neo_medium"
             tools:ignore="TouchTargetSizeCheck" />
 
@@ -83,8 +83,8 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:onClick="onRadioButtonClicked"
-            android:text="thin"
-            android:fontFamily="@font/spoqa_han_sans_neo_thin"
+            android:text="HS유지체"
+            android:fontFamily="@font/hsyuji"
             tools:ignore="TouchTargetSizeCheck" />
 
         <RadioButton
@@ -92,7 +92,7 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:onClick="onRadioButtonClicked"
-            android:text="goding"
+            android:text="나눔손글씨 고딕 아니고 고딩"
             android:fontFamily="@font/nanum_hand_goding"
             tools:ignore="TouchTargetSizeCheck" />
 
@@ -101,8 +101,57 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:onClick="onRadioButtonClicked"
-            android:text="mago"
+            android:text="나눔손글씨 마고"
             android:fontFamily="@font/nanum_hand_mago"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <RadioButton
+            android:id="@+id/radio_6"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:onClick="onRadioButtonClicked"
+            android:text="카페24 동동"
+            android:fontFamily="@font/cafe24dongdong"
+            tools:ignore="TouchTargetSizeCheck" />
+        <RadioButton
+            android:id="@+id/radio_7"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:onClick="onRadioButtonClicked"
+            android:text="카페24 아네모네 에어"
+            android:fontFamily="@font/cafe24ohsquareair"
+            tools:ignore="TouchTargetSizeCheck" />
+        <RadioButton
+            android:id="@+id/radio_8"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:onClick="onRadioButtonClicked"
+            android:text="카페24 빛나는별"
+            android:fontFamily="@font/cafe24shiningstar"
+            tools:ignore="TouchTargetSizeCheck" />
+        <RadioButton
+            android:id="@+id/radio_9"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:onClick="onRadioButtonClicked"
+            android:text="카페24 쑥쑥"
+            android:fontFamily="@font/cafe24ssukssuk"
+            tools:ignore="TouchTargetSizeCheck" />
+        <RadioButton
+            android:id="@+id/radio_10"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:onClick="onRadioButtonClicked"
+            android:text="카페24 숑숑"
+            android:fontFamily="@font/cafe24syongsyong"
+            tools:ignore="TouchTargetSizeCheck" />
+        <RadioButton
+            android:id="@+id/radio_11"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:onClick="onRadioButtonClicked"
+            android:text="쿠키런 레귤러"
+            android:fontFamily="@font/cookierun_regular"
             tools:ignore="TouchTargetSizeCheck" />
     </RadioGroup>
 

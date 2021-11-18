@@ -100,38 +100,6 @@ class DiaryDetailActivity : AppCompatActivity() {
 
     }
 
-    // 저장한 폰트값 가져오기
-    private fun loadFontData() {
-        // 저장된 폰트값 가져오기
-        val pref = getSharedPreferences("com.example.DailyScoop.PREFERENCE_FILE_KEY", 0)
-        val savedFont = pref.getInt("diaryFont", 2)
-
-        // 디폴트 설정
-        val setFont = binding.diaryContent
-        when (savedFont){
-            1 -> {
-                setFont.typeface = resources.getFont(R.font.spoqa_han_sans_neo_bold)
-                setFont.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14F)
-            }
-            2 -> {
-                setFont.typeface = resources.getFont(R.font.spoqa_han_sans_neo_medium)
-                setFont.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14F)
-            }
-            3 -> {
-                setFont.typeface = resources.getFont(R.font.spoqa_han_sans_neo_thin)
-                setFont.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14F)
-            }
-            4 -> {
-                setFont.typeface = resources.getFont(R.font.nanum_hand_goding)
-                setFont.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 18F)
-            }
-            5 -> {
-                setFont.typeface = resources.getFont(R.font.nanum_hand_mago)
-                setFont.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 22F)
-            }
-        }
-    }
-
     private fun getDiary(binding: ActivityDiaryDetailBinding) {
         val pref = getSharedPreferences("TOKEN", Context.MODE_PRIVATE)
         val token =  pref?.getString("token", null)
@@ -245,6 +213,62 @@ class DiaryDetailActivity : AppCompatActivity() {
                 }
             }
         )
+    }
+
+    // 저장한 폰트값 가져오기
+    private fun loadFontData() {
+        // 저장된 폰트값 가져오기
+        val pref = getSharedPreferences("com.example.DailyScoop.PREFERENCE_FILE_KEY", 0)
+        val savedFont = pref.getInt("diaryFont", 2)
+
+        // 디폴트 설정
+        val setFont = binding.diaryContent
+        when (savedFont){
+            1 -> {
+                setFont.typeface = resources.getFont(R.font.binggraesamanco)
+                setFont.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 16F)
+            }
+            2 -> {
+                setFont.typeface = resources.getFont(R.font.spoqa_han_sans_neo_medium)
+                setFont.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 16F)
+            }
+            3 -> {
+                setFont.typeface = resources.getFont(R.font.hsyuji)
+                setFont.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 16F)
+            }
+            4 -> {
+                setFont.typeface = resources.getFont(R.font.nanum_hand_goding)
+                setFont.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20F)
+            }
+            5 -> {
+                setFont.typeface = resources.getFont(R.font.nanum_hand_mago)
+                setFont.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 24F)
+            }
+            6 -> {
+                setFont.typeface = resources.getFont(R.font.cafe24dongdong)
+                setFont.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20F)
+            }
+            7 -> {
+                setFont.typeface = resources.getFont(R.font.cafe24ohsquareair)
+                setFont.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 16F)
+            }
+            8 -> {
+                setFont.typeface = resources.getFont(R.font.cafe24shiningstar)
+                setFont.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20F)
+            }
+            9 -> {
+                setFont.typeface = resources.getFont(R.font.cafe24ssukssuk)
+                setFont.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20F)
+            }
+            10 -> {
+                setFont.typeface = resources.getFont(R.font.cafe24syongsyong)
+                setFont.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20F)
+            }
+            11 -> {
+                setFont.typeface = resources.getFont(R.font.cookierun_regular)
+                setFont.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 16F)
+            }
+        }
     }
 
 }
