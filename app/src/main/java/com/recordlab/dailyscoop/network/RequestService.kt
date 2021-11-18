@@ -17,10 +17,9 @@ interface RequestService {
     fun requestSignIn(@Body body: RequestSignIn): Call<UserInfoData> //Call<ResponseSignin>
 
     // 유저 정보 가져오기
-    @GET("/api/user/{userID}")
+    @GET("/api/user")
     fun requestUserInfo(
-        @HeaderMap header: Map<String, String?>,
-        @Path("userID") userID: String
+        @HeaderMap header: Map<String, String?>
     ): Call<ResponseUserInfo>
 
     // 닉네임 변경하기

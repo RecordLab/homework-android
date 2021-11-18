@@ -82,10 +82,10 @@ class ProfileFragment : Fragment() {
             }
         }
 
-        // 친구추가 버튼 클릭
+        // 일기 폰트 버튼 클릭
         val friendBtnClicked = binding.bg1
         friendBtnClicked.setOnClickListener {
-            val intent = Intent(activity, ProfileFriendActivity::class.java)
+            val intent = Intent(activity, ProfileFontActivity::class.java)
             startActivity(intent)
         }
 

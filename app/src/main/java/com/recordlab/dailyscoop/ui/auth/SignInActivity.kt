@@ -111,7 +111,7 @@ class SignInActivity : AppCompatActivity() {
                         finish()
                     }
                     401 -> {
-                        Toast.makeText(this.applicationContext,it.message(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this.applicationContext,"아이디나 비밀번호를 확인해주세요", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
