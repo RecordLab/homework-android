@@ -23,6 +23,7 @@ interface RequestService {
         @Query("type") type: String
     ): Call<UserInfoData>
 
+
     // 유저 정보 불러오기
     @GET("/api/user")
     suspend fun requestUserInfo(

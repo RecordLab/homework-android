@@ -138,6 +138,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="16dp"/>
 
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/btn_google"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+            app:layout_constraintTop_toBottomOf="@id/kakao_btn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
 <!--    <androidx.appcompat.widget.AppCompatButton-->
 <!--        android:id="@+id/kakao_btn"-->
 <!--        android:layout_width="60dp"-->
