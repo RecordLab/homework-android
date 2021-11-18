@@ -167,7 +167,7 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
 
             contentText.setText(response.content)
 
-            if(response.image != "default") {
+            if(response.image != "default"){
                 Glide.with(backgroundLayout).load(response.image).into(binding.ivWriteDiary)
                 imageUrl = response.image
                 binding.ivWriteDiary.visibility = ImageView.VISIBLE

@@ -123,8 +123,8 @@ class DashboardFragment : Fragment() {
             month.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
 
             // 최솟값, 최댓값 설정
-            year.minValue = 2021
-            year.maxValue = 2022
+            year.minValue = 2010
+            year.maxValue = 2030
             month.minValue = 1
             month.maxValue = 12
 
