@@ -125,4 +125,7 @@ dependencies {
 
     // Blur 효과 주기
     implementation 'com.github.mmin18:realtimeblurview:1.2.1'
+
+    // 카카오 로그인
+    implementation "com.kakao.sdk:v2-user:2.8.2"
 }
