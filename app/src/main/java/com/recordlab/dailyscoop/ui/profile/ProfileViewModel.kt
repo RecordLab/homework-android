@@ -56,7 +56,7 @@ class ProfileViewModel : ViewModel() {
                 when (it.code()) {
                     in 200..206 -> {
                         profileImage.apply { it.body()?.data }
-                        Log.d("프로필 확인", "${profileImage}")
+//                        Log.d("프로필 확인", "${profileImage}")
                     }
                 }
 
@@ -76,7 +76,7 @@ class ProfileViewModel : ViewModel() {
             onSuccess = {
                 when (it.code()) {
                     200 -> {
-                        Log.d("플필 업로드", "프로필이 업로드되었습니다.")
+//                        Log.d("플필 업로드", "프로필이 업로드되었습니다.")
                     }
                 }
             }, onError = {

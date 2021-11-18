@@ -69,16 +69,16 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
                         when (it.code()) {
                             in 200..206 ->  {
                                 imageUrl = it.body()?.data
-                                Log.d(DW_DEBUG_TAG, "return image url -> ${imageUrl.toString()}")
+//                                Log.d(DW_DEBUG_TAG, "return image url -> ${imageUrl.toString()}")
                             }
                             in 400..499 -> {
-                                Log.d(DW_DEBUG_TAG, "${it.code()} : ${it.message()}" )
+//                                Log.d(DW_DEBUG_TAG, "${it.code()} : ${it.message()}" )
                             }
                         }
                     }, onError = {
-                        Log.d(DW_DEBUG_TAG, "통신 에러 발생~ ")
+//                        Log.d(DW_DEBUG_TAG, "통신 에러 발생~ ")
                     }, onFail = {
-                        Log.d(DW_DEBUG_TAG, "에궁, 실패!")
+//                        Log.d(DW_DEBUG_TAG, "에궁, 실패!")
                     }
                 )
 
@@ -118,11 +118,11 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
         }
 
 
-        Log.d("넘어온 작성 날짜", "$writeDate")
+//        Log.d("넘어온 작성 날짜", "$writeDate")
         sharedPref = getSharedPreferences("TOKEN", Context.MODE_PRIVATE)
         header["Content-type"] = "application/json"
         header["Authorization"] = sharedPref.getString("token", "token")
-        Log.d(DW_DEBUG_TAG, "토큰 값 : ${header["Authorization"]}")
+//        Log.d(DW_DEBUG_TAG, "토큰 값 : ${header["Authorization"]}")
         val image = findViewById<ImageView>(R.id.iv_write_diary)
         val toolbar = binding.tbDiaryWrite.toolbar
         toolbar.background.alpha = 0
@@ -544,7 +544,7 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
                         onSuccess = {
                             when (it.code()) {
                                 in 200..206 -> {
-                                    Log.d(DW_DEBUG_TAG, "작성완료 ${it.code()}")
+//                                    Log.d(DW_DEBUG_TAG, "작성완료 ${it.code()}")
                                     // 작성 완료 되면 완료 액티비티로 보내기.
                                     val intent = Intent(this, DiaryDetailActivity::class.java)
                                     intent.putExtra("diaryDate", writeDate)
@@ -554,13 +554,13 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
                                     finish()
                                 }
                                 401 -> {
-                                    Log.d(DW_DEBUG_TAG, "권한 없음.")
+//                                    Log.d(DW_DEBUG_TAG, "권한 없음.")
                                 }
                                 in 400..499 -> {
-                                    Log.d(DW_DEBUG_TAG, "요청 오류 : 코드 ${it.code()} 메시지 : ${it.message()}")
+//                                    Log.d(DW_DEBUG_TAG, "요청 오류 : 코드 ${it.code()} 메시지 : ${it.message()}")
                                 }
                                 in 500.. 599 -> {
-                                    Log.d(DW_DEBUG_TAG, "서버 오류")
+//                                    Log.d(DW_DEBUG_TAG, "서버 오류")
                                 }
                             }
 
@@ -637,7 +637,7 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
         for (emo in emotionType) {
             if (emo.isSelected) {
                 val st = StringTokenizer(emo.contentDescription.toString(), "_")
-                Log.d(DW_DEBUG_TAG, "id >> ${emo.id.toString()}")
+//                Log.d(DW_DEBUG_TAG, "id >> ${emo.id.toString()}")
                 st.nextToken()
                 selectedEmo.add(st.nextToken())
             }

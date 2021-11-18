@@ -8,7 +8,6 @@ import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -81,7 +80,7 @@ class ProfileFragment : Fragment() {
                         when (it.code()) {
                             in 200..206 -> {
                                 profileUrl = it.body()?.data
-                                Log.d("프로필 확인", "${profileViewModel.profileImage}")
+//                                Log.d("프로필 확인", "${profileViewModel.profileImage}")
                                 updateInfo(it.body()?.data!!)
                             }
                         }

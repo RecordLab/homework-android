@@ -15,7 +15,7 @@ class DiaryDetailEmotionRVAdapter(val emotions : List<String>) : RecyclerView.Ad
     }
 
     override fun onBindViewHolder(holder: DiaryDetailEmotionRVAdapter.Viewholder, position: Int) {
-        Log.d("DiaryDetailEmotionRVAdapter", emotions.toString())
+//        Log.d("DiaryDetailEmotionRVAdapter", emotions.toString())
         holder.bindEmotions(emotions[position])
     }
 

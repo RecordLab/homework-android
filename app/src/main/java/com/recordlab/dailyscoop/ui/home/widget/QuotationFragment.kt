@@ -75,7 +75,7 @@ class QuotationFragment : Fragment(), View.OnClickListener {
 
         service.requestAddQuotation(header = header, quote = data).enqueue(
             onSuccess = {
-                Log.d("message", it.body()!!.message)
+//                Log.d("message", it.body()!!.message)
             },
             onError = {
 
@@ -94,7 +94,7 @@ class QuotationFragment : Fragment(), View.OnClickListener {
 
         service.requestDelQuotation(header = header, quote = data).enqueue(
             onSuccess = {
-                Log.d("message", it.body()!!.message)
+//                Log.d("message", it.body()!!.message)
             },
             onError = {
 
