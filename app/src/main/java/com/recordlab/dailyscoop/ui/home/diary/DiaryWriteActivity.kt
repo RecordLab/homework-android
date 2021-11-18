@@ -54,10 +54,10 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
                 Glide.with(backgroundLayout).load(result.data?.data).into(binding.ivWriteDiary)
                 val uri = result.data?.data
                 val imgPath = uri?.let { ImagePath().getPath(applicationContext, it) }
-                Log.d(DW_DEBUG_TAG, "가져온 파일 경로 $imgPath")
+//                Log.d(DW_DEBUG_TAG, "가져온 파일 경로 $imgPath")
 
                 val file = File(imgPath)
-                Log.d(DW_DEBUG_TAG, "파일 : $file")
+//                Log.d(DW_DEBUG_TAG, "파일 : $file")
 
                 val requestFile = file.asRequestBody("application/octet-stream".toMediaTypeOrNull())
                 val body = MultipartBody.Part.createFormData("file", file.name, requestFile)
@@ -354,12 +354,13 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
             getActionBar.setDisplayShowTitleEnabled(false)
             getActionBar.setDisplayHomeAsUpEnabled(true)
             getActionBar.setDisplayShowHomeEnabled(true)
-            getActionBar.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_24)
+            getActionBar.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_black_24)
         }
         //액티비티 시작 시 캘린더에서 클릭한 날짜로 넘겨받기.임의로 현재날짜 지정.
 
         binding.tbDiaryWrite.toolbarId.text = writeDate
         binding.tbDiaryWrite.toolbarId.setTextColor(Color.argb(0xCC, 0x30, 0x30, 0x30))
+        Glide.with(backgroundLayout).load(R.drawable.theme_paper_white).into(backgroundImage)
 
         binding.btnSave.isEnabled = false
 
@@ -454,7 +455,7 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
                         header = header,
                         diary = RequestWriteDiary(
                             content = binding.etWriteDiary.text.toString(),
-                            image = imageUrl?: "null",
+                            image = imageUrl?: "default",
                             emotions = getEmotionAsList(),
                             theme = theme!!,
                             date = writeDate
@@ -570,10 +571,12 @@ class DiaryWriteActivity : AppCompatActivity(), View.OnClickListener {
             0 -> {
                 val darkColor: Int = Color.argb(0xCC, 0x30, 0x30, 0x30)
                 colorMode(darkColor)
+                supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_black_24)
             }
             1 -> { // 밝은 텍스트
                 val brightColor = Color.argb(0xCC, 0xDB, 0xDB, 0xDB)
                 colorMode(brightColor)
+                supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_24)
             }
         }
     }

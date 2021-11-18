@@ -34,10 +34,10 @@ class ProfileFriendActivity : AppCompatActivity() {
             finish()
         }
 
-        val test_BtnClicke = findViewById<Button>(R.id.test_Btn)
+        /*val test_BtnClicke = findViewById<Button>(R.id.test_Btn)
         test_BtnClicke.setOnClickListener{
             uploadImage()
-        }
+        }*/
     }
 
     // 테스트

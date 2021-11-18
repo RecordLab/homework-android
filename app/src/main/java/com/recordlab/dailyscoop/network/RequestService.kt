@@ -16,12 +16,11 @@ interface RequestService {
     @POST("/api/login")
     fun requestSignIn(@Body body: RequestSignIn): Call<UserInfoData> //Call<ResponseSignin>
 
-    // 유저 정보 가져오기
-    @GET("/api/user/{userID}")
-    fun requestUserInfo(
-        @HeaderMap header: Map<String, String?>,
-        @Path("userID") userID: String
-    ): Call<ResponseUserInfo>
+    // 유저 정보 불러오기
+    @GET("/api/user")
+    suspend fun requestUserInfo(
+        @HeaderMap header: Map<String, String?>
+    ) : ResponseUserProfile
 
     // 닉네임 변경하기
     @PUT("/api/user/change_nickname")
@@ -36,6 +35,12 @@ interface RequestService {
         @HeaderMap header: Map<String, String?>,
         @Body body: RequestChangePassword
     ): Call<ResponseChange>
+
+    @PUT("/api/user/set_image")
+    fun requestUserImageChange(
+        @HeaderMap header: Map<String, String?>,
+        @Body image: RequestProfileImage
+    ): Call<ResponseUserProfileImage>
 
     // 회원 탈퇴하기
     @DELETE("/api/user/{userID}")
@@ -63,7 +68,7 @@ interface RequestService {
     fun requestSearchDiaries(
         @HeaderMap header: Map<String, String?>,
         @Query("search") search: String,
-        @Query("sort") sort: Int
+        @Query("sort") sort: Int = -1
     ): Call<ResponseDiaryList>
 
     // 특정 날짜 일기 가져오기.
@@ -101,6 +106,7 @@ interface RequestService {
         @Query("apikey") apikey: String
     ): Call<List<ResponseQuotation>>
 
+    // 이미지 업로드
     @Multipart
     @POST("/api/image")
     fun requestImageUrl(

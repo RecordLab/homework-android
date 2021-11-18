@@ -116,7 +116,7 @@ class SignUpActivity : AppCompatActivity() {
             false
         }
 
-        isChecked3 = if (passwordInput == passwordCInput) {
+        isChecked3 = if (passwordInput == passwordCInput && length > 0) {
             // 비밀번호와 비밀번호 확인이 같은 경우 체크 표시 활성화
             passwordCheck2.setImageResource(R.drawable.ic_baseline_check_24_green)
             true
