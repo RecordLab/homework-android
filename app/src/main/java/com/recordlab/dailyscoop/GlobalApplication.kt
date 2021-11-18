@@ -13,7 +13,7 @@ class GlobalApplication : Application() {
         // Kakao SDK 초기화
         KakaoSdk.init(this, "ba4c4a64a67509ca547ba2d761e0a8ff")
 
-//        val keyHash = Utility.getKeyHash(this)
-//        Log.d("해시 >> ", keyHash)
+        val keyHash = Utility.getKeyHash(this)
+        Log.d("해시 >> ", keyHash)
     }
 }
