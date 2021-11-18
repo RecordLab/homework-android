@@ -127,4 +127,24 @@ interface RequestService {
         @Query("type") type: String,
         @Query("date") date: String
     ): Call<ResponseDiariesCount>
+
+    // 명언 리스트
+    @GET("/api/favorites")
+    fun requestGetQuotation(
+        @HeaderMap header: Map<String, String?>,
+    ): Call<ResponseQuotationList>
+
+    // 명언 저장
+    @POST("/api/favorites")
+    fun requestAddQuotation(
+        @HeaderMap header: Map<String, String?>,
+        @Body quote: RequestQuotation
+    ): Call<ResponseChange>
+
+    // 명언 삭제
+    @HTTP(method = "DELETE", path = "/api/favorites", hasBody = true)
+    fun requestDelQuotation(
+        @HeaderMap header: Map<String, String?>,
+        @Body quote: RequestQuotation
+    ): Call<ResponseChange>
 }
