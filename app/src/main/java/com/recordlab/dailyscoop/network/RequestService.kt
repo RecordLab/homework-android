@@ -20,7 +20,8 @@ interface RequestService {
     @POST("/api/login")
     fun requestSocial(
         @HeaderMap header: Map<String, String?>,
-        @Query("type") type: String
+        @Query("type") type: String,
+        @Query("id_token") token: String
     ): Call<UserInfoData>
 
 
