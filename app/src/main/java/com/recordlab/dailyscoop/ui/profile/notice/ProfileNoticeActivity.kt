@@ -1,15 +1,15 @@
 package com.recordlab.dailyscoop.ui.profile.notice
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Intent
+import android.icu.util.Calendar
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.CompoundButton
-import android.widget.ImageView
-import android.widget.Switch
-import android.widget.Toast
+import com.recordlab.dailyscoop.AlarmReceiver
 import com.recordlab.dailyscoop.R
 import com.recordlab.dailyscoop.databinding.ActivityProfileNoticeBinding
-import com.recordlab.dailyscoop.databinding.ActivitySignUpBinding
 
 class ProfileNoticeActivity : AppCompatActivity(), ProfileNoticeDialogInterface {
     private lateinit var binding: ActivityProfileNoticeBinding
@@ -24,6 +24,8 @@ class ProfileNoticeActivity : AppCompatActivity(), ProfileNoticeDialogInterface 
         // 현재 알람 설정 상태 확인
         loadNoticeData()
 
+
+
         // 스위치 변경 리스너
         val switch = binding.switch1
         switch.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener{
@@ -32,11 +34,16 @@ class ProfileNoticeActivity : AppCompatActivity(), ProfileNoticeDialogInterface 
                     // off -> on
                     binding.textView4.setTextColor(getColor(R.color.default_textview))
                     binding.textView14.setTextColor(getColor(R.color.default_textview))
+
+
                     true
                 }else{
                     // on -> off
                     binding.textView4.setTextColor(getColor(R.color.disableGray))
                     binding.textView14.setTextColor(getColor(R.color.disableGray))
+
+                    cancelAlarm()
+
                     false
                 }
             }
@@ -104,7 +111,50 @@ class ProfileNoticeActivity : AppCompatActivity(), ProfileNoticeDialogInterface 
         edit.putInt("noticeMinute", minute)
         edit.apply()
 
+        setAlarm(hour, minute)
+
+
+
         // 설정한 시간으로 변경
         binding.textView4.text = getString(R.string.month_picker_formatter, hour).plus(":").plus(getString(R.string.month_picker_formatter, minute))
     }
+
+    private fun setAlarm(hour: Int, minute: Int) {
+        val alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
+
+        val intent = Intent(this, AlarmReceiver::class.java)  // 알람 조건이 충족되었을 때, 리시버로 전달될 인텐트를 설정합니다.
+        val pendingIntent = PendingIntent.getBroadcast(     // AlarmManager가 인텐트를 갖고 있다가 일정 시간이 흐른 뒤에 전달하기 때문에 PendingIntent로 만들어야 합니다. PendingIntent의 requestCode 인자로 NOTIFICATION_ID를 전달하였습니다.
+            this, AlarmReceiver.NOTIFICATION_ID, intent,
+            PendingIntent.FLAG_UPDATE_CURRENT)
+
+        // 알람 주기(1일)
+        val repeatInterval: Long = AlarmManager.INTERVAL_DAY
+
+        // 시간에 맞게 알람 설정
+        val calendar: Calendar = Calendar.getInstance().apply { // 1
+            timeInMillis = System.currentTimeMillis()
+            set(Calendar.HOUR_OF_DAY, hour)
+            set(Calendar.MINUTE, minute)
+        }
+
+        // 알람 시작
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, // 2
+            calendar.timeInMillis,
+            repeatInterval,
+            pendingIntent)
+    }
+
+    private fun cancelAlarm() {
+        val alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
+        val intent = Intent(this, AlarmReceiver::class.java)  // 알람 조건이 충족되었을 때, 리시버로 전달될 인텐트를 설정합니다.
+        val pendingIntent = PendingIntent.getBroadcast(     // AlarmManager가 인텐트를 갖고 있다가 일정 시간이 흐른 뒤에 전달하기 때문에 PendingIntent로 만들어야 합니다. PendingIntent의 requestCode 인자로 NOTIFICATION_ID를 전달하였습니다.
+            this, AlarmReceiver.NOTIFICATION_ID, intent,
+            PendingIntent.FLAG_UPDATE_CURRENT)
+
+
+        alarmManager.cancel(pendingIntent)    // 알람을 취소할 때는 등록한 PendingIntent를 인자로 전달합니다.
+
+    }
+
+
 }
