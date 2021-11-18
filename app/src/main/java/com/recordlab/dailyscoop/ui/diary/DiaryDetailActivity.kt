@@ -1,6 +1,7 @@
 package com.recordlab.dailyscoop.ui.diary
 
 import android.content.Context
+import android.graphics.Color
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -113,9 +114,13 @@ class DiaryDetailActivity : AppCompatActivity() {
                         val res = it.body()
 
                         binding.diaryContent.text = "\n${res?.content.toString()}\n"
-                        Glide.with(this).load(res?.image).into(binding.diaryImg)
-                        Glide.with(this).load(res?.image).into(binding.diaryImgFull)
+                        if(it.body()?.image == "default"){
+                            binding.diaryImg.visibility = View.GONE
 
+                        } else {
+                            Glide.with(this).load(res?.image).into(binding.diaryImg)
+                            Glide.with(this).load(res?.image).into(binding.diaryImgFull)
+                        }
                         val datetime = res?.date.toString()
                         val year = datetime.substring(0, 4).toInt()
                         val month = datetime.substring(5, 7)
@@ -163,28 +168,53 @@ class DiaryDetailActivity : AppCompatActivity() {
             "paper_white" -> {
                 binding.diaryBg.setBackgroundResource(R.drawable.theme_paper_white)
                 supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_black_24)
+                setTextColor(0)
             }
             "paper_ivory" -> {
                 binding.diaryBg.setBackgroundResource(R.drawable.theme_paper_ivory)
                 supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_black_24)
+                setTextColor(0)
             }
             "paper_dark" -> {
                 binding.diaryBg.setBackgroundResource(R.drawable.theme_paper_dark)
                 supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_24)
+                setTextColor(1)
             }
             "sky_day" -> {
                 binding.diaryBg.setBackgroundResource(R.drawable.theme_sky_day_bright)
                 supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_24)
+                setTextColor(0)
             }
             "sky_night" -> {
                 binding.diaryBg.setBackgroundResource(R.drawable.theme_sky_night)
                 supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_24)
+                setTextColor(1)
             }
             "window" -> {
                 binding.diaryBg.setBackgroundResource(R.drawable.theme_window)
                 supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_black_24)
+                setTextColor(1)
             }
         }
+    }
+
+    fun setTextColor(mode: Int) {
+        when (mode) {
+            0 -> {
+                val darkColor: Int = Color.argb(0xCC, 0x30, 0x30, 0x30)
+                colorMode(darkColor)
+            }
+            1 -> { // 밝은 텍스트
+                val brightColor = Color.argb(0xCC, 0xDB, 0xDB, 0xDB)
+                colorMode(brightColor)
+            }
+        }
+    }
+
+
+    fun colorMode(color: Int) {
+        binding.diaryContent.setTextColor(color)
+        binding.dateHeader.setTextColor(color)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

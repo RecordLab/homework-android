@@ -7,6 +7,7 @@ import android.util.Log
 import android.widget.Toast
 import com.kakao.sdk.auth.model.Prompt
 import com.kakao.sdk.user.UserApiClient
+import com.google.firebase.auth.FirebaseAuth
 import com.recordlab.dailyscoop.MainActivity
 import com.recordlab.dailyscoop.databinding.ActivitySignInBinding
 import com.recordlab.dailyscoop.network.RetrofitClient.service
@@ -16,6 +17,12 @@ import com.recordlab.dailyscoop.ui.profile.ProfileFontActivity
 
 class SignInActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignInBinding
+    private lateinit var mAuth: FirebaseAuth
+    override fun onStart() {
+        super.onStart()
+        val currentUser = mAuth.currentUser
+
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +30,7 @@ class SignInActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        mAuth = FirebaseAuth.getInstance()
         // 가입하기 버튼 클릭
         val signupBtnClicked = binding.signYet2
         signupBtnClicked.setOnClickListener{
@@ -84,11 +92,20 @@ class SignInActivity : AppCompatActivity() {
 //        }
 
         // 구글 로그인 버튼 클릭
+<<<<<<< app/src/main/java/com/recordlab/dailyscoop/ui/auth/SignInActivity.kt
 //        val googleBtnClicked = binding.googleBtn
 //        googleBtnClicked.setOnClickListener{
 //            Toast.makeText(this.getApplicationContext(),"google", Toast.LENGTH_SHORT).show();
 //
 //        }
+=======
+        val googleBtnClicked = binding.googleBtn
+        googleBtnClicked.setOnClickListener{
+
+            Toast.makeText(this.getApplicationContext(),"google", Toast.LENGTH_SHORT).show();
+
+        }
+>>>>>>> app/src/main/java/com/recordlab/dailyscoop/ui/auth/SignInActivity.kt
     }
 
     private fun signIn(data: RequestSignIn) {
@@ -119,4 +136,5 @@ class SignInActivity : AppCompatActivity() {
 
 
     }
+
 }

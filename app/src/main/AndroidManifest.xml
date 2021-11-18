@@ -81,6 +81,7 @@
             android:exported="false"/>
         <activity android:name=".ui.profile.lock.AppPasswordActivity"
             android:exported="false"/>
+
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
             android:exported="true">
@@ -95,6 +96,8 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".ui.profile.ProfileBookmarkActivity"
+            android:exported="false"/>
     </application>
 
 </manifest>
