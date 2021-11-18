@@ -18,6 +18,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.applikeysolutions.cosmocalendar.listeners.OnMonthChangeListener
@@ -170,12 +171,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
         }
 
         btnMore.setOnClickListener {
-            val intent = Intent(activity, DiaryWriteActivity::class.java)
-            startActivity(intent)
-
-            if (activity != null) {
-                Log.d(DEBUG_TAG, "activity is not null")
-            }
+            it.findNavController().navigate(R.id.action_navigation_home_to_navigation_dashboard2)
         }
 
 

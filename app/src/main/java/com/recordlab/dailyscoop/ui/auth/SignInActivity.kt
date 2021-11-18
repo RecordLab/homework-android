@@ -1,11 +1,13 @@
 package com.recordlab.dailyscoop.ui.auth
 
+import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.*
@@ -14,16 +16,16 @@ import com.google.android.gms.tasks.Task
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.kakao.sdk.auth.model.Prompt
+import com.kakao.sdk.user.UserApiClient
 import com.recordlab.dailyscoop.MainActivity
 import com.recordlab.dailyscoop.R
 import com.recordlab.dailyscoop.databinding.ActivitySignInBinding
-import com.recordlab.dailyscoop.network.RetrofitClient.client
 import com.recordlab.dailyscoop.network.RetrofitClient.service
-import com.recordlab.dailyscoop.network.request.RequestSignIn
 import com.recordlab.dailyscoop.network.enqueue
-import com.recordlab.dailyscoop.ui.profile.ProfileFontActivity
-import kotlinx.coroutines.coroutineScope
+import com.recordlab.dailyscoop.network.request.RequestSignIn
 import kotlinx.coroutines.launch
+
 
 class SignInActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: ActivitySignInBinding
@@ -31,6 +33,8 @@ class SignInActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var googleSignInClient: GoogleSignInClient
     val GOOGLE_ACCOUNT = "GOOGLE"
     private val TAG = "SIGN_IN_ACTIVITY"
+    private lateinit var sharedPref: SharedPreferences
+    private lateinit var editor: SharedPreferences.Editor
 
     override fun onStart() {
         super.onStart()
@@ -55,23 +59,27 @@ class SignInActivity : AppCompatActivity(), View.OnClickListener {
 
         mAuth = FirebaseAuth.getInstance()
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-//            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
 
         //Build a GoogleSignInClient w/ the options specified by gso.
         googleSignInClient = GoogleSignIn.getClient(this, gso)
 
+        sharedPref = getSharedPreferences("TOKEN", MODE_PRIVATE)
+        editor = sharedPref.edit()
+
+
         // 가입하기 버튼 클릭
         val signupBtnClicked = binding.signYet2
-        signupBtnClicked.setOnClickListener{
+        signupBtnClicked.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
         }
 
         // 로그인 버튼 클릭
         val loginBtnClicked = binding.loginButton
-        loginBtnClicked.setOnClickListener{
+        loginBtnClicked.setOnClickListener {
             //Toast.makeText(this.getApplicationContext(),"로그인", Toast.LENGTH_SHORT).show();
             val email = binding.loginEmailText.text.toString()
             val password = binding.loginPasswordText.text.toString()
@@ -87,7 +95,7 @@ class SignInActivity : AppCompatActivity(), View.OnClickListener {
 
         // 비밀번호 찾기 버튼 클릭
         val findPasswordBtnClicked = binding.loginPasswordButton
-        findPasswordBtnClicked.setOnClickListener{
+        findPasswordBtnClicked.setOnClickListener {
             //Toast.makeText(this.getApplicationContext(),"비밀번호 찾기", Toast.LENGTH_SHORT).show();
             val intent = Intent(this, ForgotPasswordActivity::class.java)
             startActivity(intent)
@@ -95,24 +103,83 @@ class SignInActivity : AppCompatActivity(), View.OnClickListener {
 
         // 카카오로그인 버튼 클릭
         val socialKBtnClicked = binding.kakaoBtn
-        socialKBtnClicked.setOnClickListener{
-            Toast.makeText(this.getApplicationContext(),"kakao", Toast.LENGTH_SHORT).show();
+        socialKBtnClicked.setOnClickListener {
+            UserApiClient.instance.loginWithKakaoAccount(
+                this,
+                prompts = listOf(Prompt.LOGIN)
+            ) { token, error ->
+                if (error != null) {
+                    Toast.makeText(this.applicationContext, "다시 시도해 주세요", Toast.LENGTH_SHORT)
+                        .show();
+                } else if (token != null) {
+                    Log.i("kakao", "로그인 성공 ${token.accessToken}")
 
+                    // 카카오 토큰 서버로 전송
+                    val header = mutableMapOf<String, String?>()
+                    header["Authorization"] = token.accessToken
+                    service.requestSocial(header = header, type = "kakao").enqueue(
+                        onSuccess = {
+                            when (it.code()) {
+                                in 200..209 -> {
+                                    val nic = it.body()?.nickname
+                                    val to = it.body()?.token
+                                    Toast.makeText(
+                                        this.applicationContext,
+                                        "반갑습니다",
+                                        Toast.LENGTH_SHORT
+                                    ).show();
+
+                                    val pref = getSharedPreferences("TOKEN", 0)
+                                    val edit = pref.edit() // 수정모드(추가, 수정)
+                                    edit.putString("token", "Bearer ".plus(to)) // key, value
+                                    edit.putString("nickname", nic)
+                                    edit.apply() // 저장 완료
+
+                                    val intent = Intent(this, MainActivity::class.java)
+                                    startActivity(intent)
+                                    finish()
+                                }
+                                else -> {
+                                    Toast.makeText(
+                                        this.applicationContext,
+                                        "다시 시도해 주세요",
+                                        Toast.LENGTH_SHORT
+                                    ).show();
+                                }
+                            }
+                        }
+                    )
+
+//                    // 사용자 정보 요청 (기본)
+//                    UserApiClient.instance.me { user, errorr ->
+//                        if (errorr != null) {
+//                            Log.e("kakao", "사용자 정보 요청 실패", errorr)
+//                        }
+//                        else if (user != null) {
+//                            Log.i("kakao", "사용자 정보 요청 성공" +
+//                                    "\n회원번호: ${user.id}" +
+//                                    "\n이메일: ${user.kakaoAccount?.email}" +
+//                                    "\n닉네임: ${user.kakaoAccount?.profile?.nickname}" +
+//                                    "\n프로필사진: ${user.kakaoAccount?.profile?.thumbnailImageUrl}")
+//                        }
+//                    }
+                }
+            }
         }
 
         // 구글 로그인 버튼 클릭
-        val googleBtnClicked = binding.googleBtn
+        val googleBtnClicked = binding.btnGoogle
         googleBtnClicked.setOnClickListener(this)
     }
 
     private fun signIn(data: RequestSignIn) {
         service.requestSignIn(body = data).enqueue(
             onSuccess = {
-                when (it.code()){
+                when (it.code()) {
                     in 200..209 -> {
                         val nic = it.body()?.nickname
                         val to = it.body()?.token
-                        Toast.makeText(this.applicationContext,"반갑습니다", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this.applicationContext, "반갑습니다", Toast.LENGTH_SHORT).show();
 
                         val pref = getSharedPreferences("TOKEN", 0)
                         val edit = pref.edit() // 수정모드(추가, 수정)
@@ -120,27 +187,29 @@ class SignInActivity : AppCompatActivity(), View.OnClickListener {
                         edit.putString("nickname", nic)
                         edit.apply() // 저장 완료
 
-                        //Log.d("token", "로그인 응답 $to")
-
                         val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
                         finish()
                     }
                     401 -> {
-                        Toast.makeText(this.applicationContext,it.message(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(
+                            this.applicationContext,
+                            "아이디나 비밀번호를 확인해주세요",
+                            Toast.LENGTH_SHORT
+                        ).show();
                     }
                 }
             }
         )
     }
 
-    private fun signIn(){
+    private fun signIn() {
         Log.d(TAG, "signIn 도착")
         val signInIntent: Intent = googleSignInClient.signInIntent
         startActivityForResult(signInIntent, REQUEST_CODE_SIGN_IN)
     }
 
-    companion object{
+    companion object {
         private val REQUEST_CODE_SIGN_IN = 9000
     }
 
@@ -151,9 +220,11 @@ class SignInActivity : AppCompatActivity(), View.OnClickListener {
             // The Task returned from this call is always completed, no need to attach
             // a listener.
             val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
-            val result : GoogleSignInResult? = Auth.GoogleSignInApi.getSignInResultFromIntent(data)
+//            handleSignInResult(task);
+            val result: GoogleSignInResult? = Auth.GoogleSignInApi.getSignInResultFromIntent(data)
             if (result!!.isSuccess) {
                 val account: GoogleSignInAccount? = result.signInAccount
+                Log.d(TAG, "어카운트로 받아오기. -> ${account?.idToken}")
             }
             try {
                 // Google Sign In was successful, authenticate with Firebase
@@ -164,13 +235,34 @@ class SignInActivity : AppCompatActivity(), View.OnClickListener {
                 Log.d(TAG, "getAccount() = " + account.account)
                 Log.d(TAG, "getIDToken() = " + account.idToken)
 
-                firebaseAuthWithGoogle(account.idToken!!,task)
+                firebaseAuthWithGoogle(account.idToken!!, task)
             } catch (e: ApiException) {
                 // Google Sign In failed, update UI appropriately
                 Log.w(TAG, "Google sign in failed", e)
-                Toast.makeText(this,"로그인에 실패하셨습니다.",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "로그인에 실패하셨습니다.", Toast.LENGTH_SHORT).show()
                 // ...
             }
+        }
+    }
+
+    private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
+        try {
+            val account = completedTask.getResult(ApiException::class.java)
+            Log.d(TAG, "이름 = " + account.displayName)
+            Log.d(TAG, "이메일 = " + account.email)
+            Log.d(TAG, "getID() = " + account.id)
+            Log.d(TAG, "getAccount() = " + account.account)
+            Log.d(TAG, "getIDToken() = " + account.idToken)
+            // Signed in successfully, show authenticated UI.
+            val idToken = account.idToken
+            // server 토큰 전송은
+            Log.d(TAG, "핸들 사인 인 결과 -> $idToken")
+
+        } catch (e: ApiException) {
+            // The ApiException status code indicates the detailed failure reason.
+            // Please refer to the GoogleSignInStatusCodes class reference for more information.
+            Log.w(TAG, "signInResult:failed code=" + e.statusCode)
+//            updateUI(null)
         }
     }
 
@@ -182,15 +274,34 @@ class SignInActivity : AppCompatActivity(), View.OnClickListener {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithCredential:success")
 //                    val user = mAuth.currentUser
-                    val user : GoogleSignInAccount? = completeTask.getResult(ApiException::class.java)
+                    val user: GoogleSignInAccount? =
+                        completeTask.getResult(ApiException::class.java)
 //                    val authCode : String? = user?.serverAuthCode
 //                    val account: GoogleSignInAccount? = result.signInAccount
 //                    Log.d(TAG, "authCode: $authCode")
                     val header = mutableMapOf<String, String>()
-                    if(user?.idToken != null){
+                    if (user?.idToken != null) {
                         header["Authorization"] = user.idToken
                         lifecycleScope.launch {
-                            val token = service.requestSocialSignIn(header = header, type = "google")
+                            service.requestSocial(header = header, type = "google").enqueue(
+                                onSuccess = { result ->
+                                    when (result.code()) {
+                                        in 200..206 -> {
+                                            val nickname = result.body()?.nickname
+                                            val jwt = result.body()?.token
+
+                                            editor.putString("nickname", nickname)
+                                            editor.putString("jwt", jwt)
+                                            editor.apply()
+                                            editor.commit()
+                                            goMain()
+                                        }
+                                    }
+                                }, onError = {
+
+                                }
+                            )
+
                         }
                     }
                 } else {
@@ -211,9 +322,15 @@ class SignInActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.google_btn -> {
+            R.id.btn_google -> {
                 signIn()
             }
         }
+    }
+
+    fun goMain() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }

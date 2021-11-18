@@ -16,17 +16,24 @@ interface RequestService {
     @POST("/api/login")
     fun requestSignIn(@Body body: RequestSignIn): Call<UserInfoData> //Call<ResponseSignin>
 
-    @GET("/api/kakao_login/{type}")
-    suspend fun requestSocialSignIn(
+    // 소셜 로그인
+    @POST("/api/login")
+    fun requestSocial(
         @HeaderMap header: Map<String, String?>,
-        @Path("type") type: String
-    ): ResponseSocialSignIn
+        @Query("type") type: String
+    ): Call<UserInfoData>
+
 
     // 유저 정보 불러오기
     @GET("/api/user")
     suspend fun requestUserInfo(
         @HeaderMap header: Map<String, String?>
     ) : ResponseUserProfile
+
+    @GET("/api/user")
+    fun requestUserInfo2(
+        @HeaderMap header: Map<String, String?>
+    ) : Call<ResponseUserInfo>
 
     // 닉네임 변경하기
     @PUT("/api/user/change_nickname")
@@ -133,4 +140,25 @@ interface RequestService {
         @Query("type") type: String,
         @Query("date") date: String
     ): Call<ResponseDiariesCount>
+
+    // 명언 리스트
+    @GET("/api/favorites")
+    fun requestGetQuotation(
+        @HeaderMap header: Map<String, String?>,
+    ): Call<ResponseQuotationList>
+
+    // 명언 저장
+    @POST("/api/favorites")
+    fun requestAddQuotation(
+        @HeaderMap header: Map<String, String?>,
+        @Body quote: RequestQuotation
+    ): Call<ResponseChange>
+
+    // 명언 삭제
+    @HTTP(method = "DELETE", path = "/api/favorites", hasBody = true)
+    fun requestDelQuotation(
+        @HeaderMap header: Map<String, String?>,
+        @Body quote: RequestQuotation
+    ): Call<ResponseChange>
+
 }

@@ -21,7 +21,6 @@
         android:maxHeight="51dp"
         android:paddingHorizontal="24dp"
         android:scrollbars="vertical"
-        android:text="명언 한 마디를 어쩌구 저쩌구 이렇게 길게 적어놓으면 마진 밑으로는 다음줄로?"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/gl_widget_center_vertical"

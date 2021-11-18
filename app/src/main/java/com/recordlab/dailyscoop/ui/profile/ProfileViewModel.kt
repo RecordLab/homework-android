@@ -33,7 +33,7 @@ class ProfileViewModel : ViewModel() {
     private var imageBody: MultipartBody.Part? = null
 
     val profileImage = MutableLiveData<String>()//LiveData<String> get() = _profileImage
-    val nickname = MutableLiveData<String>()// LiveData<String> get() = _nickname
+    val     nickname = MutableLiveData<String>()// LiveData<String> get() = _nickname
     val loadingLiveData = MutableLiveData<Boolean>()
 
     fun requestUserInfo(){
