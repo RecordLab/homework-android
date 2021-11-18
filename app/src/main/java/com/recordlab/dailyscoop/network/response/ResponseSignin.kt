@@ -11,7 +11,8 @@ data class UserInfoData(
 
 data class ResponseUserInfo(
     val id: String,
-    val nickname: String
+    val nickname: String,
+    var profile_image: String,
 )
 
 data class ResponseChange(

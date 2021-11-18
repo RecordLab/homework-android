@@ -74,11 +74,11 @@ class ProfileAccountActivity : AppCompatActivity(), ProfileWithdrawDialogInterfa
             withdrawDialog.show()
         }
 
-        val fontBtnClicked = binding.bg8
-        fontBtnClicked.setOnClickListener{
-            val intent = Intent(this, ProfileFontActivity::class.java)
-            startActivity(intent)
-        }
+//        val fontBtnClicked = binding.bg8
+//        fontBtnClicked.setOnClickListener{
+//            val intent = Intent(this, ProfileFontActivity::class.java)
+//            startActivity(intent)
+//        }
 
         // 뒤로가기 버튼 클릭
         val backBtnClicked = findViewById<ImageView>(R.id.backBtn)
