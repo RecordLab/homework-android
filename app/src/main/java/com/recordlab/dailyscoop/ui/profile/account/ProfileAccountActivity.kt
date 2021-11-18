@@ -7,6 +7,8 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
+import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
@@ -57,6 +59,15 @@ class ProfileAccountActivity : AppCompatActivity(), ProfileWithdrawDialogInterfa
         nickBtnClicked.setOnClickListener{
             val intent = Intent(this, ProfileAccountNicknameActivity::class.java)
             activityResultLauncher.launch(intent)
+        }
+
+        // 소셜 로그인 시 비밀번호 변경 버튼 숨김
+        val pref = getSharedPreferences("TOKEN", 0)
+        if (pref.contains("social")) {
+            binding.bg454.visibility = View.INVISIBLE
+            binding.bg454.layoutParams.height = 0
+            binding.tvChangePassword.visibility = View.INVISIBLE
+            binding.tvChangePassword.layoutParams.height = 0
         }
 
         // 비밀번호 변경 버튼 클릭
