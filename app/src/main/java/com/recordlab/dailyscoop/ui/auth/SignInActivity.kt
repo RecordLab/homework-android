@@ -117,7 +117,7 @@ class SignInActivity : AppCompatActivity(), View.OnClickListener {
                     // 카카오 토큰 서버로 전송
                     val header = mutableMapOf<String, String?>()
                     header["Authorization"] = token.accessToken
-                    service.requestSocial(header = header, type = "kakao").enqueue(
+                    service.requestSocial(header = header, type = "kakao", token = "").enqueue(
                         onSuccess = {
                             when (it.code()) {
                                 in 200..209 -> {
@@ -284,7 +284,7 @@ class SignInActivity : AppCompatActivity(), View.OnClickListener {
                     if (user?.idToken != null) {
                         header["Authorization"] = user.idToken
                         lifecycleScope.launch {
-                            service.requestSocial(header = header, type = "google").enqueue(
+                            service.requestSocial(header = header, type = "google", token = idToken).enqueue(
                                 onSuccess = { result ->
                                     when (result.code()) {
                                         in 200..206 -> {
@@ -292,7 +292,7 @@ class SignInActivity : AppCompatActivity(), View.OnClickListener {
                                             val jwt = result.body()?.token
 
                                             editor.putString("nickname", nickname)
-                                            editor.putString("jwt", jwt)
+                                            editor.putString("token", "Bearer $jwt")
                                             editor.apply()
                                             editor.commit()
                                             goMain()
