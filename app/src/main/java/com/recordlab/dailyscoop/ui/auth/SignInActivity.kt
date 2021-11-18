@@ -133,6 +133,7 @@ class SignInActivity : AppCompatActivity(), View.OnClickListener {
                                     val edit = pref.edit() // 수정모드(추가, 수정)
                                     edit.putString("token", "Bearer ".plus(to)) // key, value
                                     edit.putString("nickname", nic)
+                                    edit.putString("social", "true")
                                     edit.apply() // 저장 완료
 
                                     val intent = Intent(this, MainActivity::class.java)
