@@ -92,7 +92,7 @@
                 app:layout_constraintStart_toStartOf="@+id/bg1"
                 app:layout_constraintTop_toTopOf="@+id/bg1"
                 app:layout_constraintVertical_bias="0.0"
-                app:srcCompat="@drawable/ic_user_plus_solid" />
+                app:srcCompat="@drawable/ic_pencil_alt_solid" />
 
             <TextView
                 android:id="@+id/text1"
@@ -100,7 +100,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:fontFamily="@font/spoqa_han_sans_neo_regular"
-                android:text="친구추가"
+                android:text="일기 폰트"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@+id/bg1"
                 app:layout_constraintStart_toEndOf="@+id/icon1"
@@ -323,6 +323,7 @@
                 android:fontFamily="@font/spoqa_han_sans_neo_regular"
                 android:text="로그아웃"
                 android:textSize="16sp"
+                android:textColor="@color/puffinsBill"
                 app:layout_constraintBottom_toBottomOf="@+id/bg6"
                 app:layout_constraintStart_toEndOf="@+id/imageView5"
                 app:layout_constraintTop_toTopOf="@+id/bg6" />
@@ -332,6 +333,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=">"
+                android:textColor="@color/puffinsBill"
                 app:layout_constraintBottom_toBottomOf="@+id/bg6"
                 app:layout_constraintEnd_toEndOf="@+id/bg6"
                 app:layout_constraintTop_toTopOf="@+id/bg6" />

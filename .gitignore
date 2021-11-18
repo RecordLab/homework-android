@@ -20,3 +20,4 @@
 .cxx
 
 keystore.properties
+/app/google-services.json

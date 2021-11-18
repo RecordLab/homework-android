@@ -126,27 +126,39 @@
         tools:ignore="TextContrastCheck"
         android:visibility="invisible"/>
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/kakao_btn"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/logo_kakao"
-        app:layout_constraintEnd_toStartOf="@id/google_btn"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/login_password_button"
-        tools:ignore="SpeakableTextPresentCheck" />
+        <ImageView
+            android:id="@+id/kakao_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/kakao_login_large_wide"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/login_password_button"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="16dp"/>
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/google_btn"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/logo_google"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/kakao_btn"
-        app:layout_constraintTop_toBottomOf="@id/login_password_button"
-        tools:ignore="SpeakableTextPresentCheck" />
+<!--    <androidx.appcompat.widget.AppCompatButton-->
+<!--        android:id="@+id/kakao_btn"-->
+<!--        android:layout_width="60dp"-->
+<!--        android:layout_height="60dp"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:background="@drawable/logo_kakao"-->
+<!--        app:layout_constraintEnd_toStartOf="@id/google_btn"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/login_password_button"-->
+<!--        tools:ignore="SpeakableTextPresentCheck" />-->
+
+<!--    <androidx.appcompat.widget.AppCompatButton-->
+<!--        android:id="@+id/google_btn"-->
+<!--        android:layout_width="60dp"-->
+<!--        android:layout_height="60dp"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:background="@drawable/logo_google"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toEndOf="@id/kakao_btn"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/login_password_button"-->
+<!--        tools:ignore="SpeakableTextPresentCheck" />-->
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/sign_yet1"

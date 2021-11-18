@@ -127,6 +127,9 @@ dependencies {
     // Blur 효과 주기
     implementation 'com.github.mmin18:realtimeblurview:1.2.1'
 
+    // 카카오 로그인
+    implementation "com.kakao.sdk:v2-user:2.8.2"
+
     // firebase
     implementation('com.google.firebase:firebase-core:20.0.0')
 
@@ -139,5 +142,4 @@ dependencies {
 
     // Also declare the dependency for the Google Play services library and specify its version
     implementation 'com.google.android.gms:play-services-auth:19.2.0'
-
 }
