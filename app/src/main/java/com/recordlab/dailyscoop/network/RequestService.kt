@@ -17,7 +17,7 @@ interface RequestService {
     fun requestSignIn(@Body body: RequestSignIn): Call<UserInfoData> //Call<ResponseSignin>
 
     // 소셜 로그인
-    @GET("/api/login")
+    @POST("/api/login")
     fun requestSocial(
         @HeaderMap header: Map<String, String?>,
         @Query("type") type: String
