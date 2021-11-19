@@ -77,7 +77,6 @@ class QuotationFragment : Fragment(), View.OnClickListener {
             onSuccess = {
                 when (it.code()) {
                     in 200..206 -> {
-//                        Log.d("message", it.body()!!.message)
                     }
                     in 400..499 -> {
                     }
