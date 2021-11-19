@@ -42,13 +42,13 @@ class SignInActivity : AppCompatActivity(), View.OnClickListener {
         var account: GoogleSignInAccount? = GoogleSignIn.getLastSignedInAccount(applicationContext)
         val currentUser = mAuth.currentUser
         // 구글 로그인 된 상태면
-        if (currentUser != null) {
+        /*if (currentUser != null) {
             val intent = Intent(applicationContext, MainActivity::class.java)
             intent.putExtra(GOOGLE_ACCOUNT, account)
             startActivity(intent)
             finish()
 //            Log.d(TAG, "on Start works successful")
-        }
+        }*/
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
