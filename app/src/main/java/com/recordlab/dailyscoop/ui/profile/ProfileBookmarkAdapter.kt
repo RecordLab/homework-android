@@ -1,6 +1,5 @@
 package com.recordlab.dailyscoop.ui.profile
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,7 +39,7 @@ class ProfileBookmarkAdapter(private val items: List<Favorite>) :
             writer.setTypeface(null, android.graphics.Typeface.ITALIC)
 
             itemView.setOnClickListener {
-                Log.d("click", item.quote.toString())
+//                Log.d("click", item.quote.toString())
             }
         }
     }

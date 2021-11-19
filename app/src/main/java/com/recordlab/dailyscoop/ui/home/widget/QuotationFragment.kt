@@ -77,9 +77,10 @@ class QuotationFragment : Fragment(), View.OnClickListener {
             onSuccess = {
                 when (it.code()) {
                     in 200..206 -> {
-                        Log.d("message", it.body()!!.message)
+//                        Log.d("message", it.body()!!.message)
                     }
-
+                    in 400..499 -> {
+                    }
                 }
             },
             onError = {
@@ -99,7 +100,7 @@ class QuotationFragment : Fragment(), View.OnClickListener {
 
         service.requestDelQuotation(header = header, quote = data).enqueue(
             onSuccess = {
-                Log.d("message", it.body()!!.message)
+//                Log.d("message", it.body()!!.message)
             },
             onError = {
 
