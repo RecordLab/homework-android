@@ -185,11 +185,11 @@ class ProfileFragment : Fragment() {
         }
 
         // 디데이 버튼 클릭
-        val dDayBtnClicked = binding.bg5
-        dDayBtnClicked.setOnClickListener {
-            val intent = Intent(activity, ProfileDdayActivity::class.java)
-            startActivity(intent)
-        }
+//        val dDayBtnClicked = binding.bg5
+//        dDayBtnClicked.setOnClickListener {
+//            val intent = Intent(activity, ProfileDdayActivity::class.java)
+//            startActivity(intent)
+//        }
 
         // 북마크 버튼 클릭
         val bookmarkClicked = binding.bg7
