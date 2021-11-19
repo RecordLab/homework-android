@@ -18,7 +18,7 @@ class Repository(val application: Application, val headerMap: Map<String, String
             onSuccess = {
                 it.message()
                 if (it.code() == 200) {
-                    Log.d("통신 성공", it.body()!!.data[0].content)
+//                    Log.d("통신 성공", it.body()!!.data[0].content)
                     data.value = it.body()!!.data
                 }
             },

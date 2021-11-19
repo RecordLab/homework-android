@@ -140,7 +140,7 @@ class SignUpActivity : AppCompatActivity() {
                         Toast.makeText(this,"이미 가입한 계정입니다.", Toast.LENGTH_SHORT).show()
                     }
                     else ->{
-                        Log.d("로그 회원가입", it.code().toString())
+//                        Log.d("로그 회원가입", it.code().toString())
                     }
                 }
             }

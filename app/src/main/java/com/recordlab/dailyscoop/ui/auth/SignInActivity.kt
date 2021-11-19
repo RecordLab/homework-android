@@ -47,7 +47,7 @@ class SignInActivity : AppCompatActivity(), View.OnClickListener {
             intent.putExtra(GOOGLE_ACCOUNT, account)
             startActivity(intent)
             finish()
-            Log.d(TAG, "on Start works successful")
+//            Log.d(TAG, "on Start works successful")
         }
     }
 
@@ -112,7 +112,7 @@ class SignInActivity : AppCompatActivity(), View.OnClickListener {
                     Toast.makeText(this.applicationContext, "다시 시도해 주세요", Toast.LENGTH_SHORT)
                         .show();
                 } else if (token != null) {
-                    Log.i("kakao", "로그인 성공 ${token.accessToken}")
+//                    Log.i("kakao", "로그인 성공 ${token.accessToken}")
 
                     // 카카오 토큰 서버로 전송
                     val header = mutableMapOf<String, String?>()
@@ -150,20 +150,6 @@ class SignInActivity : AppCompatActivity(), View.OnClickListener {
                             }
                         }
                     )
-
-//                    // 사용자 정보 요청 (기본)
-//                    UserApiClient.instance.me { user, errorr ->
-//                        if (errorr != null) {
-//                            Log.e("kakao", "사용자 정보 요청 실패", errorr)
-//                        }
-//                        else if (user != null) {
-//                            Log.i("kakao", "사용자 정보 요청 성공" +
-//                                    "\n회원번호: ${user.id}" +
-//                                    "\n이메일: ${user.kakaoAccount?.email}" +
-//                                    "\n닉네임: ${user.kakaoAccount?.profile?.nickname}" +
-//                                    "\n프로필사진: ${user.kakaoAccount?.profile?.thumbnailImageUrl}")
-//                        }
-//                    }
                 }
             }
         }
@@ -205,7 +191,7 @@ class SignInActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun signIn() {
-        Log.d(TAG, "signIn 도착")
+//        Log.d(TAG, "signIn 도착")
         val signInIntent: Intent = googleSignInClient.signInIntent
         startActivityForResult(signInIntent, REQUEST_CODE_SIGN_IN)
     }
@@ -225,21 +211,21 @@ class SignInActivity : AppCompatActivity(), View.OnClickListener {
             val result: GoogleSignInResult? = Auth.GoogleSignInApi.getSignInResultFromIntent(data)
             if (result!!.isSuccess) {
                 val account: GoogleSignInAccount? = result.signInAccount
-                Log.d(TAG, "어카운트로 받아오기. -> ${account?.idToken}")
+//                Log.d(TAG, "어카운트로 받아오기. -> ${account?.idToken}")
             }
             try {
                 // Google Sign In was successful, authenticate with Firebase
                 val account = task.getResult(ApiException::class.java)!!
-                Log.d(TAG, "이름 = " + account.displayName)
-                Log.d(TAG, "이메일 = " + account.email)
-                Log.d(TAG, "getID() = " + account.id)
-                Log.d(TAG, "getAccount() = " + account.account)
-                Log.d(TAG, "getIDToken() = " + account.idToken)
+//                Log.d(TAG, "이름 = " + account.displayName)
+//                Log.d(TAG, "이메일 = " + account.email)
+//                Log.d(TAG, "getID() = " + account.id)
+//                Log.d(TAG, "getAccount() = " + account.account)
+//                Log.d(TAG, "getIDToken() = " + account.idToken)
 
                 firebaseAuthWithGoogle(account.idToken!!, task)
             } catch (e: ApiException) {
                 // Google Sign In failed, update UI appropriately
-                Log.w(TAG, "Google sign in failed", e)
+//                Log.w(TAG, "Google sign in failed", e)
                 Toast.makeText(this, "로그인에 실패하셨습니다.", Toast.LENGTH_SHORT).show()
                 // ...
             }
@@ -249,20 +235,20 @@ class SignInActivity : AppCompatActivity(), View.OnClickListener {
     private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
         try {
             val account = completedTask.getResult(ApiException::class.java)
-            Log.d(TAG, "이름 = " + account.displayName)
-            Log.d(TAG, "이메일 = " + account.email)
-            Log.d(TAG, "getID() = " + account.id)
-            Log.d(TAG, "getAccount() = " + account.account)
-            Log.d(TAG, "getIDToken() = " + account.idToken)
+//            Log.d(TAG, "이름 = " + account.displayName)
+//            Log.d(TAG, "이메일 = " + account.email)
+//            Log.d(TAG, "getID() = " + account.id)
+//            Log.d(TAG, "getAccount() = " + account.account)
+//            Log.d(TAG, "getIDToken() = " + account.idToken)
             // Signed in successfully, show authenticated UI.
             val idToken = account.idToken
             // server 토큰 전송은
-            Log.d(TAG, "핸들 사인 인 결과 -> $idToken")
+//            Log.d(TAG, "핸들 사인 인 결과 -> $idToken")
 
         } catch (e: ApiException) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
-            Log.w(TAG, "signInResult:failed code=" + e.statusCode)
+//            Log.w(TAG, "signInResult:failed code=" + e.statusCode)
 //            updateUI(null)
         }
     }
@@ -273,7 +259,7 @@ class SignInActivity : AppCompatActivity(), View.OnClickListener {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
-                    Log.d(TAG, "signInWithCredential:success")
+//                    Log.d(TAG, "signInWithCredential:success")
 //                    val user = mAuth.currentUser
                     val user: GoogleSignInAccount? =
                         completeTask.getResult(ApiException::class.java)
@@ -307,7 +293,7 @@ class SignInActivity : AppCompatActivity(), View.OnClickListener {
                     }
                 } else {
                     // If sign in fails, display a message to the user.
-                    Log.w(TAG, "signInWithCredential:failure", task.exception)
+//                    Log.w(TAG, "signInWithCredential:failure", task.exception)
                     val snackbar = Snackbar.make(
                         binding.root,
                         "로그인에 실패하였습니다.\n확인을 누르면 사라집니다.",

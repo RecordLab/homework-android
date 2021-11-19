@@ -71,7 +71,7 @@ class SearchResultActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
-                Log.d(DEBUG_SEARCH_TAG, "버튼 클릭됨.")
+//                Log.d(DEBUG_SEARCH_TAG, "버튼 클릭됨.")
                 finish()
                 return true
             }

@@ -96,10 +96,10 @@ class HomeFragment : Fragment(), View.OnClickListener {
         setHasOptionsMenu(true) // 작업 버튼 추가하기. https://developer.android.com/training/appbar/actions
 
         viewPager = binding.vpMainWidget
-        Log.d(
-            ">>>>>>HOME FRAGMENT >>>>>",
-            "view Id : " + view.id + "... " + viewPager.get(0) + "<<<<< 뷰 페이저 id"
-        )
+//        Log.d(
+//            ">>>>>>HOME FRAGMENT >>>>>",
+//            "view Id : " + view.id + "... " + viewPager.get(0) + "<<<<< 뷰 페이저 id"
+//        )
 
         // 뷰 페이저 어댑터
         var adapter = PagerAdpater(this.requireActivity())
@@ -124,24 +124,24 @@ class HomeFragment : Fragment(), View.OnClickListener {
         val btnById: TextView = binding.btnMore //root.findViewById(R.id.btn_more)
 //        Log.d(DEBUG_TAG, ">" + btnById.text + "<<  이게 원래 텍스트")
         btnMore.text = "더보기"
-        Log.d(DEBUG_TAG, "> btnMore.text" + btnMore.text + " 변경 확인하기 " + btnById.text)
+//        Log.d(DEBUG_TAG, "> btnMore.text" + btnMore.text + " 변경 확인하기 " + btnById.text)
 
         calendarView.selectionType = SelectionType.SINGLE
         calendarView.calendarOrientation = 0
         calendarView.setOnMonthChangeListener(object : OnMonthChangeListener {
 
             override fun onMonthChanged(month: Month?) {
-                Log.d(DEBUG_TAG, "Month: ${month.toString()}")
+//                Log.d(DEBUG_TAG, "Month: ${month.toString()}")
                 // connected 일기 날짜
             }
         })
 
         calendarView.selectionManager = SingleSelectionManager {
             // if selected day has its own diary record -> send to diary detail activity
-            Log.d(DEBUG_TAG, "${calendarView.selectedDays[0].calendar.get(Calendar.YEAR)}-" +
-                    "${calendarView.selectedDays[0].calendar.get(Calendar.MONTH) + 1}-" +
-                    "${calendarView.selectedDays[0].calendar.get(Calendar.DAY_OF_MONTH)}"
-            )
+//            Log.d(DEBUG_TAG, "${calendarView.selectedDays[0].calendar.get(Calendar.YEAR)}-" +
+//                    "${calendarView.selectedDays[0].calendar.get(Calendar.MONTH) + 1}-" +
+//                    "${calendarView.selectedDays[0].calendar.get(Calendar.DAY_OF_MONTH)}"
+//            )
             val chosenDate = TimeToString().convert(calendarView.selectedDays[0].calendar.time, 2)
             // 캘린더 뷰 시간 사용법.
 //            Log.d(DEBUG_TAG, ">> 시간은 이렇게 표시된다. ${TimeToString().convert(calendarView.selectedDays[0].calendar.time, 2)}")
@@ -232,7 +232,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
                             for (item in diaryData){
                                 days.add(Date(item.date.time).time)
                                 dayAsString.add(TimeToString().convert(item.date))
-                                Log.d(DEBUG_TAG, "${Date(item.date.time).time}")
+//                                Log.d(DEBUG_TAG, "${Date(item.date.time).time}")
                             }
 
                             val textColor: Int = R.color.veryBerry
@@ -297,15 +297,15 @@ class HomeFragment : Fragment(), View.OnClickListener {
 
         override fun createFragment(position: Int): Fragment {
             if (position == 0) {
-                Log.d(DEBUG_TAG, "뷰페이저 아이템 순서 0번인 경우")
+//                Log.d(DEBUG_TAG, "뷰페이저 아이템 순서 0번인 경우")
                 if (widget1.isAdded) {
-                    Log.d(DEBUG_TAG, "여기로 들어오는지 확인하기.")
+//                    Log.d(DEBUG_TAG, "여기로 들어오는지 확인하기.")
                     fragmentTransaction.remove(widget1)
                     fragmentTransaction.commit()
                 }
                 return widget1
             } else /*if (position == 1)*/ {
-                Log.d(DEBUG_TAG, "뷰페이저 아이템 순서 1번인 경우")
+//                Log.d(DEBUG_TAG, "뷰페이저 아이템 순서 1번인 경우")
                 if (widget2.isAdded) {
                     fragmentTransaction.remove(widget2)
                     fragmentTransaction.commit()

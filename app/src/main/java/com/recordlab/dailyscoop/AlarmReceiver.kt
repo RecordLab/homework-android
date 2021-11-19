@@ -22,7 +22,7 @@ class AlarmReceiver : BroadcastReceiver() {
     lateinit var notificationManager: NotificationManager
 
     override fun onReceive(context: Context, intent: Intent) {
-        Log.d(TAG, "Received intent : $intent")
+//        Log.d(TAG, "Received intent : $intent")
         notificationManager = context.getSystemService(
             Context.NOTIFICATION_SERVICE) as NotificationManager
 
