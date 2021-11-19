@@ -4,12 +4,19 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.recordlab.dailyscoop.databinding.ActivityMainBinding
 import com.recordlab.dailyscoop.ui.auth.SignInActivity
 import com.recordlab.dailyscoop.ui.profile.SignOutDialogInterface
@@ -21,6 +28,8 @@ class MainActivity : AppCompatActivity(), SignOutDialogInterface {
     var lock = true
     private val finishIntervalTime : Long = 3000
     private var backPressedTime : Long = 0
+    lateinit var auth: FirebaseAuth
+    private lateinit var mGoogleSignInClient: GoogleSignInClient
 
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,6 +65,13 @@ class MainActivity : AppCompatActivity(), SignOutDialogInterface {
         //setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestEmail()
+            .build()
+
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
+        auth = Firebase.auth
+        val currentUser = auth.currentUser
 
     }
 
@@ -93,13 +109,29 @@ class MainActivity : AppCompatActivity(), SignOutDialogInterface {
 
     // 로그아웃 다이얼로그 확인 버튼 클릭
     override fun okBtnClicked() {
+        auth = Firebase.auth
+        val currentUser = auth.currentUser
+
         Toast.makeText(this, "로그아웃 되었습니다", Toast.LENGTH_SHORT).show()
 
         // 토큰 제거
         val pref = getSharedPreferences("TOKEN", 0)
         val edit = pref.edit() // 수정모드(추가, 수정)
+        if (pref.getString("social", "false") == "true") {
+            if (currentUser != null) {
+                Firebase.auth.signOut()
+                mGoogleSignInClient.signOut().addOnCompleteListener(this) {
+                    val user = FirebaseAuth.getInstance().currentUser
+                    user?.unlink(user.providerId)
+                    edit.remove("social")
+                    Log.d("로그아웃 확인", "${user?.providerId}")
+                }
+            }
+        }
         edit.remove("token") // key, value
+        edit.clear()
         edit.apply() // 저장 완료
+        edit.commit()
         //val to = pref.getString("token","없음")
         //Toast.makeText(this, "토큰 : $to", Toast.LENGTH_SHORT).show()
 

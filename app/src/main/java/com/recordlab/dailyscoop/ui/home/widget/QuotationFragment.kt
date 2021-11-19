@@ -75,7 +75,12 @@ class QuotationFragment : Fragment(), View.OnClickListener {
 
         service.requestAddQuotation(header = header, quote = data).enqueue(
             onSuccess = {
-//                Log.d("message", it.body()!!.message)
+                when (it.code()) {
+                    in 200..206 -> {
+                    }
+                    in 400..499 -> {
+                    }
+                }
             },
             onError = {
 
