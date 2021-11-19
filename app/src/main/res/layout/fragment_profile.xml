@@ -247,40 +247,40 @@
                 app:layout_constraintEnd_toEndOf="@+id/bg4"
                 app:layout_constraintTop_toTopOf="@+id/bg4" />
 
-            <View
-                android:id="@+id/bg5"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="#ffffff"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/bg4"></View>
+<!--            <View-->
+<!--                android:id="@+id/bg5"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:layout_marginStart="16dp"-->
+<!--                android:layout_marginTop="16dp"-->
+<!--                android:layout_marginEnd="16dp"-->
+<!--                android:background="#ffffff"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintHorizontal_bias="0.0"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/bg4"></View>-->
 
-            <ImageView
-                android:id="@+id/imageView7"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                app:layout_constraintBottom_toBottomOf="@+id/bg5"
-                app:layout_constraintStart_toStartOf="@+id/bg5"
-                app:layout_constraintTop_toTopOf="@+id/bg5"
-                app:layout_constraintVertical_bias="0.62"
-                app:srcCompat="@drawable/ic_calendar_regular" />
+<!--            <ImageView-->
+<!--                android:id="@+id/imageView7"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="0dp"-->
+<!--                app:layout_constraintBottom_toBottomOf="@+id/bg5"-->
+<!--                app:layout_constraintStart_toStartOf="@+id/bg5"-->
+<!--                app:layout_constraintTop_toTopOf="@+id/bg5"-->
+<!--                app:layout_constraintVertical_bias="0.62"-->
+<!--                app:srcCompat="@drawable/ic_calendar_regular" />-->
 
-            <TextView
-                android:id="@+id/textView14"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:fontFamily="@font/spoqa_han_sans_neo_regular"
-                android:text="디데이"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/bg5"
-                app:layout_constraintStart_toEndOf="@+id/imageView7"
-                app:layout_constraintTop_toTopOf="@+id/bg5" />
+<!--            <TextView-->
+<!--                android:id="@+id/textView14"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="16dp"-->
+<!--                android:fontFamily="@font/spoqa_han_sans_neo_regular"-->
+<!--                android:text="디데이"-->
+<!--                android:textSize="16sp"-->
+<!--                app:layout_constraintBottom_toBottomOf="@+id/bg5"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/imageView7"-->
+<!--                app:layout_constraintTop_toTopOf="@+id/bg5" />-->
 
             <TextView
                 android:id="@+id/textView19"
@@ -349,7 +349,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/bg5"></View>
+                app:layout_constraintTop_toBottomOf="@+id/bg4"></View>
 
             <ImageView
                 android:id="@+id/imageView14"
