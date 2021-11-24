@@ -71,8 +71,8 @@ class SearchResultActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
-//                Log.d(DEBUG_SEARCH_TAG, "버튼 클릭됨.")
                 finish()
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                 return true
             }
         }

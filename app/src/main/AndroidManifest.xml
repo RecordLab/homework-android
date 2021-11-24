@@ -80,6 +80,8 @@
             android:exported="false"/>
         <activity android:name=".ui.SettingActivity"
             android:exported="false"/>
+        <activity android:name=".ui.profile.display.DisplaySettingActivity"
+            android:exported="false"/>
         <activity android:name=".ui.profile.lock.AppPasswordActivity"
             android:exported="false"/>
 
@@ -97,7 +99,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.profile.ProfileBookmarkActivity"
+        <activity android:name=".ui.profile.bookmark.ProfileBookmarkActivity"
             android:exported="false"/>
 
         <receiver android:name=".AlarmReceiver"

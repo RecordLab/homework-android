@@ -3,7 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@drawable/white_rectangle"
+    android:outlineSpotShadowColor="@color/gray_clicked_transparency_50"
+
+    android:elevation="4dp"
+    android:layout_marginBottom="@dimen/dp_4"
+    android:layout_marginHorizontal="@dimen/activity_horizontal_margin">
 
     <TextView
         android:id="@+id/tv_bookmark_item"
@@ -17,15 +23,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_bookmark_writer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:text="TextView"
+        android:gravity="right"
+        android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_bookmark_item" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_bookmark_item"
+        tools:text="발화자" />
 </androidx.constraintlayout.widget.ConstraintLayout>

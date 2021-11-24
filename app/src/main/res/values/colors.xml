@@ -46,4 +46,6 @@
     
     <color name="shadow_transparency_20">#33BDBDBD</color>
     <color name="white_transparency_50">#80FFFFFF</color>
+    <color name="gray_transparency_50">#80DBDBDB</color>
+    <color name="gray_clicked_transparency_50">#8084817a</color>
 </resources>

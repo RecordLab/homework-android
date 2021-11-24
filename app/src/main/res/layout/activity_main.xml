@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <com.google.android.material.appbar.MaterialToolbar
+    <!--<com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/tb_main"
         layout="@layout/custom_toolbar"
         android:layout_width="match_parent"
@@ -17,7 +17,11 @@
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />-->
+
+    <include
+        android:id="@+id/tb_main"
+        layout="@layout/toolbar_logo"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"

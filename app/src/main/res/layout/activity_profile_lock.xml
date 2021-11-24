@@ -7,36 +7,37 @@
     tools:context=".ui.profile.lock.ProfileLockActivity">
 
     <View
-        android:id="@+id/bg4"
+        android:id="@+id/view_lock_setting_toggle"
         android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="16dp"
+        android:layout_height="56dp"
+        android:paddingHorizontal="@dimen/activity_horizontal_margin"
         android:layout_marginTop="50dp"
-        android:layout_marginEnd="16dp"
-        android:background="#ffffff"
+        android:background="@drawable/rectangle_round_transparent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></View>
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
-        android:id="@+id/textView13"
+        android:id="@+id/tv_lock_setting_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/spoqa_han_sans_neo_regular"
         android:text="앱 잠금 설정"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/bg4"
-        app:layout_constraintStart_toStartOf="@+id/bg4"
-        app:layout_constraintTop_toTopOf="@+id/bg4" />
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        app:layout_constraintBottom_toBottomOf="@+id/view_lock_setting_toggle"
+        app:layout_constraintStart_toStartOf="@+id/view_lock_setting_toggle"
+        app:layout_constraintTop_toTopOf="@+id/view_lock_setting_toggle" />
 
-    <Switch
+    <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/switch1"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/bg4"
-        app:layout_constraintEnd_toEndOf="@+id/bg4"
-        app:layout_constraintTop_toTopOf="@+id/bg4"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        app:layout_constraintBottom_toBottomOf="@+id/view_lock_setting_toggle"
+        app:layout_constraintEnd_toEndOf="@+id/view_lock_setting_toggle"
+        app:layout_constraintTop_toTopOf="@+id/view_lock_setting_toggle"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
@@ -44,19 +45,20 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="암호를 분실했을 경우 앱을 삭제하고 재설치 해야하며, 재설치 시  기존 내용은 삭제됩니다."
+        android:paddingHorizontal="@dimen/activity_horizontal_margin"
+        android:text="@string/lock_message"
         android:textColor="@color/redPigment"
-        app:layout_constraintEnd_toEndOf="@+id/bg4"
+        app:layout_constraintEnd_toEndOf="@+id/view_lock_setting_toggle"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/bg4"
-        app:layout_constraintTop_toBottomOf="@+id/bg4" />
+        app:layout_constraintStart_toStartOf="@+id/view_lock_setting_toggle"
+        app:layout_constraintTop_toBottomOf="@+id/view_lock_setting_toggle" />
 
     <ImageView
         android:id="@+id/imageView6"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/bg4"
+        app:layout_constraintBottom_toTopOf="@+id/view_lock_setting_toggle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_baseline_arrow_back_ios_black_24" />
@@ -69,7 +71,7 @@
         android:fontFamily="@font/spoqa_han_sans_neo_medium"
         android:text="잠금"
         android:textSize="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/bg4"
+        app:layout_constraintBottom_toTopOf="@+id/view_lock_setting_toggle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -83,7 +85,7 @@
         android:text="잠금"
         app:layout_constraintBottom_toTopOf="@+id/textView5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bg4"
+        app:layout_constraintTop_toBottomOf="@+id/view_lock_setting_toggle"
         app:layout_constraintVertical_bias="1.0"
         android:visibility="invisible"/>
 
@@ -95,7 +97,7 @@
         android:text="잠금해제"
         app:layout_constraintBottom_toTopOf="@+id/textView5"
         app:layout_constraintStart_toEndOf="@+id/btn_setlock"
-        app:layout_constraintTop_toBottomOf="@+id/bg4"
+        app:layout_constraintTop_toBottomOf="@+id/view_lock_setting_toggle"
         app:layout_constraintVertical_bias="0.114"
         android:visibility="invisible"/>
 
@@ -109,7 +111,7 @@
         android:text="비밀번호 변경"
         app:layout_constraintBottom_toTopOf="@+id/textView5"
         app:layout_constraintStart_toEndOf="@+id/btn_dellock"
-        app:layout_constraintTop_toBottomOf="@+id/bg4"
+        app:layout_constraintTop_toBottomOf="@+id/view_lock_setting_toggle"
         android:visibility="invisible"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>

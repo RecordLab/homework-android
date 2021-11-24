@@ -1,10 +1,9 @@
-package com.recordlab.dailyscoop.ui.profile
+package com.recordlab.dailyscoop.ui.profile.bookmark
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.compose.ui.text.font.Typeface
 import androidx.recyclerview.widget.RecyclerView
 import com.recordlab.dailyscoop.R
 import com.recordlab.dailyscoop.network.response.Favorite
@@ -34,7 +33,7 @@ class ProfileBookmarkAdapter(private val items: List<Favorite>) :
             }
 
             quote.text = item.quote!!.substring(0, index)
-            writer.text = "–" + item.quote!!.substring(index+1)
+            writer.text = "–" + item.quote!!.substring(index+1) + " "
             quote.setTypeface(null, android.graphics.Typeface.BOLD)
             writer.setTypeface(null, android.graphics.Typeface.ITALIC)
 

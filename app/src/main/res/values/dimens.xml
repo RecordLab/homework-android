@@ -20,4 +20,6 @@
     <dimen name="main_widget_width">328dp</dimen>
 
     <dimen name="chip_size_diary">50dp</dimen>
+    <dimen name="setting_button_size">56dp</dimen>
+    <dimen name="dimen_slim_toolbar">46dp</dimen>
 </resources>

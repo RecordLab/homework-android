@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/gray_clicked_transparency_50"> <!-- ripple 눌린 후 색상. -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/gray_transparency_50" />
+            <corners
+                android:topLeftRadius="20dp"
+                android:topRightRadius="20dp" />
+        </shape>
+    </item>
+</ripple>

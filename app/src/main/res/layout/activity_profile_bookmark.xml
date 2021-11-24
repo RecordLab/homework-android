@@ -5,11 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/mtb_bookmark"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_slim_toolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="북마크"/>
+
     <ImageView
         android:id="@+id/imageView10"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/rv_bookmark_list"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -19,20 +28,28 @@
         android:id="@+id/textView26"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="72dp"
-        android:text="북마크"
+        android:text=""
         android:textSize="16sp"
+        android:visibility="gone"
+        android:layout_marginStart="36dp"
         app:layout_constraintBottom_toTopOf="@+id/rv_bookmark_list"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_bookmark_list"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="50dp"
+        android:clipToPadding="false"
+        android:orientation="vertical"
+        android:paddingVertical="@dimen/dp_4"
+        android:background="@color/gray_transparency_50"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:overScrollMode="never"
+        tools:listitem="@layout/item_bookmark_list" />
 </androidx.constraintlayout.widget.ConstraintLayout>

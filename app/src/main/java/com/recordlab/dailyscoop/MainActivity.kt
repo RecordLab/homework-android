@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity(), SignOutDialogInterface {
                 R.id.navigation_profile
             )
         )
-        val toolbar = binding.tbMain
+        val toolbar = binding.tbMain.toolbarLogo
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayShowCustomEnabled(true)  // custom하기 위해
         supportActionBar!!.setDisplayShowTitleEnabled(false)

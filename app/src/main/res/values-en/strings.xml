@@ -72,4 +72,9 @@
     <string name="edit">edit</string>
     <string name="delete">delete</string>
     <string name="open_source_license">open source license</string>
+    <string name="setting_display">display</string>
+    <string name="setting_font">Font size and style</string>
+    <string name="setting_calendar">Calendar theme</string>
+    <string name="lock_message">You have to reinstall the application when you forgot your password.</string>
+    <string name="title_bookmark">BOOKMARK</string>
 </resources>

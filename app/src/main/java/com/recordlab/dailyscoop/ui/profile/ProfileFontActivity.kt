@@ -24,6 +24,7 @@ class ProfileFontActivity : AppCompatActivity() {
         val backBtnClicked = binding.imageView68
         backBtnClicked.setOnClickListener{
             finish()
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         }
     }
 

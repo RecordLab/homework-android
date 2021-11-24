@@ -7,7 +7,7 @@
     tools:context=".ui.profile.account.ProfileAccountActivity">
 
     <View
-        android:id="@+id/bg4"
+        android:id="@+id/view_lock_setting_toggle"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
@@ -20,15 +20,15 @@
         app:layout_constraintTop_toTopOf="parent" ></View>
 
     <TextView
-        android:id="@+id/textView13"
+        android:id="@+id/tv_lock_setting_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/spoqa_han_sans_neo_regular"
         android:text="이메일 주소"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/bg4"
-        app:layout_constraintStart_toStartOf="@+id/bg4"
-        app:layout_constraintTop_toTopOf="@+id/bg4" />
+        app:layout_constraintBottom_toBottomOf="@+id/view_lock_setting_toggle"
+        app:layout_constraintStart_toStartOf="@+id/view_lock_setting_toggle"
+        app:layout_constraintTop_toTopOf="@+id/view_lock_setting_toggle" />
 
     <View
         android:id="@+id/bg45"
@@ -41,7 +41,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/bg4"></View>
+        app:layout_constraintTop_toBottomOf="@id/view_lock_setting_toggle"></View>
 
     <TextView
         android:id="@+id/textView14"
@@ -110,9 +110,9 @@
         android:fontFamily="@font/spoqa_han_sans_neo_regular"
         android:text="ssafy@ssafy.com"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/bg4"
-        app:layout_constraintStart_toEndOf="@+id/textView13"
-        app:layout_constraintTop_toTopOf="@+id/bg4" />
+        app:layout_constraintBottom_toBottomOf="@+id/view_lock_setting_toggle"
+        app:layout_constraintStart_toEndOf="@+id/tv_lock_setting_title"
+        app:layout_constraintTop_toTopOf="@+id/view_lock_setting_toggle" />
 
     <TextView
         android:id="@+id/textView2"
@@ -123,15 +123,15 @@
         android:text="ssafy205"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/bg45"
-        app:layout_constraintStart_toEndOf="@+id/textView13"
-        app:layout_constraintTop_toBottomOf="@+id/bg4" />
+        app:layout_constraintStart_toEndOf="@+id/tv_lock_setting_title"
+        app:layout_constraintTop_toBottomOf="@+id/view_lock_setting_toggle" />
 
     <include
         android:id="@+id/include"
         layout="@layout/item_custom_actionbar"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/bg4"
+        app:layout_constraintBottom_toTopOf="@+id/view_lock_setting_toggle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -144,7 +144,7 @@
         android:fontFamily="@font/spoqa_han_sans_neo_medium"
         android:text="계정"
         android:textSize="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/bg4"
+        app:layout_constraintBottom_toTopOf="@+id/view_lock_setting_toggle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/include" />
 

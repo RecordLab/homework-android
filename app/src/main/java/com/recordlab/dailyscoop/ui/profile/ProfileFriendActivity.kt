@@ -3,7 +3,6 @@ package com.recordlab.dailyscoop.ui.profile
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
 import com.recordlab.dailyscoop.R
@@ -13,7 +12,7 @@ class ProfileFriendActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile_friend)
 
-        val click1 = findViewById<View>(R.id.bg4)
+        val click1 = findViewById<View>(R.id.view_lock_setting_toggle)
         val click2 = findViewById<View>(R.id.bg45)
         val click3 = findViewById<View>(R.id.bg454)
 
