@@ -7,28 +7,28 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.recordlab.dailyscoop.R
-import com.recordlab.dailyscoop.databinding.ActivitySettingDiplayBinding
+import com.recordlab.dailyscoop.databinding.ActivitySettingDisplayBinding
 import com.recordlab.dailyscoop.ui.profile.ProfileFontActivity
 
 class DisplaySettingActivity : AppCompatActivity(), View.OnClickListener {
-    private lateinit var binding: ActivitySettingDiplayBinding
+    private lateinit var binding: ActivitySettingDisplayBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // binding 초기화
-        binding = ActivitySettingDiplayBinding.inflate(layoutInflater)
-        val root = binding.root
+        binding = ActivitySettingDisplayBinding.inflate(layoutInflater)
+        val view = binding.root
         // 화면 설정
-        setContentView(root)
+        setContentView(view)
 
         binding.btnFont.setOnClickListener(this)
 
-        val toolar = binding.tbSettingDisplay
-        setSupportActionBar(toolar)
+        val toolbar = binding.tbSettingDisplay.toolbar
+        setSupportActionBar(toolbar)
 
         val actionBar = supportActionBar
         if (actionBar != null) {
             actionBar.setDisplayShowCustomEnabled(true)  // custom하기 위해
-            actionBar.setDisplayShowTitleEnabled(true)
+            actionBar.setDisplayShowTitleEnabled(false)
             actionBar.setDisplayHomeAsUpEnabled(true)
             actionBar.setDisplayShowHomeEnabled(true)
             actionBar.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_black_24)

@@ -1,16 +1,17 @@
 package com.recordlab.dailyscoop.ui.search
 
+import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
+import android.view.View
+import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,6 +20,7 @@ import com.recordlab.dailyscoop.data.DiaryData
 import com.recordlab.dailyscoop.databinding.ActivitySearchResultBinding
 import com.recordlab.dailyscoop.network.RetrofitClient.service
 import com.recordlab.dailyscoop.network.enqueue
+
 
 class SearchResultActivity : AppCompatActivity() {
     val DEBUG_SEARCH_TAG = ">>>SEARCH RESULT ACTIVITY>>>"
@@ -66,6 +68,45 @@ class SearchResultActivity : AppCompatActivity() {
                 return false
             }
         })
+
+        /*val inputMethodManager: InputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+        */
+
+        val searchView = binding.svSearchResult
+        searchView.onFocusChangeListener = object: View.OnFocusChangeListener{
+            override fun onFocusChange(v: View?, hasFocus: Boolean) {
+                if (!hasFocus && v != null) {
+                    hideSoftKeyboard(v)
+                }
+            }
+        }
+
+    }
+
+    /*fun softkeyboardFocus(view: View){
+        // 선택한게 검색창이 아닌 경우
+        if (view !is EditText) {
+            view.setOnTouchListener { v, event ->
+                hideSoftKeyboard(this@SearchResultActivity)
+                false
+            }
+        }
+
+        // 레이아웃 컨테이너가
+        if (view is ViewGroup) {
+            for (i in 0 until view.childCount) {
+                val innerView = view.getChildAt(i)
+                softkeyboardFocus(innerView)
+            }
+        }
+    }*/
+
+    fun hideSoftKeyboard(view: View) {
+        val inputMethodManager: InputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        if (inputMethodManager.isAcceptingText) {
+            inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
